@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PostController::class, 'index']);
-Route::get('/{post}', [PostController::class, 'show']);
+Route::get('/export/{post}', [ExportController::class, 'export']);
+
+Route::get('/', [ExportController::class, 'index']);

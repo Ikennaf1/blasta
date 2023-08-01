@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Export;
+use App\Models\Post;
 use App\Http\Requests\StoreExportRequest;
 use App\Http\Requests\UpdateExportRequest;
+
 
 class ExportController extends Controller
 {
@@ -13,7 +15,7 @@ class ExportController extends Controller
      */
     public function index()
     {
-        //
+        return 'All about Exports';
     }
 
     /**
@@ -62,5 +64,26 @@ class ExportController extends Controller
     public function destroy(Export $export)
     {
         //
+    }
+
+    public function export(Post $post)
+    {
+        // return request()->post->id;
+        $id = request()->post->id;
+
+        $fp = fopen($id . ".html", "w");
+
+        $options = array(
+            CURLOPT_URL => 'http://localhost:8001/posts/1',
+            CURLOPT_ENCODING => 'gzip',
+            CURLOPT_RETURNTRANSFER => true
+        );
+        $ch = curl_init();
+        curl_setopt_array($ch, $options);
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        fwrite($fp, $res);
+        fclose($fp);
     }
 }
