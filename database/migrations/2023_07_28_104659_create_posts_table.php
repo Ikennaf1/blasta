@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->string('featured_image')->nullable();
+            // $table->string('keywords')->nullable();
+            // $table->string('description')->nullable();
             $table->smallInteger('user_id')->unsigned();
             $table->smallInteger('category_id')->nullable();
             $table->timestamps();

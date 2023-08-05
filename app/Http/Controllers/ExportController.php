@@ -71,7 +71,7 @@ class ExportController extends Controller
         // return request()->post->id;
         $id = request()->post->id;
 
-        $fp = fopen($id . ".html", "w");
+        $fp = fopen($id . '.html', 'w');
 
         $options = array(
             CURLOPT_URL => 'http://localhost:8001/posts/1',
