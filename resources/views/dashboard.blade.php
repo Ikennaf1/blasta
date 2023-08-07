@@ -14,7 +14,7 @@
                 <div class="flex justify-between gap-12">
 
                     {{-- Dashboard left menu items --}}
-                    <div class="z-20 px-4 sm:px-6 lg:px-8 mt-8 w-16 md:w-[18vw] lg:w-[16vw] xl:w-[12vw]">
+                    <div class="px-4 sm:px-6 lg:px-8 mt-8 w-16 md:w-[18vw] lg:w-[16vw] xl:w-[12vw]">
                         <div class="fixed w-16 md:w-[12vw] lg:w-[12vw] xl:w-[8vw]">
                             <div class="w-full">
                                 <ul class="my-4 flex flex-col gap-8">
