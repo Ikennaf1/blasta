@@ -20,15 +20,15 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow z-20">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 z-20">
+                <header class="bg-white shadow z-20 w-full fixed top-16 w-full">
+                    <div class="max-w-10/12 mx-auto py-6 px-4 sm:px-6 lg:px-8 z-20">
                         {{ $header }}
                     </div>
                 </header>
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="">
                 {{ $slot }}
             </main>
         </div>

@@ -73,10 +73,14 @@ class ExportController extends Controller
 
         $fp = fopen($id . '.html', 'w');
 
+        $port = env('APP_ENV') == 'production'
+            ? ''
+            : '8001';
+        
         $options = array(
-            CURLOPT_URL => 'http://localhost:8001/posts/1',
-            CURLOPT_ENCODING => 'gzip',
-            CURLOPT_RETURNTRANSFER => true
+            CURLOPT_URL             => env('APP_URL') . ':' . $port . '/posts/1',
+            CURLOPT_ENCODIN         => 'gzip',
+            CURLOPT_RETURNTRANSFER  => true
         );
         $ch = curl_init();
         curl_setopt_array($ch, $options);
