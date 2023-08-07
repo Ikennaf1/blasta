@@ -79,7 +79,7 @@ class ExportController extends Controller
         
         $options = array(
             CURLOPT_URL             => env('APP_URL') . $port . '/posts/1',
-            CURLOPT_ENCODIN         => 'gzip',
+            CURLOPT_ENCODING         => 'gzip',
             CURLOPT_RETURNTRANSFER  => true
         );
         $ch = curl_init();
