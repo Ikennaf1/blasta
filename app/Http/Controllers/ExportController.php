@@ -75,10 +75,10 @@ class ExportController extends Controller
 
         $port = env('APP_ENV') == 'production'
             ? ''
-            : '8001';
+            : ':8001';
         
         $options = array(
-            CURLOPT_URL             => env('APP_URL') . ':' . $port . '/posts/1',
+            CURLOPT_URL             => env('APP_URL') . $port . '/posts/1',
             CURLOPT_ENCODIN         => 'gzip',
             CURLOPT_RETURNTRANSFER  => true
         );

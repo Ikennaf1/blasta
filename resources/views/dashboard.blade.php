@@ -72,17 +72,17 @@
                     {{-- Dashboard contents --}}
                     <div class="mt-12 w-11/12 mr-8">
                         @php
-                            if (isset($_GET['page'])) {
-                                echo "Not admin page";
+                            if (empty($_GET['page'])) {
+                                echo "Admin home page";
                             } else {
                                 $port = env('APP_ENV') == 'production'
                                     ? ''
-                                    : '8001';
+                                    : ':8001';
                                 
                                 $options = array(
-                                    CURLOPT_URL => env('APP_URL') . ':' . $port . '/posts/',
-                                    CURLOPT_ENCODING => 'gzip',
-                                    CURLOPT_RETURNTRANSFER => true
+                                    CURLOPT_URL             => env('APP_URL') . $port . '/posts/',
+                                    CURLOPT_ENCODING        => 'gzip',
+                                    CURLOPT_RETURNTRANSFER  => true
                                 );
                                 $ch = curl_init();
                                 curl_setopt_array($ch, $options);
