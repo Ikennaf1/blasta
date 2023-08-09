@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Middleware\BlastaDashboardCheck;
+use App\Http\Middleware\BlastaDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,8 @@ use App\Http\Middleware\BlastaDashboardCheck;
 |
 */
 
-Route::middleware([BlastaDashboardCheck::class, 'auth', 'verified'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::get('/', function () {
+    return view('dashboard');
+})->middleware(BlastaDashboardCheck::class)->name('dashboard');
 
-    
-});
-Route::get('/home', [DashboardController::class, 'index']);
+Route::get('/home', [DashboardController::class, 'index'])->middleware(BlastaDashboard::class);

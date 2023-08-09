@@ -14,8 +14,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $posts = Post::latest()->take(5)->get();
+
         return view('dashboard.index', [
-            'posts' => Post::all()
+            'posts' => $posts
             ]
         );
     }
