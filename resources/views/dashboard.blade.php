@@ -1,3 +1,7 @@
+@php
+use App\Http\Controllers\DashboardController;
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight z-20">
@@ -71,27 +75,9 @@
 
                     {{-- Dashboard contents --}}
                     <div class="mt-12 w-11/12 mr-8">
-                        @php
-                            if (empty($_GET['page'])) {
-                                echo "Admin home page";
-                            } else {
-                                $port = env('APP_ENV') == 'production'
-                                    ? ''
-                                    : ':8001';
-                                
-                                $options = array(
-                                    CURLOPT_URL             => env('APP_URL') . $port . '/posts/',
-                                    CURLOPT_ENCODING        => 'gzip',
-                                    CURLOPT_RETURNTRANSFER  => true
-                                );
-                                $ch = curl_init();
-                                curl_setopt_array($ch, $options);
-                                $contents = curl_exec($ch);
-                                curl_close($ch);
-
-                                echo $contents;
-                            }
-                        @endphp
+                        @if (isset($_GET['route']))
+                            {!! DashboardController::RenderContent($_GET['route']) !!}
+                        @endif
                     </div>
                 </div>
             </div>
