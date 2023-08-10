@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\Export;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,9 +16,15 @@ class DashboardController extends Controller
     public function index()
     {
         $posts = Post::latest()->take(5)->get();
+        $postCount = Post::where('post_type', 'post')->count();
+        $pageCount = Post::where('post_type', 'page')->count();
+        $exportCount = Export::count();
 
         return view('dashboard.index', [
-            'posts' => $posts
+            'posts' => $posts,
+            'postCount' => $postCount,
+            'pageCount' => $pageCount,
+            'exportCount' => $exportCount
             ]
         );
     }

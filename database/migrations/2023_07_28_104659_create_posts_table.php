@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content')->nullable();
-            $table->enum('status', ['draft', 'published'])->default('draft');
             $table->string('featured_image')->nullable();
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->enum('post_type', ['post', 'page'])->default('post');
             // $table->string('keywords')->nullable();
             // $table->string('description')->nullable();
             $table->smallInteger('user_id')->unsigned();

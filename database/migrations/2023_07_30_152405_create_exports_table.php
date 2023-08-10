@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('exports', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('post_id')->unsigned();
             $table->timestamps();
         });
     }

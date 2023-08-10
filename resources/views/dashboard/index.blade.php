@@ -11,9 +11,61 @@
             <h2 class="font-black text-black">Dashboard Home</h2>
         </div>
 
+        {{-- Overview --}}
+        <div class="">
+            <div class="flex flex-col gap-4">
+                <div>
+                    <h3 class="font-bold inline-block">Overview</h3>
+                </div>
+                <div class="flex w-full justify-between flex-wrap gap-4 text-white">
+                    <div class="flex flex-col justify-between gap-4 p-8 w-full sm:w-56 md:w-64 lg:w-[30%] bg-gradient-to-br from-red-400 via-purple-400 to-orange-400 shadow">
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl">Posts</p>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path fill-rule="evenodd" d="M15.22 6.268a.75.75 0 01.968-.432l5.942 2.28a.75.75 0 01.431.97l-2.28 5.941a.75.75 0 11-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 0 00-5.45 5.174.75.75 0 01-1.199.19L9 12.31l-6.22 6.22a.75.75 0 11-1.06-1.06l6.75-6.75a.75.75 0 011.06 0l3.606 3.605a12.694 12.694 0 015.68-4.973l1.086-.484-4.251-1.631a.75.75 0 01-.432-.97z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="text-7xl font-bold">
+                            {{ $postCount }}
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-between gap-4 p-8 w-full sm:w-56 md:w-64 lg:w-[30%] bg-gradient-to-br from-blue-400 via-cyan-400 to-green-400 shadow">
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl">Pages</p>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path fill-rule="evenodd" d="M15.22 6.268a.75.75 0 01.968-.432l5.942 2.28a.75.75 0 01.431.97l-2.28 5.941a.75.75 0 11-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 0 00-5.45 5.174.75.75 0 01-1.199.19L9 12.31l-6.22 6.22a.75.75 0 11-1.06-1.06l6.75-6.75a.75.75 0 011.06 0l3.606 3.605a12.694 12.694 0 015.68-4.973l1.086-.484-4.251-1.631a.75.75 0 01-.432-.97z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="text-7xl font-bold">
+                            {{ $pageCount }}
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-between gap-4 p-8 w-full sm:w-56 md:w-64 lg:w-[30%] bg-gradient-to-br from-lime-400 via-fuschia-400 to-pink-400 shadow">
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl">Exports</p>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                    <path fill-rule="evenodd" d="M15.22 6.268a.75.75 0 01.968-.432l5.942 2.28a.75.75 0 01.431.97l-2.28 5.941a.75.75 0 11-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 0 00-5.45 5.174.75.75 0 01-1.199.19L9 12.31l-6.22 6.22a.75.75 0 11-1.06-1.06l6.75-6.75a.75.75 0 011.06 0l3.606 3.605a12.694 12.694 0 015.68-4.973l1.086-.484-4.251-1.631a.75.75 0 01-.432-.97z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="text-7xl font-bold">
+                            {{ $exportCount }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Recent Posts --}}
         <div class="flex flex-col gap-4 p-8 bg-white shadow">
-            <span><h3 class="font-bold inline-block">Recent posts</h3> :: <a class="underline" href="#">See all</a></span>
+            <span><h3 class="font-bold inline-block">Recent posts</h3> :: <a class="underline" href="#">See all posts</a></span>
             <div class="flex flex-wrap gap-4">
             @foreach ($posts as $post)
                 <div class="border w-full sm:w-[46%] md:w-56 shadow">
@@ -56,5 +108,6 @@
             @endforeach
             </div>
         </div>
+        <div></div>
     </div>
 </div>
