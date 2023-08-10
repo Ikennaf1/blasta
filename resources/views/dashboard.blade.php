@@ -9,7 +9,7 @@ use App\Http\Controllers\DashboardController;
         </h2>
     </x-slot>
 
-    <div class="">
+    <div class="text-gray-700">
         <div class="max-w-10/12 mx-auto z-20">
                 <div class="bg-white fixed mt-32 left-0 h-full z-0 w-16 md:w-[18vw] lg:w-[16vw] xl:w-[12vw] shadow-md">
                     &nbsp;
@@ -22,10 +22,10 @@ use App\Http\Controllers\DashboardController;
                         <div class="fixed w-16 md:w-[12vw] lg:w-[12vw] xl:w-[8vw]">
                             <div class="w-full">
                                 <ul class="my-4 flex flex-col gap-8">
-                                    <a href="#" class="">
+                                    <a href="{{ route('dashboard') }}" class="">
                                         <div class="flex items-center justify-between">
                                             <li class="hidden md:inline-block">Dashboard</li>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="current-color" class="w-4 h-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                                                 <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
                                                 <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
                                             </svg>                                  
