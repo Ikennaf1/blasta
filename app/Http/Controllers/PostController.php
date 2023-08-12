@@ -10,11 +10,19 @@ use App\Http\Requests\UpdatePostRequest;
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource to everyone.
      */
     public function index()
     {
         return view('posts.index', ['posts' => Post::all()]);
+    }
+
+    /**
+     * Display a listing of the resource in the dashboard.
+     */
+    public function all()
+    {
+        return view('dashboard.posts.index', ['posts' => Post::all()]);
     }
 
     /**

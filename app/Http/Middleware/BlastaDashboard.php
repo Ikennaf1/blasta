@@ -21,15 +21,16 @@ class BlastaDashboard
         ];
 
         $segments = $request->segments();
+        // dd($request);
 
-        if ($segments[0] === 'dashboard' &&
-                in_array($segments[1], $dashboardDefaultPages) &&
-                $_SERVER['SERVER_PORT'] == 8000) {
+        if ($segments[0] === 'dashboard'
+                && in_array($segments[1], $dashboardDefaultPages)
+                && $_SERVER['SERVER_PORT'] == 8000) {
             abort(404);
             exit;
         }
 
-        if ($segments[0] !== 'dashboard') {
+        if ($segments[0] !== 'dashboard' && $_SERVER['SERVER_PORT'] == 8000) {
             abort(404);
         }
 

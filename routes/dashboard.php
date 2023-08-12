@@ -20,6 +20,7 @@ use App\Http\Middleware\BlastaDashboard;
 
 Route::get('/', function () {
     return view('dashboard');
-})->middleware(BlastaDashboardCheck::class)->name('dashboard');
+})->middleware(['auth', BlastaDashboardCheck::class])->name('dashboard');
 
-Route::get('/home', [DashboardController::class, 'index'])->middleware(BlastaDashboard::class);
+Route::get('/home', [DashboardController::class, 'index'])
+    ->middleware(BlastaDashboard::class);

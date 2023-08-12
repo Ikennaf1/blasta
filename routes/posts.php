@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\BlastaDashboard;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Post Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register post routes for your application. These
@@ -15,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PostController::class, 'index']);
+Route::get('/all', [PostController::class, 'all'])
+    ->middleware(BlastaDashboard::class);
 Route::get('/{post}', [PostController::class, 'show']);
