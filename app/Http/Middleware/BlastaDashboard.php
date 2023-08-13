@@ -21,7 +21,6 @@ class BlastaDashboard
         ];
 
         $segments = $request->segments();
-        // dd($request);
 
         if ($segments[0] === 'dashboard'
                 && in_array($segments[1], $dashboardDefaultPages)
