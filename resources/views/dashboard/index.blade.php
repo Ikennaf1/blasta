@@ -109,11 +109,5 @@
             @endforeach
             </div>
         </div>
-
-        {{-- Footer --}}
-        {{-- <div class="italic text-gray-400">
-            Blasta by <a target="_blank" class="font-bold" href="https://blindsjs.dev">Blindsjs</a>. Made with <a target="_blank" class="font-bold" href="https://laravel.com">Laravel</a>.
-        </div>
-        <div></div> --}}
     </div>
 </div>

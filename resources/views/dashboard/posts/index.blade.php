@@ -31,7 +31,7 @@ use App\Models\Category;
                 <span class="text-gray-300">|</span>
                 <span class="text-blue-500"><a href="#">Trashed</a></span>
             </div>
-            <div class="overflow-x-auto w-[90%] border">
+            <div class="overflow-x-auto w-full border">
                 @if (!$posts->hasPages())
                     Empty. Nothing to see here.
                 @else
@@ -45,6 +45,7 @@ use App\Models\Category;
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date created</th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Last modified</th>
+                                <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900"></th>
                             </tr>
@@ -65,6 +66,7 @@ use App\Models\Category;
                                 <td class="px-6 py-4">{{ $post->updated_at }}</td>
                                 <td class="px-6 py-4">Edit</td>
                                 <td class="px-6 py-4">Delete</td>
+                                <td class="px-6 py-4">Export</td>
                             </tr>
                         @endforeach
                         </tbody>

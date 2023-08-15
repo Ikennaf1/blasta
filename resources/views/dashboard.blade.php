@@ -78,6 +78,7 @@ use App\Http\Controllers\DashboardController;
                         @if (isset($_GET['route']))
                             {!! DashboardController::RenderContent($_GET['route']) !!}
                         @endif
+                        
                         {{-- Footer --}}
                         <div class="my-8 italic text-gray-400">
                             Blasta by <a target="_blank" class="font-bold" href="https://blindsjs.dev">Blindsjs</a>. Made with <a target="_blank" class="font-bold" href="https://laravel.com">Laravel</a>.
