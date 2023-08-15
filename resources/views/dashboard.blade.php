@@ -32,7 +32,7 @@ use App\Http\Controllers\DashboardController;
                                         </div>
                                     </a>
                                     
-                                    <a href="#" class="">
+                                    <a href="/dashboard?route=posts/all" class="">
                                         <div class="flex items-center justify-between hover:text-black transition ease-in-out duration-400">
                                             <li class="hidden md:inline-block">Posts</li>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
@@ -78,6 +78,11 @@ use App\Http\Controllers\DashboardController;
                         @if (isset($_GET['route']))
                             {!! DashboardController::RenderContent($_GET['route']) !!}
                         @endif
+                        {{-- Footer --}}
+                        <div class="my-8 italic text-gray-400">
+                            Blasta by <a target="_blank" class="font-bold" href="https://blindsjs.dev">Blindsjs</a>. Made with <a target="_blank" class="font-bold" href="https://laravel.com">Laravel</a>.
+                        </div>
+                        <div></div>
                     </div>
                 </div>
             </div>
