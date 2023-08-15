@@ -31,7 +31,7 @@ use App\Models\Category;
                 <span class="text-gray-300">|</span>
                 <span class="text-blue-500"><a href="#">Trashed</a></span>
             </div>
-            <div class="overflow-x-auto w-full border">
+            <div class="overflow-x-auto w-full border shadow">
                 @if (!$posts->hasPages())
                     Empty. Nothing to see here.
                 @else
