@@ -28,30 +28,45 @@ class PostController extends Controller
             $posts = Post::where('post_type', 'post')
                 ->latest()
                 ->paginate($limit);
-            // $posts = Post::withTrashed()->get();
+            $posts->withPath('/dashboard?route=posts/all');
             $subtitle = 'All Posts';
         }
+
         else if ($filter === 'published') {
             $posts = Post::where('post_type', 'post')
                 ->where('status', 'published')
+                ->latest()
                 ->paginate($limit);
+            $posts->withPath('/dashboard?route=posts/all/published');
             $subtitle = 'Published Posts';
         }
-        else if ($filter === 'draft') {
+
+        else if ($filter === 'drafts') {
             $posts = Post::where('post_type', 'post')
                 ->where('status', 'draft')
+                ->latest()
                 ->paginate($limit);
+            $posts->withPath('/dashboard?route=posts/all/drafts');
             $subtitle = 'Drafts';
         }
+
         else if ($filter === 'trashed') {
             $posts = Post::where('post_type', 'post')
                 ->onlyTrashed()
+                ->latest()
                 ->paginate($limit);
+            $posts->withPath('/dashboard?route=posts/all/trashed');
             $subtitle = 'Trashed Posts';
-        } else {
-            $posts = Post::where('post_type', 'post')->paginate($limit);
+        }
+        
+        else {
+            $posts = Post::where('post_type', 'post')
+                ->latest()
+                ->paginate($limit);
+            $posts->withPath('/dashboard?route=posts/all');
             $subtitle = 'All Posts';
         }
+
         return view('dashboard.posts.index', [
             'posts' => $posts,
             'subtitle' => $subtitle

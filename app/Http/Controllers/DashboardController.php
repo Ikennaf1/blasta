@@ -35,6 +35,10 @@ class DashboardController extends Controller
      */
     static function RenderContent($route)
     {
+        /* 
+         * Create a token to use
+         * and append to first URL
+         */
         if (empty(request()->query('token'))) {
             $token = base64_encode(Hash::make($route));
             request()->query->add(['token' => $token]);
@@ -44,8 +48,28 @@ class DashboardController extends Controller
             ? ''
             : ':8001';
         
+        $url = env('APP_URL') . $port . '/' . $route;
+
+        /* 
+         * Take every query in original URL
+         * and append to this second URL
+         */
+        if (!empty(request()->query)) {
+            $queries = '';
+            foreach (request()->query as $query => $value){
+                if ($query === 'token' || $query === 'route') {
+                    continue;
+                }
+                $queries .= "$query=$value&";
+            }
+            $url .= "?$queries";
+        }
+        
+        /* 
+         * Send request with the already built second URL
+         */
         $options = array(
-            CURLOPT_URL             => env('APP_URL') . $port . '/' . $route,
+            CURLOPT_URL             => $url,
             CURLOPT_ENCODING        => 'gzip',
             CURLOPT_RETURNTRANSFER  => true
         );

@@ -14,7 +14,7 @@ use App\Models\Category;
             </div>
             <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">{{ $subtitle }}</h2>
                 <a href="#">
-                    <span class="inline-block p-1 shadow border border-gray-400 hover:border-gray-700 hover:text-gray-900 transition duration-400">
+                    <span class="inline-block p-1 shadow border border-gray-400 hover:border-gray-500 text-blue-500 hover:text-blue-600 transition duration-400">
                     Add new post
                     </span>
                 </a>
@@ -22,20 +22,26 @@ use App\Models\Category;
         </div>
 
         <div class="flex flex-col gap-4">
-            <div class="flex gap-4 sm:gap-8">
-                <span class="text-blue-500"><a href="#">All</a></span>
+            <div class="flex w-full items-center gap-4 sm:gap-8">
+                <span class="text-blue-500"><a href="/dashboard?route=posts/all">All</a></span>
                 <span class="text-gray-300">|</span>
-                <span class="text-blue-500"><a href="#">Drafts</a></span>
+                <span class="text-blue-500"><a href="/dashboard?route=posts/all/drafts">Drafts</a></span>
                 <span class="text-gray-300">|</span>
-                <span class="text-blue-500"><a href="#">Published</a></span>
+                <span class="text-blue-500"><a href="/dashboard?route=posts/all/published">Published</a></span>
                 <span class="text-gray-300">|</span>
-                <span class="text-blue-500"><a href="#">Trashed</a></span>
+                <span class="text-blue-500"><a href="/dashboard?route=posts/all/trashed">Trashed</a></span>
+                <span class="justify-self-end ml-auto hidden lg:inline-block">
+                    <form method="GET">
+                        <input type="search" placeholder="Search posts" class="shadow border-gray-300"/>
+                        <input type="submit" value="Search" class="border border-gray-300 hover:border-gray-400 p-2 cursor-pointer shadow" />
+                    </form>
+                </span>
             </div>
-            <div class="overflow-x-auto w-full border shadow">
+            <div class="w-full overflow-x-auto border shadow">
                 @if (!$posts->hasPages())
                     Empty. Nothing to see here.
                 @else
-                    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                    <table class="border-collapse bg-white text-left text-sm text-gray-700">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
@@ -56,7 +62,7 @@ use App\Models\Category;
                             $author = User::find($post->user_id)->name ?? 'Deleted user';
                             $category = Category::find($post->category_id)->name ?? 'No category';
                             ?>
-                            <tr class="odd:bg-white even:bg-gray-50">
+                            <tr class="odd:bg-white even:bg-gray-100">
                                 <td class="px-6 py-4">{{ $post->title }}</td>
                                 <td class="px-6 py-4">{{ $author }}</td>
                                 <td class="px-6 py-4">{{ $category }}</td>
@@ -74,7 +80,7 @@ use App\Models\Category;
                 @endif
             </div>
             <div>
-                {{ $posts }}
+                {{ $posts->links() }}
             </div>
         </div>
     </div>
