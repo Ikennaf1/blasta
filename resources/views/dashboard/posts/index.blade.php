@@ -18,7 +18,7 @@ use App\Models\Category;
                     Add new post
                     </span>
                 </a>
-        </span>
+            </span>
         </div>
 
         <div class="flex flex-col gap-4">
@@ -32,6 +32,7 @@ use App\Models\Category;
                 <span class="text-blue-500"><a href="/dashboard?route=posts/all/trashed">Trashed</a></span>
                 <span class="justify-self-end ml-auto hidden lg:inline-block">
                     <form method="GET">
+                        @csrf
                         <input type="search" placeholder="Search posts" class="shadow border-gray-300"/>
                         <input type="submit" value="Search" class="border border-gray-300 hover:border-gray-400 p-2 cursor-pointer shadow" />
                     </form>
