@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-8">
-    <div class="flex items-top gap-8 w-full justify-between">
-        <div class="flex flex-col gap-8 w-full lg:w-3/4">
+    <div class="flex flex-wrap items-top gap-8 w-full justify-between">
+        <div class="flex flex-col gap-8 w-full lg:w-8/12">
             {{-- Page Title --}}
             <div class="flex items-center gap-4">
                 <div class="flex justify-center items-center w-8 h-8 rounded bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow">
@@ -10,7 +10,6 @@
                 </div>
                 <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">Create new post</h2></span>
             </div>
-
         
             <div>
                 <form method="POST" action="">
