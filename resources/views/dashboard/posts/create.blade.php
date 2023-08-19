@@ -41,8 +41,31 @@
             </div>
         </div>
 
-        <div class="w-full lg:w-1/4">
-            Options
+        <div class="w-full lg:w-1/4 text-sm">
+            <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
+                <div class="flex justify-between items-center">
+                    <p class="font-bold">Publish</p>
+                    <label class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600" href="#">Publish</label>
+                </div>
+
+                <hr class="" />
+
+                <div class="flex flex-col gap-2">
+                    <div class="flex justify-between items-center">
+                        <p>Status:</p>
+                        <p class="font-bold">Draft</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <p>Exported:</p>
+                        <p class="font-bold">No</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Save draft</label>
+                    <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Preview</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>
