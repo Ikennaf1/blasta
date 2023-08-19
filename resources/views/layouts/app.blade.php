@@ -13,6 +13,13 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/tinymce_6.6.0/tinymce.min.js') }}"></script>
+
+        <style>
+            .tox-promotion,.tox-statusbar__branding {
+                display: none;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased bg-gray-100">
         <div class="min-h-screen bg-gray-100">

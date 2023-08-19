@@ -1,3 +1,12 @@
+<script>
+    tinymce.init({
+        selector: '#post_content',
+        plugins: 'code link autolink anchor emoticons image imagetools media lists advlist',
+        toolbar: 'undo redo styles bold italic underline strikethrough numlist bullist subscript superscript code link anchor emoticons image media',
+        statusbar: false
+        // toolbar: 'alignleft aligncenter alignright'
+    });
+</script>
 <div class="flex flex-col gap-8">
     <div class="flex flex-wrap items-top gap-8 w-full justify-between">
         <div class="flex flex-col gap-8 w-full lg:w-8/12">
@@ -16,14 +25,14 @@
                     @csrf
                     <div class="flex flex-col gap-8">
                         <div>
-                            <input class="w-full border-gray-300 shadow" type="text" placeholder="Add Title" />
+                            <input class="w-full border-gray-300 shadow rounded-lg" type="text" placeholder="Add Title" />
                         </div>
 
                         <div>
                             <label>
                                 {{-- <div>What's on your mind?</div> --}}
-                                <div>
-                                    <textarea class="w-full border-gray-300 h-64 shadow" placeholder="What's on your mind?"></textarea>
+                                <div class="">
+                                    <textarea id="post_content" class="w-full border-gray-300 h-64 shadow" placeholder="What's on your mind?"></textarea>
                                 </div>
                             </label>
                         </div>
