@@ -2,7 +2,7 @@
     tinymce.init({
         selector: '#post_content',
         plugins: 'code link autolink anchor emoticons image imagetools media lists advlist',
-        toolbar: 'undo redo styles bold italic underline strikethrough numlist bullist subscript superscript code link anchor emoticons image media',
+        toolbar: 'undo redo styles bold italic underline strikethrough forecolor backcolor numlist bullist subscript superscript code link anchor emoticons image media blockquote',
         statusbar: false
         // toolbar: 'alignleft aligncenter alignright'
     });
@@ -21,11 +21,11 @@
             </div>
         
             <div>
-                <form method="POST" action="">
+                <form method="POST" action="{{ '/posts/store' }}">
                     @csrf
                     <div class="flex flex-col gap-8">
                         <div>
-                            <input class="w-full border-gray-300 shadow rounded-lg" type="text" placeholder="Add Title" />
+                            <input class="w-full border-gray-300 focus:outline-none shadow rounded-lg" type="text" placeholder="Add Title" />
                         </div>
 
                         <div>
@@ -36,6 +36,11 @@
                                 </div>
                             </label>
                         </div>
+                        
+                        <div class="hidden">
+                            <input name="save_draft" id="save_draft_id" type="submit" value="Save draft" />
+                            <input name="publish" id="publish_id" type="submit" value="Publish" />
+                        </div>
                     </div>
                 </form>
             </div>
@@ -45,7 +50,7 @@
             <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
                 <div class="flex justify-between items-center">
                     <p class="font-bold">Publish</p>
-                    <label class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600" href="#">Publish</label>
+                    <label for="publish_id" class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600" href="#">Publish</label>
                 </div>
 
                 <hr class="" />
@@ -62,8 +67,8 @@
                 </div>
 
                 <div class="flex justify-between items-center">
-                    <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Save draft</label>
-                    <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Preview</label>
+                    <label for="save_draft_id" class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Save draft</label>
+                    <label for="" class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Preview</label>
                 </div>
             </div>
         </div>

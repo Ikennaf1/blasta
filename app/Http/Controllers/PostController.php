@@ -86,7 +86,15 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        return "Post stored";
+    }
+
+    /**
+     * Saves draft a newly created post in storage.
+     */
+    public function saveDraft(StorePostRequest $request)
+    {
+        return "Post stored";
     }
 
     /**

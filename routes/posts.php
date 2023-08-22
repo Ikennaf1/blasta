@@ -16,10 +16,17 @@ use App\Http\Middleware\BlastaDashboard;
 */
 
 Route::get('/', [PostController::class, 'index']);
+
 Route::get('/all', [PostController::class, 'all'])
     ->middleware(BlastaDashboard::class);
+
 Route::get('/create', [PostController::class, 'create'])
     ->middleware(BlastaDashboard::class);
+
+Route::post('/store', [PostController::class, 'store'])
+    ->name('post.store');
+
 Route::get('/all/{filter}', [PostController::class, 'all'])
     ->middleware(BlastaDashboard::class);
+
 Route::get('/{post}', [PostController::class, 'show']);
