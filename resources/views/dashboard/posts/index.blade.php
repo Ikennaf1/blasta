@@ -13,8 +13,8 @@ use App\Models\Category;
                 </svg>
             </div>
             <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">{{ $subtitle }}</h2>
-                <a href="#">
-                    <span class="inline-block p-1 shadow border border-gray-400 hover:border-gray-500 text-blue-500 hover:text-blue-600 transition duration-400">
+                <a href="/dashboard?route=posts/create">
+                    <span class="inline-block p-1 shadow border bg-gray-50 border-gray-400 hover:border-gray-500 text-blue-500 hover:text-blue-600 transition duration-400">
                     Add new post
                     </span>
                 </a>

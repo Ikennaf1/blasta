@@ -66,7 +66,7 @@
 
         {{-- Recent Posts --}}
         <div class="flex flex-col gap-4 p-8 bg-white shadow">
-            <span><h3 class="font-bold inline-block">Recent posts</h3> :: <a class="underline" href="#">See all posts</a></span>
+            <span><h3 class="font-bold inline-block">Recent posts</h3> :: <a class="underline" href="/dashboard?route=posts/all">See all posts</a></span>
             <div class="flex flex-wrap gap-4">
             @foreach ($posts as $post)
                 <div class="border w-full sm:w-[46%] md:w-56 shadow">

@@ -86,7 +86,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        return "Post stored";
+        return "Post stored\s";
     }
 
     /**
