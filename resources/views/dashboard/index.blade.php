@@ -66,7 +66,7 @@
 
         {{-- Recent Posts --}}
         <div class="flex flex-col gap-4 p-8 bg-white shadow">
-            <span><h3 class="font-bold inline-block">Recent posts</h3> :: <a class="underline" href="/dashboard?route=posts/all">See all posts</a></span>
+            <span><h3 class="font-bold inline-block">Recent posts and pages</h3> :: <a class="underline" href="/dashboard?route=posts/all">See all posts</a></span>
             <div class="flex flex-wrap gap-4">
             @foreach ($posts as $post)
                 <div class="border w-full sm:w-[46%] md:w-56 shadow">
@@ -74,8 +74,8 @@
                         {{-- Post featured image --}}
                         <div class="w-full h-32 sm:h-32 md:h-40 overflow-hidden">
                             <img src="<?= $post->featured_image != null
-                                            ? asset('images/' . $post->featured_image)
-                                            : asset('images/post_default_image.png') ?>"
+                                            ? asset('uploads/' . $post->featured_image)
+                                            : asset('uploads/images/post_default_image.png') ?>"
                             style="width: 100%; height: 100%; object-position: center; object-fit: cover;" />
                         </div>
 

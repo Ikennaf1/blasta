@@ -6,6 +6,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -14,7 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => Post::all()]);
+        return view('posts.index', [
+            'posts' => Post::all()
+        ]);
     }
 
     /**
@@ -27,6 +31,7 @@ class PostController extends Controller
         if (!isset($filter) || $filter === '') {
             $posts = Post::where('post_type', 'post')
                 ->latest()
+                ->orderBy('id', 'DESC')
                 ->paginate($limit);
             $posts->withPath('/dashboard?route=posts/all');
             $subtitle = 'All Posts';
@@ -36,6 +41,7 @@ class PostController extends Controller
             $posts = Post::where('post_type', 'post')
                 ->where('status', 'published')
                 ->latest()
+                ->orderBy('id', 'DESC')
                 ->paginate($limit);
             $posts->withPath('/dashboard?route=posts/all/published');
             $subtitle = 'Published Posts';
@@ -45,6 +51,7 @@ class PostController extends Controller
             $posts = Post::where('post_type', 'post')
                 ->where('status', 'draft')
                 ->latest()
+                ->orderBy('id', 'DESC')
                 ->paginate($limit);
             $posts->withPath('/dashboard?route=posts/all/drafts');
             $subtitle = 'Drafts';
@@ -54,6 +61,7 @@ class PostController extends Controller
             $posts = Post::where('post_type', 'post')
                 ->onlyTrashed()
                 ->latest()
+                ->orderBy('id', 'DESC')
                 ->paginate($limit);
             $posts->withPath('/dashboard?route=posts/all/trashed');
             $subtitle = 'Trashed Posts';
@@ -62,6 +70,7 @@ class PostController extends Controller
         else {
             $posts = Post::where('post_type', 'post')
                 ->latest()
+                ->orderBy('id', 'DESC')
                 ->paginate($limit);
             $posts->withPath('/dashboard?route=posts/all');
             $subtitle = 'All Posts';
@@ -86,7 +95,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        return $request;
+        $post = $this->saveDraft($request);
+
+        if (!empty($request->publish)) {
+            $post->status = 'published'
+            $post->save();
+        }
     }
 
     /**
@@ -94,7 +108,19 @@ class PostController extends Controller
      */
     public function saveDraft(StorePostRequest $request)
     {
-        return "Post stored";
+        $featured_image = null;
+
+        if (!empty($request->featured_image)) {
+            $featured_image = ImageController::upload($request, 'featured_image');
+        }
+        
+        return Post::create([
+            'title'             => $request->title,
+            'content'           => $request->content,
+            'featured_image'    => $featured_image,
+            // 'description'       => $request->description,
+            // 'keywords'          => $request->keywords,
+        ]);
     }
 
     /**

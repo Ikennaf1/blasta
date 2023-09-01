@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->enum('post_type', ['post', 'page'])->default('post');
             // $table->string('keywords')->nullable();
-            // $table->string('tags')->nullable();
             // $table->string('description')->nullable();
             $table->smallInteger('user_id')->unsigned();
             $table->smallInteger('category_id')->nullable();

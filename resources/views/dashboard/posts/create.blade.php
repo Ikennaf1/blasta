@@ -21,19 +21,18 @@
             </div>
         
             <div>
-                <form method="POST" action="{{ '/posts/store' }}">
+                <form method="POST" action="{{ '/posts/store' }}" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col gap-8">
                         <div>
-                            <input name="title" class="w-full border-gray-300 focus:outline-none shadow rounded-lg" type="text" placeholder="Add Title" />
+                            <input name="title" minlength="1" class="w-full border-gray-300 focus:outline-none shadow rounded-lg" type="text" placeholder="Add Title" />
                         </div>
 
                         <div>
                             <label>
-                                {{-- <div>What's on your mind?</div> --}}
-                                {{-- <div class="">
+                                <div class="">
                                     <textarea name="content" id="post_content" class="w-full border-gray-300 h-64 shadow" placeholder="What's on your mind?"></textarea>
-                                </div> --}}
+                                </div>
                             </label>
                         </div>
                     </div>
@@ -88,11 +87,11 @@
                         <div class="flex justify-between items-center">
                             <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">
                                 Select from file
-                                <input id="featured_image_id" type="file" accept="image/*" value="Select image from file" class="hidden" />
+                                <input name="featured_image" id="featured_image_id" type="file" accept="image/*" value="Select image from file" class="hidden" />
                             </label>
-                            <div>
+                            {{-- <div>
                                 <button class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">Select from gallery</button>
-                            </div>
+                            </div> --}}
                             <script>
                                 let img = document.querySelector('#featured_image_id');
                                 let imgContainer = document.querySelector('#featured_image_container_id');
@@ -133,7 +132,7 @@
 
                     <div class="flex flex-col gap-2">
                         <div class="flex justify-between items-center">
-                            <textarea name="description" id="description_id" type="text" class="w-full border-gray-300 h-12 rounded-lg shadow" placeholder="A short description of the post" ></textarea>
+                            <textarea name="description" id="description_id" type="text" class="w-full border-gray-300 h-20 rounded-lg shadow" placeholder="A short description of the post" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -153,7 +152,7 @@
 
                     <div class="flex flex-col gap-2">
                         <div class="flex justify-between items-center">
-                            <input name="keywords" id="keywords_id" type="text" class="w-full border-gray-300 h-12 rounded-lg shadow" placeholder="Example: Laravel,Blasta" />
+                            <input name="keywords" id="keywords_id" type="text" class="w-full border-gray-300 rounded-lg shadow" placeholder="Example: Laravel,Blasta" />
                         </div>
                         <p class="text-sm">Separate each keyword with a comma</p>
                     </div>

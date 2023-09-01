@@ -15,7 +15,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $posts          = Post::latest()->take(5)->get();
+        $posts          = Post::latest()->take(5)->orderBy('id', 'DESC')->get();
         $postCount      = Post::where('post_type', 'post')->count();
         $pageCount      = Post::where('post_type', 'page')->count();
         $exportCount    = Export::count();

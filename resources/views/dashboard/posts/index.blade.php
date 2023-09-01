@@ -1,6 +1,6 @@
 @php
 use App\Models\User;
-use App\Models\Category;
+// use App\Models\Category;
 @endphp
 
 <div>
@@ -14,7 +14,7 @@ use App\Models\Category;
             </div>
             <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">{{ $subtitle }}</h2>
                 <a href="/dashboard?route=posts/create">
-                    <span class="inline-block p-1 shadow border bg-gray-50 border-gray-400 hover:border-gray-500 text-blue-500 hover:text-blue-600 transition duration-400">
+                    <span class="inline-block px-2 py-1 shadow border bg-gray-50 border-gray-400 hover:border-gray-500 text-blue-500 hover:text-blue-600 transition duration-400">
                     Add new post
                     </span>
                 </a>
@@ -47,7 +47,7 @@ use App\Models\Category;
                             <tr>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Author</th>
-                                <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
+                                {{-- <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th> --}}
                                 {{-- <th scope="col" class="px-6 py-4 font-medium text-gray-900">Tags</th> --}}
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date created</th>
@@ -61,12 +61,12 @@ use App\Models\Category;
                         @foreach ($posts as $post)
                             <?php
                             $author = User::find($post->user_id)->name ?? 'Deleted user';
-                            $category = Category::find($post->category_id)->name ?? 'No category';
+                            // $category = Category::find($post->category_id)->name ?? 'No category';
                             ?>
                             <tr class="odd:bg-white even:bg-gray-100">
                                 <td class="px-6 py-4">{{ $post->title }}</td>
                                 <td class="px-6 py-4">{{ $author }}</td>
-                                <td class="px-6 py-4">{{ $category }}</td>
+                                {{-- <td class="px-6 py-4">{{ $category }}</td> --}}
                                 {{-- <td class="px-6 py-4">{{ $post->tags }}</td> --}}
                                 <td class="px-6 py-4">{{ $post->status }}</td>
                                 <td class="px-6 py-4">{{ $post->created_at }}</td>
