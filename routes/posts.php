@@ -26,6 +26,9 @@ Route::get('/create', [PostController::class, 'create'])
 Route::post('/store', [PostController::class, 'store'])
     ->name('post.store');
 
+Route::get('/edit/{post}', [PostController::class, 'edit'])
+    ->middleware(BlastaDashboard::class);
+
 Route::get('/all/{filter}', [PostController::class, 'all'])
     ->middleware(BlastaDashboard::class);
 

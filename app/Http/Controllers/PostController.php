@@ -8,6 +8,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -98,9 +99,11 @@ class PostController extends Controller
         $post = $this->saveDraft($request);
 
         if (!empty($request->publish)) {
-            $post->status = 'published'
+            $post->status = 'published';
             $post->save();
         }
+
+        return redirect('/dashboard?route=posts/edit/' . $post->id);
     }
 
     /**
@@ -118,6 +121,7 @@ class PostController extends Controller
             'title'             => $request->title,
             'content'           => $request->content,
             'featured_image'    => $featured_image,
+            'user_id'           => Auth::id()
             // 'description'       => $request->description,
             // 'keywords'          => $request->keywords,
         ]);
@@ -136,7 +140,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.posts.edit', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -144,7 +150,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        // return 'It works. Now work on update!';
     }
 
     /**

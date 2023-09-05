@@ -92,7 +92,7 @@
                                     Status: {{ $post->status }} | 
                                     <?= $post->status === 'published'
                                         ? '<a target="_blank" class="font-bold text-xs text-blue-500" href="/posts/'.$post->id.'">View post</a>'
-                                        : '<a class="font-bold text-xs text-blue-500" href="/posts/edit/'.$post->id.'">Edit post</a>'
+                                        : '<a class="font-bold text-xs text-blue-500" href="/dashboard?route=posts/edit/'.$post->id.'">Edit post</a>'
                                     ?>
                                 </span>
 
