@@ -150,7 +150,22 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        // return 'It works. Now work on update!';
+        // dd($request->content);
+        $featured_image = $post->featured_image;
+
+        if (!empty($request->featured_image)) {
+            $featured_image = ImageController::upload($request, 'featured_image');
+        }
+        
+        $post->update([
+            'title'             => $request->title,
+            'content'           => $request->content,
+            'featured_image'    => $featured_image
+            // 'description'       => $request->description,
+            // 'keywords'          => $request->keywords,
+        ]);
+
+        return redirect()->back();
     }
 
     /**

@@ -31,7 +31,7 @@
                         <div>
                             <label>
                                 <div class="">
-                                    <textarea name="content" id="post_content" class="w-full border-gray-300 h-64 shadow" placeholder="What's on your mind?"></textarea>
+                                    <textarea name="content" id="content_id" class="w-full border-gray-300 h-64 shadow" placeholder="What's on your mind?"></textarea>
                                 </div>
                             </label>
                         </div>
@@ -55,10 +55,10 @@
                             <p>Status:</p>
                             <p class="font-bold">Unsaved</p>
                         </div>
-                        <div class="flex justify-between items-center">
+                        {{-- <div class="flex justify-between items-center">
                             <p>Exported:</p>
                             <p class="font-bold">No</p>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="flex justify-between items-center">
