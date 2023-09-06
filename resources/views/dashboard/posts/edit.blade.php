@@ -1,6 +1,6 @@
 <script>
     tinymce.init({
-        selector: '#post_content',
+        selector: '#content_id',
         plugins: 'code link autolink anchor emoticons image imagetools media lists advlist',
         toolbar: 'undo redo styles bold italic underline strikethrough forecolor backcolor numlist bullist subscript superscript code link anchor emoticons image media blockquote',
         statusbar: false
