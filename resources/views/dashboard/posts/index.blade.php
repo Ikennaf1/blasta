@@ -39,10 +39,10 @@ use App\Models\User;
                 </span>
             </div>
             <div class="w-full overflow-x-auto border shadow">
-                @if (!$posts->hasPages())
+                @if (count($posts) == 0)
                     Empty. Nothing to see here.
                 @else
-                    <table class="border-collapse bg-white text-left text-sm text-gray-700">
+                    <table class="w-full border-collapse bg-white text-left text-sm text-gray-700">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>

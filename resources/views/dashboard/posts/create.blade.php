@@ -55,10 +55,6 @@
                             <p>Status:</p>
                             <p class="font-bold">Unsaved</p>
                         </div>
-                        {{-- <div class="flex justify-between items-center">
-                            <p>Exported:</p>
-                            <p class="font-bold">No</p>
-                        </div> --}}
                     </div>
 
                     <div class="flex justify-between items-center">

@@ -58,6 +58,7 @@
                     </div>
 
                     <div class="flex justify-between items-center">
+                        <button type="reset" class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">Reset</button>
                         <a class="px-2 py-1 bg-red-100 rounded border border-red-300 hover:bg-red-200" href="/dashboard?route=dashboard/home">Cancel</a>
                     </div>
                 </div>
