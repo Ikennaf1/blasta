@@ -132,7 +132,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return Post::find($post);
+        // return Post::find($post);
+        return view('front.post', [
+            'post' => $post
+        ]);
     }
 
     /**
