@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -133,6 +134,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // return Post::find($post);
+        $post->author = User::find($post->user_id)->name;
         return view('front.post', [
             'post' => $post
         ]);
