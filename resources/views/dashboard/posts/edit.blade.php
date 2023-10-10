@@ -79,8 +79,8 @@
                     <div class="flex flex-col gap-2">
                         <label for="featured_image_id" class="flex items-center justify-center text-center border border-2 border-dashed rounded w-full h-24">
                             <img src="<?= $post->featured_image != null
-                                ? asset('uploads/' . $post->featured_image)
-                                : asset('uploads/images/post_default_image.png') ?>"
+                                ? asset('my_exports/uploads/' . $post->featured_image)
+                                : asset('my_exports/uploads/images/post_default_image.png') ?>"
                                 style="width: 100%; height: 100%; object-position: center; object-fit: cover;" id="featured_image_container_id"
                                 class="p-2 overflow-hidden w-full h-full" />
                         </label>

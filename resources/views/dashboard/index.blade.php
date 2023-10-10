@@ -74,8 +74,8 @@
                         {{-- Post featured image --}}
                         <div class="w-full h-32 sm:h-32 md:h-40 overflow-hidden">
                             <img src="<?= $post->featured_image != null
-                                            ? asset('uploads/' . $post->featured_image)
-                                            : asset('uploads/images/post_default_image.png') ?>"
+                                            ? asset('my_exports/uploads/' . $post->featured_image)
+                                            : asset('my_exports/uploads/images/post_default_image.png') ?>"
                             style="width: 100%; height: 100%; object-position: center; object-fit: cover;" />
                         </div>
 
