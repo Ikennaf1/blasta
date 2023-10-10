@@ -66,20 +66,26 @@ class ExportController extends Controller
         //
     }
 
-    public function export(Post $post)
+    /**
+     * Exports a single post
+     */
+    public function exportPost(Post $post)
     {
-        // return request()->post->id;
         $id = request()->post->id;
 
-        $fp = fopen($id . '.html', 'w');
+        if (!file_exists(public_path() . '/my_exports')) {
+            mkdir(public_path() . '/my_exports');
+        }
+
+        $fp = fopen("my_exports/$id" . '.html', 'w');
 
         $port = env('APP_ENV') == 'production'
             ? ''
             : ':8001';
         
         $options = array(
-            CURLOPT_URL             => env('APP_URL') . $port . '/posts/1',
-            CURLOPT_ENCODING         => 'gzip',
+            CURLOPT_URL             => env('APP_URL') . $port . '/posts/' . $id,
+            CURLOPT_ENCODING        => 'gzip',
             CURLOPT_RETURNTRANSFER  => true
         );
         $ch = curl_init();
@@ -89,5 +95,28 @@ class ExportController extends Controller
 
         fwrite($fp, $res);
         fclose($fp);
+    }
+
+    /**
+     * Exports the specified assets
+     */
+    public function exportAssets()
+    {
+        $assets = file_get_contents(front_path('/assets.json'));
+        $assets = json_decode($assets)->assets;
+
+        foreach ($assets as $asset) {
+            $dirs = explode('/', $asset);
+            $numDirs = count($dirs);
+            if ($numDirs > 1) {
+                array_pop($dirs);
+                $dirs = implode('/', $dirs);
+
+                if (!is_dir(public_path("/my_exports/$dirs"))) {
+                    mkdir(public_path("/my_exports/$dirs"), 0777, true);
+                }
+            }
+            copy(front_path("/$asset"), public_path("/my_exports/$asset"));
+        }
     }
 }
