@@ -1,7 +1,5 @@
 <?php
 
-$postHeads = [];
-
 function postHead($post)
 {
     $postHeadString = '';

@@ -95,6 +95,8 @@ class ExportController extends Controller
 
         fwrite($fp, $res);
         fclose($fp);
+
+        return redirect()->back();
     }
 
     /**

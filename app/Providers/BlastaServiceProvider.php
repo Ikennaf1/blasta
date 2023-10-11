@@ -11,6 +11,7 @@ class BlastaServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        require_once base_path().'/app/Blasta/GlobalVars.php';
         require_once base_path().'/app/Blasta/Functions/blastaGlobalFunctions.php';
         require_once base_path().'/app/Blasta/Classes/blastaGlobalClasses.php';
     }
