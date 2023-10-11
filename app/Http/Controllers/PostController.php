@@ -174,6 +174,15 @@ class PostController extends Controller
     }
 
     /**
+     * Marks the specified resource as deleted.
+     */
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect()->back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)

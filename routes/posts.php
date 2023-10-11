@@ -32,6 +32,9 @@ Route::get('/edit/{post}', [PostController::class, 'edit'])
 Route::post('/update/{post}', [PostController::class, 'update'])
     ->name('post.update');
 
+Route::get('/delete/{post}', [PostController::class, 'delete'])
+    ->name('post.delete');
+
 Route::get('/all/{filter}', [PostController::class, 'all'])
     ->middleware(BlastaDashboard::class);
 
