@@ -183,10 +183,20 @@ class PostController extends Controller
     }
 
     /**
+     * Restores the specified deleted resource.
+     */
+    public function restore(Request $request)
+    {
+        Post::onlyTrashed()->where('id', $request->post)->restore();
+        return redirect()->back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
     {
-        //
+        Post::onlyTrashed()->where('id', $request->post)->forceDelete();
+        return redirect()->back();
     }
 }
