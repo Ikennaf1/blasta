@@ -6,6 +6,7 @@ use App\Models\Export;
 use App\Models\Post;
 use App\Http\Requests\StoreExportRequest;
 use App\Http\Requests\UpdateExportRequest;
+// use Session;
 
 
 class ExportController extends Controller
@@ -72,6 +73,16 @@ class ExportController extends Controller
     public function exportPost(Post $post)
     {
         $id = request()->post->id;
+
+        if ($post->status !== "published") {
+            Session::flash("error", "Post must be published");
+            return redirect()->back();
+        }
+
+        if ($post->deleted_at !== null) {
+            Session::flash("error", "Deleted post can not be exported");
+            return redirect()->back();
+        }
 
         if (!file_exists(public_path() . '/my_exports')) {
             mkdir(public_path() . '/my_exports');

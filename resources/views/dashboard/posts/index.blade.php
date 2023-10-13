@@ -88,13 +88,18 @@ use App\Models\User;
                                     </td>
                                     <td class="px-6 py-4">
                                         @php
-                                        $href = $post->status === "draft" ? "#" : "/exports/post/$post->id";
+                                        $action = $post->status === "draft" ? "#" : "/exports/post/$post->id";
                                         @endphp
-                                        <a class="text-blue-500" href="{{$href}}">
+                                        @if ($post->status !== "draft")
+                                            <form action="{{ $action }}" method="post">
+                                                <input class="hidden" type="submit" id="export_{{$post->id}}">
+                                            </form>
+                                        @endif
+                                        <label for="export_{{$post->id}}" class="text-blue-500 cursor-pointer">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                             </svg>
-                                        </a>
+                                        </label>
                                     </td>
                                 </tr>
                             @endforeach

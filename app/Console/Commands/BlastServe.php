@@ -38,5 +38,9 @@ class BlastServe extends Command
         } else {
             $this->error('Something went wrong. Please check to ssee if port is already running.');
         }
+
+        if ($server1 && $server2) {
+            $this->info('ctrl + c to terminate server');
+        }
     }
 }
