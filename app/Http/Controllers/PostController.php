@@ -122,7 +122,8 @@ class PostController extends Controller
             'title'             => $request->title,
             'content'           => $request->content,
             'featured_image'    => $featured_image,
-            'user_id'           => Auth::id()
+            'user_id'           => Auth::id(),
+            // 'link'              => titleToLink($request->title)
             // 'description'       => $request->description,
             // 'keywords'          => $request->keywords,
         ]);

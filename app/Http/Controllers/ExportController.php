@@ -88,7 +88,11 @@ class ExportController extends Controller
             mkdir(public_path() . '/my_exports');
         }
 
-        $fp = fopen("my_exports/$id" . '.html', 'w');
+        $link = $post->link == null
+            ? titleToLink($post->title)
+            : $post->link;
+
+        $fp = fopen("my_exports/$link" . '.html', 'w');
 
         $port = env('APP_ENV') == 'production'
             ? ''
