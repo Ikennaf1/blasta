@@ -156,7 +156,6 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        // dd($request->content);
         $featured_image = $post->featured_image;
 
         if (!empty($request->featured_image)) {
@@ -170,6 +169,36 @@ class PostController extends Controller
             // 'description'       => $request->description,
             // 'keywords'          => $request->keywords,
         ]);
+
+        if (!empty($request->updatePublish)) {
+            $post->status = "published";
+            $post->save();
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Versatile update using update method
+     */
+    public function updateOnly(UpdatePostRequest $request, Post $post)
+    {
+        $this->update($request, $post);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updatePublish(UpdatePostRequest $request, Post $post)
+    {
+        $this->update($request, $post);
+
+        if (!empty($request->updatePublish)) {
+            $post->status = "published";
+            $post->save();
+        }
 
         return redirect()->back();
     }

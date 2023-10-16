@@ -45,7 +45,25 @@
                 <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
                     <div class="flex justify-between items-center">
                         <p class="font-bold">Post</p>
-                        <label for="update_id" class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600" href="#">Update</label>
+                        <div class="flex gap-4">
+                            <a class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600 cursor-pointer" href="/posts/{{$post->id}}" target="_blank">Preview</a>
+                            <div class="flex gap-0">
+                                <label for="update_id" class="px-2 py-1 bg-blue-500 text-white rounded-l border border-blue-600 hover:bg-blue-600 cursor-pointer" href="#">Update</label>
+                                <div class=" flex items-center justify-center px-2 py-1 bg-blue-500 text-white rounded-r border border-l-0 border-blue-600 hover:bg-blue-600 cursor-pointer">
+                                    <div id="update_options_toggle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div id="update_options" class="absolute hidden transition duration-500 bg-blue-400 border-blue-400 border rounded top-24 right-12">
+                                    <ul>
+                                        <li class="px-2 py-1 hover:bg-blue-600 text-white cursor-pointer"><label for="update_id">Update</label></li>
+                                        <li class="px-2 py-1 hover:bg-blue-600 text-white cursor-pointer"><label for="updatePublish_id">Update and publish</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <hr class="" />
@@ -53,7 +71,7 @@
                     <div class="flex flex-col gap-2">
                         <div class="flex justify-between items-center">
                             <p>Status:</p>
-                            <p class="font-bold">{{ $post->status }}</p>
+                            <p class="font-bold">{{ ucFirst($post->status) }}</p>
                         </div>
                     </div>
 
@@ -159,6 +177,7 @@
 
         <div class="hidden">
             <input name="update" id="update_id" type="submit" value="Update" />
+            <input name="updatePublish" id="updatePublish_id" type="submit" value="Update" />
         </div>
         </form>
     </div>

@@ -29,8 +29,11 @@ Route::post('/store', [PostController::class, 'store'])
 Route::get('/edit/{post}', [PostController::class, 'edit'])
     ->middleware(BlastaDashboard::class);
 
-Route::post('/update/{post}', [PostController::class, 'update'])
+Route::post('/update/{post}', [PostController::class, 'updateOnly'])
     ->name('post.update');
+
+Route::post('/updatePublish/{post}', [PostController::class, 'updatePublish'])
+    ->name('post.updatePublish');
 
 Route::delete('/delete/{post}', [PostController::class, 'delete'])
     ->name('post.delete');
