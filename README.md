@@ -9,27 +9,28 @@ Blasta is a Content Management System built with Laravel with focus on producing
     ```
     git clone https://github.com/Ikennaf1/blasta.git
     ```
+
 - Install
     ```
     cd blasta
     ```
     
+    Install dependencies
     ```
-    composer install
-    ```
-
-    ```
-    npm install
+    composer install && npm install
     ```
 
+    Create all database tables
     ```
     php artisan migrate
     ```
+
 - Start the development server
     ```
     php artisan blasta:serve
     ```
-- Enjoy
+
+- Write your first post!
 
 ## License
 
