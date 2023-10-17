@@ -1,6 +1,6 @@
 ## About Blasta
 
-Blasta is a Content Management System built with Laravel with focus on producing beautiful, professional static content. Think of it as a WordPress for Laravel.
+Blasta is a Content Management System built with Laravel with focus on producing beautiful, professional static content. Think of it as a WordPress for Laravel, with the ability to generate static contents of the whole website.
 
 <!-- Blasta is accessible, powerful, and provides tools required for large, robust content management. -->
 
