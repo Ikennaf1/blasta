@@ -45,7 +45,7 @@
                 <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
                     <div class="flex justify-between items-center">
                         <p class="font-bold">Post</p>
-                        <div class="flex gap-4">
+                        <div class="flex gap-2">
                             <a class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600 cursor-pointer" href="/posts/{{$post->id}}" target="_blank">Preview</a>
                             <div class="flex gap-0">
                                 <label for="update_id" class="px-2 py-1 bg-blue-500 text-white rounded-l border border-blue-600 hover:bg-blue-600 cursor-pointer" href="#">Update</label>

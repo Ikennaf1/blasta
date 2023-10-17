@@ -224,7 +224,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request)
     {
         Post::onlyTrashed()->where('id', $request->post)->forceDelete();
         return redirect()->back();

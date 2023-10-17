@@ -65,7 +65,7 @@ use App\Models\User;
                                     <td class="px-6 py-4"><a class="text-blue-500" href="/posts/{{$post->id}}">{{ $post->title }}</a></td>
                                     <td class="px-6 py-4"><a class="text-blue-500" href="/users/{{$post->id}}">{{ $author }}</td>
                                     {{-- <td class="px-6 py-4">{{ $post->keywords }}</a></td> --}}
-                                    <td class="px-6 py-4">{{ $post->status }}</td>
+                                    <td class="px-6 py-4">{{ ucFirst($post->status) }}</td>
                                     <td class="px-6 py-4">{{ $post->created_at }}</td>
                                     <td class="px-6 py-4">{{ $post->updated_at }}</td>
                                     <td class="px-6 py-4">
