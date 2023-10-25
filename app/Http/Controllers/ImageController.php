@@ -18,6 +18,19 @@ class ImageController extends Controller
     }
 
     /**
+     * Stores the uploaded image in post and
+     * returns the file path
+     */
+    public function postImageAcceptor(Request $request): string
+    {
+        $location = static::upload($request, 'file');
+
+        return json_encode([
+            "location" => $location
+        ]);
+    }
+
+    /**
      * Stores the uploaded image and
      * returns the file path
      */

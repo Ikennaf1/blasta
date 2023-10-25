@@ -3,8 +3,11 @@
         selector: '#content_id',
         plugins: 'code link autolink anchor emoticons image imagetools media lists advlist',
         toolbar: 'undo redo styles bold italic underline strikethrough forecolor backcolor numlist bullist subscript superscript code link anchor emoticons image media blockquote',
-        statusbar: false
-        // toolbar: 'alignleft aligncenter alignright'
+        statusbar: false,
+        // toolbar: 'alignleft aligncenter alignright',
+        automatic_uploads: true,
+        images_upload_url: '/uploads/images/postImageAcceptor',
+        images_reuse_filename: true
     });
 </script>
 <div class="flex flex-col gap-8">
