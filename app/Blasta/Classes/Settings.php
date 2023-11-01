@@ -5,6 +5,7 @@ class Settings
     private static $instance = null;
 
     private static array $settings = [];
+    private static string $json;
 
     private function __construct(){}
     private function __clone(){}
@@ -15,6 +16,7 @@ class Settings
             static::$instance = new Settings;
         }
 
+        static::$json = base_path("/app/Blasta/settings.json");
         static::$instance->refreshSettings();
 
         return static::$instance;
@@ -75,12 +77,12 @@ class Settings
 
     private function write()
     {
-        file_put_contents("app/Blasta/settings.json", json_encode(static::$settings));
+        file_put_contents(static::$json, json_encode(static::$settings));
     }
 
     private function refreshSettings()
     {
-        $json = file_get_contents("app/Blasta/settings.json");
+        $json = file_get_contents(static::$json);
         static::$settings = json_decode($json, true);
     }
 }

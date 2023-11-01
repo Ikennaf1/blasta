@@ -1,1 +1,6 @@
-[]
+{
+    "general": {
+        "homepage": "index",
+        "query_limit": 10
+    }
+}
