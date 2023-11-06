@@ -657,10 +657,6 @@ video {
   isolation: auto;
 }
 
-.z-40{
-  z-index: 40;
-}
-
 .float-right{
   float: right;
 }
@@ -818,10 +814,6 @@ video {
 
 .h-32{
   height: 8rem;
-}
-
-.w-full{
-  width: 100%;
 }
 
 .flex-shrink{
@@ -2376,14 +2368,8 @@ video {
 
 :root {
   font-family: 'Josefin Sans', sans-serif;
-}
-
-body {
-  margin: 0;
-  background-color: #f8f9fa;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #4d4d4d;
+  --primary-color: #f87060;
+  --secondary-color: #102542;
 }
 
 .body-margin{
@@ -2419,15 +2405,25 @@ body {
   }
 }
 
+.body-bg {
+  background-color: #f8f9fa;
+}
+
 .bg-primary{
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 112 96 / var(--tw-bg-opacity));
+  background-color: var(--primary-color);
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #4d4d4d;
+  background-color: #f8f9fa;
 }
 
 .link{
   font-weight: 700;
-  --tw-text-opacity: 1;
-  color: rgb(16 37 66 / var(--tw-text-opacity));
+  color: var(--secondary-color);
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
@@ -2440,6 +2436,21 @@ body {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.nav{
+  position: fixed;
+  z-index: 40;
+  width: 100%;
+  border-bottom-width: 1px;
+  border-color: var(--primary-color);
+  background-color: #f8f9fa;
+}
+
+.header-img{
+  height: 16rem;
+  width: 100%;
+  overflow: hidden;
+}
+
 .post-content{
   width: 100%;
 }
@@ -2448,6 +2459,164 @@ body {
   .post-content{
     width: 70%;
   }
+}
+
+.posts-list{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+@media (min-width: 768px){
+  .posts-list{
+    width: 70%;
+    gap: 5rem;
+  }
+}
+
+.post-container{
+  display: flex;
+  height: 8rem;
+  width: 100%;
+  flex-direction: row;
+  gap: 0.5rem;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+@media (min-width: 768px){
+  .post-container{
+    height: 18rem;
+    width: 12rem;
+    flex-direction: column;
+  }
+}
+
+.post-list-img{
+  height: 100%;
+  width: 16rem;
+  overflow: hidden;
+}
+
+@media (min-width: 768px){
+  .post-list-img{
+    height: 8rem;
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+}
+
+.post-list-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+@media (min-width: 768px){
+  .post-list-body{
+    gap: 0.5rem;
+  }
+}
+
+.post-title{
+  font-weight: 700;
+}
+
+.post-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.post-desc p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  width: 100%;
+  overflow: hidden;
+}
+
+.post-list-footer{
+  display: none;
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px){
+  .post-list-footer{
+    display: flex;
+  }
+}
+
+.post-list-footer span{
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: var(--primary-color);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+.post-list-footer span:hover{
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
+}
+
+.post-list-footer-sm{
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px){
+  .post-list-footer-sm{
+    display: none;
+  }
+}
+
+.post-list-footer-sm span{
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: var(--primary-color);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+.post-list-footer-sm span:hover{
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .sidebar{
@@ -2521,6 +2690,16 @@ body {
 @media (min-width: 640px){
   .sm\:underline{
     text-decoration-line: underline;
+  }
+}
+
+@media (min-width: 768px){
+  .md\:flex{
+    display: flex;
+  }
+
+  .md\:hidden{
+    display: none;
   }
 }
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/post/{post}', [ExportController::class, 'exportPost']);
+Route::get('/homepage', [ExportController::class, 'exportHomepage']);
 Route::get('/assets', [ExportController::class, 'exportAssets']);
 
 Route::get('/', [ExportController::class, 'index']);

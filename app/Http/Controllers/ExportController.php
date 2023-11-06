@@ -70,6 +70,37 @@ class ExportController extends Controller
     /**
      * Exports a single post
      */
+    public function exportHomepage()
+    {
+        if (!file_exists(public_path() . '/my_exports')) {
+            mkdir(public_path() . '/my_exports');
+        }
+
+        $fp = fopen("my_exports/index.html", 'w');
+
+        $port = env('APP_ENV') == 'production'
+            ? ''
+            : ':8001';
+        
+        $options = array(
+            CURLOPT_URL             => env('APP_URL') . $port . '/',
+            CURLOPT_ENCODING        => 'gzip',
+            CURLOPT_RETURNTRANSFER  => true
+        );
+        $ch = curl_init();
+        curl_setopt_array($ch, $options);
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        fwrite($fp, $res);
+        fclose($fp);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Exports a single post
+     */
     public function exportPost(Post $post)
     {
         $id = request()->post->id;
@@ -88,11 +119,15 @@ class ExportController extends Controller
             mkdir(public_path() . '/my_exports');
         }
 
+        if (!file_exists(public_path() . '/my_exports/posts')) {
+            mkdir(public_path() . '/my_exports/posts');
+        }
+
         $link = $post->link == null
             ? titleToLink($post->title)
             : $post->link;
 
-        $fp = fopen("my_exports/$link" . '.html', 'w');
+        $fp = fopen("my_exports/posts/$link" . '.html', 'w');
 
         $port = env('APP_ENV') == 'production'
             ? ''
@@ -119,21 +154,6 @@ class ExportController extends Controller
      */
     public function exportAssets()
     {
-        $assets = file_get_contents(front_path('/assets.json'));
-        $assets = json_decode($assets)->assets;
-
-        foreach ($assets as $asset) {
-            $dirs = explode('/', $asset);
-            $numDirs = count($dirs);
-            if ($numDirs > 1) {
-                array_pop($dirs);
-                $dirs = implode('/', $dirs);
-
-                if (!is_dir(public_path("/my_exports/$dirs"))) {
-                    mkdir(public_path("/my_exports/$dirs"), 0777, true);
-                }
-            }
-            copy(front_path("/$asset"), public_path("/my_exports/$asset"));
-        }
+        exportAssets();
     }
 }
