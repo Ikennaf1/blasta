@@ -100,7 +100,8 @@ class PostController extends Controller
         $post = $this->saveDraft($request);
 
         if (!empty($request->publish)) {
-            $post->status = 'published';
+            $post->status   = 'published';
+            $post->link     = titleToLink($post->title);
             $post->save();
         }
 
@@ -132,10 +133,20 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Request $request)
     {
-        // return Post::find($post);
+        $query = url()->current();
+        $query = explode('/', $query);
+        $queryString = $query[count($query) - 1];
+
+        if ($queryString != (int) $queryString) {
+            $post = Post::where('link', $queryString)->first();
+        } else {
+            $post = Post::find((int) $queryString);
+        }
+
         $post->author = User::find($post->user_id)->name;
+
         return view('front.post', [
             'post' => $post
         ]);
@@ -171,7 +182,8 @@ class PostController extends Controller
         ]);
 
         if (!empty($request->updatePublish)) {
-            $post->status = "published";
+            $post->status   = "published";
+            $post->link     = titleToLink($post->title);
             $post->save();
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-function homeUrl(string $url = '/', $level = 1) : string
+function homeUrl(string $url = '/', $level = 0) : string
 {
     $url = trim($url, '.');
     $url = trim($url, '/');
