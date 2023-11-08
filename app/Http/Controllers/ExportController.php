@@ -68,7 +68,7 @@ class ExportController extends Controller
     }
 
     /**
-     * Exports a single post
+     * Exports the current homepage
      */
     public function exportHomepage()
     {
@@ -145,6 +145,59 @@ class ExportController extends Controller
 
         fwrite($fp, $res);
         fclose($fp);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Exports all posts
+     */
+    public function exportPosts()
+    {
+        $posts = Post::where('status', 'published')
+            ->orderBy('id', 'ASC')
+            ->get();
+        // dd($posts);
+        foreach ($posts as $post) {
+            // dd($post->id);
+            $id = $post->id;
+
+            if ($post->deleted_at !== null) {
+                Session::flash("error", "Deleted post can not be exported");
+                return redirect()->back();
+            }
+
+            if (!file_exists(public_path() . '/my_exports')) {
+                mkdir(public_path() . '/my_exports');
+            }
+
+            if (!file_exists(public_path() . '/my_exports/posts')) {
+                mkdir(public_path() . '/my_exports/posts');
+            }
+
+            $link = $post->link == null
+                ? titleToLink($post->title)
+                : $post->link;
+
+            $fp = fopen("my_exports/posts/$link" . '.html', 'w');
+
+            $port = env('APP_ENV') == 'production'
+                ? ''
+                : ':8001';
+            
+            $options = array(
+                CURLOPT_URL             => env('APP_URL') . $port . '/posts/' . $id,
+                CURLOPT_ENCODING        => 'gzip',
+                CURLOPT_RETURNTRANSFER  => true
+            );
+            $ch = curl_init();
+            curl_setopt_array($ch, $options);
+            $res = curl_exec($ch);
+            curl_close($ch);
+
+            fwrite($fp, $res);
+            fclose($fp);
+        }
 
         return redirect()->back();
     }
