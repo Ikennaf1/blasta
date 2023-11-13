@@ -181,6 +181,25 @@
                         <p class="text-sm">Separate each keyword with a comma</p>
                     </div>
                 </div>
+
+                
+
+                {{-- Post type --}}
+                <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold">Post type</p>
+                    </div>
+
+                    <hr class="" />
+                    
+                    <div>
+                        <select class="w-full rounded-lg border-gray-300 shadow" name="post_type" id="post_type_id">
+                            <option selected value="post">Post</option>
+                            <option value="page">Page</option>
+                        </select>
+                    </div>
+
+            </div>
             </div>
         </div>
 

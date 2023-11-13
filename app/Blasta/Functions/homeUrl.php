@@ -1,7 +1,11 @@
 <?php
 
-function homeUrl(string $url = '/', $level = 0) : string
+function homeUrl(string $url = '/', $level = -1) : string
 {
+    if ($level == -1) {
+        $level = count(explode('/', $url)) - 1;
+    }
+
     $url = trim($url, '.');
     $url = trim($url, '/');
 

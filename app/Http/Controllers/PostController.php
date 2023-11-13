@@ -79,8 +79,8 @@ class PostController extends Controller
         }
 
         return view('dashboard.posts.index', [
-            'posts' => $posts,
-            'subtitle' => $subtitle
+            'posts'     => $posts,
+            'subtitle'  => $subtitle
         ]);
     }
 
@@ -101,7 +101,6 @@ class PostController extends Controller
 
         if (!empty($request->publish)) {
             $post->status   = 'published';
-            $post->link     = titleToLink($post->title);
             $post->save();
         }
 
@@ -124,9 +123,10 @@ class PostController extends Controller
             'content'           => $request->content,
             'featured_image'    => $featured_image,
             'user_id'           => Auth::id(),
-            // 'link'              => titleToLink($request->title)
-            // 'description'       => $request->description,
-            // 'keywords'          => $request->keywords,
+            'link'              => titleToLink($request->title),
+            'post_type'         => $request->post_type,
+            'description'       => $request->description,
+            'keywords'          => $request->keywords,
         ]);
     }
 
@@ -176,14 +176,15 @@ class PostController extends Controller
         $post->update([
             'title'             => $request->title,
             'content'           => $request->content,
-            'featured_image'    => $featured_image
-            // 'description'       => $request->description,
-            // 'keywords'          => $request->keywords,
+            'featured_image'    => $featured_image,
+            'link'              => titleToLink($request->title),
+            'post_type'         => $request->post_type,
+            'description'       => $request->description,
+            'keywords'          => $request->keywords,
         ]);
 
         if (!empty($request->updatePublish)) {
             $post->status   = "published";
-            $post->link     = titleToLink($post->title);
             $post->save();
         }
 

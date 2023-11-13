@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('featured_image')->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
             $table->enum('post_type', ['post', 'page'])->default('post');
-            // $table->string('keywords')->nullable();
-            // $table->string('description')->nullable();
-            // $table->string('link')->nullable();
+            $table->string('keywords')->nullable();
+            $table->string('description')->nullable();
+            $table->string('link')->nullable();
             $table->smallInteger('user_id')->unsigned();
             $table->smallInteger('category_id')->nullable();
             $table->timestamps();
