@@ -1,6 +1,4 @@
-@php
-$base_path = homeUrl('/my_exports/uploads');
-@endphp
+
 <script>
     tinymce.init({
         selector: '#content_id',
@@ -9,11 +7,12 @@ $base_path = homeUrl('/my_exports/uploads');
         statusbar: false,
         // toolbar: 'alignleft aligncenter alignright',
         automatic_uploads: true,
-        document_base_url: 'http://localhost:8000/',
+        document_base_url: '/',
         relative_urls: false,
         remove_script_host: true,
+        convert_urls: false,
         images_upload_url: '/uploads/images/postImageAcceptor',
-        images_upload_base_path: '/uploads',
+        images_upload_base_path: '../uploads',
         images_reuse_filename: true,
         file_picker_types: 'image',
         file_picker_callback: function(cb, value, meta) {
