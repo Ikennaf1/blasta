@@ -16,6 +16,7 @@ class Post extends Model
         'content',
         'featured_image',
         'post_type',
+        'link',
         'keywords',
         'description',
         'user_id',

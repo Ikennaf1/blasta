@@ -10,6 +10,8 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Events\PostPublished;
+use App\Events\PagePublished;
 
 class PostController extends Controller
 {
@@ -104,6 +106,17 @@ class PostController extends Controller
             $post->save();
         }
 
+        switch ($post->post_type) {
+            case 'post':
+                PostPublished::dispatch($post);
+            break;
+            case 'page':
+                PagePublished::dispatch($post);
+            break;
+            default:
+                PostPublished::dispatch($post);
+        }
+
         return redirect('/dashboard?route=posts/edit/' . $post->id);
     }
 
@@ -186,6 +199,18 @@ class PostController extends Controller
         if (!empty($request->updatePublish)) {
             $post->status   = "published";
             $post->save();
+
+            switch ($post->post_type) {
+                case 'post':
+                    PostPublished::dispatch($post);
+                break;
+                case 'page':
+                    PagePublished::dispatch($post);
+                break;
+                default:
+                    PostPublished::dispatch($post);
+                break;
+            }
         }
 
         return redirect()->back();
@@ -211,6 +236,18 @@ class PostController extends Controller
         if (!empty($request->updatePublish)) {
             $post->status = "published";
             $post->save();
+        }
+
+        switch ($post->post_type) {
+            case 'post':
+                PostPublished::dispatch($post);
+            break;
+            case 'page':
+                PagePublished::dispatch($post);
+            break;
+            default:
+                PostPublished::dispatch($post);
+            break;
         }
 
         return redirect()->back();
