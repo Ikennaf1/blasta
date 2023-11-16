@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\BlastaDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index']);
 Route::get('/list', [PageController::class, 'list']);
+Route::get('/all', [PageController::class, 'all'])
+    ->middleware(BlastaDashboard::class);
+Route::get('/all/{filter}', [PageController::class, 'all'])
+    ->middleware(BlastaDashboard::class);
+
 Route::get('/{page}', [PageController::class, 'show']);

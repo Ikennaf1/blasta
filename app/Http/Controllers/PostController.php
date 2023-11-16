@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Events\PostPublished;
 use App\Events\PagePublished;
+use App\Events\PostDeleted;
+use App\Events\PageDeleted;
+use App\Events\PageRestored;
 
 class PostController extends Controller
 {
@@ -259,6 +262,19 @@ class PostController extends Controller
     public function delete(Post $post)
     {
         $post->delete();
+
+        switch ($post->post_type) {
+            case 'post':
+                PostDeleted::dispatch($post);
+            break;
+            case 'page':
+                PageDeleted::dispatch($post);
+            break;
+            default:
+                PostDeleted::dispatch($post);
+            break;
+        }
+
         return redirect()->back();
     }
 
@@ -267,7 +283,23 @@ class PostController extends Controller
      */
     public function restore(Request $request)
     {
-        Post::onlyTrashed()->where('id', $request->post)->restore();
+        $post = Post::onlyTrashed()->where('id', $request->post)->firstOrFail();
+        $post->restore();
+
+        if ($post->status === 'published') {
+            switch ($post->post_type) {
+                case 'post':
+                    PostPublished::dispatch($post);
+                break;
+                case 'page':
+                    PagePublished::dispatch($post);
+                break;
+                default:
+                    PostPublished:dispatch($post);
+                break;
+            }
+        }
+
         return redirect()->back();
     }
 

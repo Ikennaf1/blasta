@@ -13,7 +13,7 @@ class PagePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class PagePolicy
      */
     public function view(User $user, Page $page): bool
     {
-        //
+        return true;
     }
 
     /**

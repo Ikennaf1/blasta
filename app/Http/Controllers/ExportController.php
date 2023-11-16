@@ -103,13 +103,17 @@ class ExportController extends Controller
      */
     public function exportPost(Post $post, $postType = 'post')
     {
-        $id = request()->post->id;
+        if (is_string(request()->post)) {
+            $id = request()->post;
+        } else {
+            $id = request()->post->id;
+        }
 
         switch ($postType) {
             case 'post':
                 $subdirectory = 'posts';
             break;
-            case'page':
+            case 'page':
                 $subdirectory = 'pages';
             break;
             default:
@@ -163,9 +167,10 @@ class ExportController extends Controller
     /**
      * Exports a single page
      */
-    public function exportPage(Post $post, $postType = 'post')
+    public function exportPage(Post $post)
     {
         $this->exportPost($post, 'page');
+        return redirect()->back();
     }
 
     /**
@@ -218,6 +223,37 @@ class ExportController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /**
+     * Deletes the specified exported post
+     */
+    public function deletePost(Post $post, $postType = 'post')
+    {
+        switch ($postType) {
+            case 'post':
+                $subdirectory = 'posts';
+            break;
+            case 'page':
+                $subdirectory = 'pages';
+            break;
+            default:
+                $subdirectory = 'posts';
+        }
+
+        $path = base_path("/public/my_exports/$subdirectory/$post->link.html");
+
+        unlink($path);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Deletes the specified exported page
+     */
+    public function deletePage(Post $post)
+    {
+        $this->deletePost($post, 'page');
     }
 
     /**

@@ -73,6 +73,67 @@ class PageController extends Controller
     }
 
     /**
+     * Display a listing of the resource in the dashboard.
+     */
+    public function all(Request $request)
+    {
+        $filter = $request->filter;
+        $limit = 5;
+        if (!isset($filter) || $filter === '') {
+            $posts = Post::where('post_type', 'page')
+                ->latest()
+                ->orderBy('id', 'DESC')
+                ->paginate($limit);
+            $posts->withPath('/dashboard?route=pages/all');
+            $subtitle = 'All Pages';
+        }
+
+        else if ($filter === 'published') {
+            $posts = Post::where('post_type', 'page')
+                ->where('status', 'published')
+                ->latest()
+                ->orderBy('id', 'DESC')
+                ->paginate($limit);
+            $posts->withPath('/dashboard?route=pages/all/published');
+            $subtitle = 'Published Pages';
+        }
+
+        else if ($filter === 'drafts') {
+            $posts = Post::where('post_type', 'page')
+                ->where('status', 'draft')
+                ->latest()
+                ->orderBy('id', 'DESC')
+                ->paginate($limit);
+            $posts->withPath('/dashboard?route=pages/all/drafts');
+            $subtitle = 'Drafts';
+        }
+
+        else if ($filter === 'trashed') {
+            $posts = Post::where('post_type', 'page')
+                ->onlyTrashed()
+                ->latest()
+                ->orderBy('id', 'DESC')
+                ->paginate($limit);
+            $posts->withPath('/dashboard?route=pages/all/trashed');
+            $subtitle = 'Trashed Pages';
+        }
+        
+        else {
+            $posts = Post::where('post_type', 'page')
+                ->latest()
+                ->orderBy('id', 'DESC')
+                ->paginate($limit);
+            $posts->withPath('/dashboard?route=pages/all');
+            $subtitle = 'All Pages';
+        }
+
+        return view('dashboard.pages.index', [
+            'posts'     => $posts,
+            'subtitle'  => $subtitle
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

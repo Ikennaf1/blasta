@@ -8,8 +8,14 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\PostPublished;
 use App\Events\PagePublished;
+use App\Events\PostDeleted;
+use App\Events\PageDeleted;
+use App\Events\PostRestored;
+use App\Events\PageRestored;
 use App\Listeners\ExportPostPublished;
 use App\Listeners\ExportPagePublished;
+use App\Listeners\DeleteExportedPostDeleted;
+use App\Listeners\DeleteExportedPageDeleted;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,6 +32,18 @@ class EventServiceProvider extends ServiceProvider
             ExportPostPublished::class
         ],
         PagePublished::class => [
+            ExportPagePublished::class
+        ],
+        PostDeleted::class => [
+            DeleteExportedPostDeleted::class
+        ],
+        PageDeleted::class => [
+            DeleteExportedPageDeleted::class
+        ],
+        PostRestored::class => [
+            ExportPostPublished::class
+        ],
+        PageRestored::class => [
             ExportPagePublished::class
         ],
     ];

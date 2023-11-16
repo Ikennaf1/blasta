@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'exports/posts',
         'exports/post/*',
+        'exports/page/*',
         '/posts/*',
         '/uploads/*'
     ];
