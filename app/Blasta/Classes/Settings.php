@@ -14,10 +14,10 @@ class Settings
     {
         if (static::$instance == null) {
             static::$instance = new Settings;
-        }
 
-        static::$json = base_path("/app/Blasta/settings.json");
-        static::$instance->refreshSettings();
+            static::$json = base_path("/app/Blasta/settings.json");
+            static::$instance->refresh();
+        }
 
         return static::$instance;
     }
@@ -29,7 +29,7 @@ class Settings
         }        
 
         $this->write();
-        $this->refreshSettings();
+        $this->refresh();
     }
 
     public function update(string $key, string $setting, $value)
@@ -39,7 +39,7 @@ class Settings
         }
 
         $this->write();
-        $this->refreshSettings();
+        $this->refresh();
     }
 
     public function remove(string $key, string ...$settings)
@@ -49,7 +49,7 @@ class Settings
         }
 
         $this->write();
-        $this->refreshSettings();
+        $this->refresh();
     }
 
     public function get(string $key, string $setting)
@@ -72,7 +72,7 @@ class Settings
         unset(static::$settings[$key]);
 
         $this->write();
-        $this->refreshSettings();
+        $this->refresh();
     }
 
     private function write()
@@ -80,7 +80,7 @@ class Settings
         file_put_contents(static::$json, json_encode(static::$settings));
     }
 
-    private function refreshSettings()
+    private function refresh()
     {
         $json = file_get_contents(static::$json);
         static::$settings = json_decode($json, true);

@@ -28,7 +28,14 @@ class PageController extends Controller
     {
         $pagesFinal = [];
         $ignoredRoutes = [
-            'pages/list'
+            'pages/',
+            'pages/list',
+            'pages/all',
+            'pages/all/published',
+            'pages/all/drafts',
+            'pages/all/trashed',
+            'pages/all/{filter}',
+            'pages/all/{page}'
         ];
 
         $pages = Post::where('post_type', 'page')
