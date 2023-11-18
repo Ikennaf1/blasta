@@ -16,6 +16,7 @@ use App\Listeners\ExportPostPublished;
 use App\Listeners\ExportPagePublished;
 use App\Listeners\DeleteExportedPostDeleted;
 use App\Listeners\DeleteExportedPageDeleted;
+use App\Listeners\UpdateTags;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,7 +30,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         PostPublished::class => [
-            ExportPostPublished::class
+            ExportPostPublished::class,
+            UpdateTags::class
         ],
         PagePublished::class => [
             ExportPagePublished::class
