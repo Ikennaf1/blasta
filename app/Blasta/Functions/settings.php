@@ -4,5 +4,5 @@ require_once base_path('/app/Blasta/Classes/Settings.php');
 
 function getSettings()
 {
-    $settings = Settings::getInstance();
+    return Settings::getInstance();
 }

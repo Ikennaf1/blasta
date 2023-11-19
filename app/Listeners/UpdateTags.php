@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Events\PostPublished;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-// use App\Blasta\Classes\Tag;
-// require_once base_path()
 
 class UpdateTags
 {
