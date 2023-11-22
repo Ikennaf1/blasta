@@ -1,6 +1,3 @@
-@php
-use App\Models\User;
-@endphp
 
 <div>
     <div class="flex flex-col gap-8">
@@ -8,162 +5,49 @@ use App\Models\User;
         <div class="flex items-center gap-4">
             <div class="flex justify-center items-center w-8 h-8 rounded bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-4 h-4">
-                    <path d="M15.75 8.25a.75.75 0 01.75.75c0 1.12-.492 2.126-1.27 2.812a.75.75 0 11-.992-1.124A2.243 2.243 0 0015 9a.75.75 0 01.75-.75z" />
-                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM4.575 15.6a8.25 8.25 0 009.348 4.425 1.966 1.966 0 00-1.84-1.275.983.983 0 01-.97-.822l-.073-.437c-.094-.565.25-1.11.8-1.267l.99-.282c.427-.123.783-.418.982-.816l.036-.073a1.453 1.453 0 012.328-.377L16.5 15h.628a2.25 2.25 0 011.983 1.186 8.25 8.25 0 00-6.345-12.4c.044.262.18.503.389.676l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.575 15.6z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M16.098 2.598a3.75 3.75 0 113.622 6.275l-1.72.46V12a.75.75 0 01-.22.53l-.75.75a.75.75 0 01-1.06 0l-.97-.97-7.94 7.94a2.56 2.56 0 01-1.81.75 1.06 1.06 0 00-.75.31l-.97.97a.75.75 0 01-1.06 0l-.75-.75a.75.75 0 010-1.06l.97-.97a1.06 1.06 0 00.31-.75c0-.68.27-1.33.75-1.81L11.69 9l-.97-.97a.75.75 0 010-1.06l.75-.75A.75.75 0 0112 6h2.666l.461-1.72c.165-.617.49-1.2.971-1.682zm-3.348 7.463L4.81 18a1.06 1.06 0 00-.31.75c0 .318-.06.63-.172.922a2.56 2.56 0 01.922-.172c.281 0 .551-.112.75-.31l7.94-7.94-1.19-1.19z" clip-rule="evenodd" />
                 </svg>
             </div>
-            <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">{{ $subtitle }}</h2>
-                {{-- <a href="/dashboard?route=posts/create">
-                    <span class="inline-block px-2 py-1 shadow border bg-gray-50 border-gray-400 hover:border-gray-500 text-blue-500 hover:text-blue-600 transition duration-400">
-                    Add new post
-                    </span>
-                </a> --}}
+            <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">Appearance</h2>
+                
             </span>
         </div>
 
-        <div class="flex flex-col gap-4">
-            <div class="flex w-full items-center gap-4 sm:gap-8">
-                <span class="text-blue-500"><a href="/dashboard?route=pages/all">All</a></span>
-                <span class="text-gray-300">|</span>
-                <span class="text-blue-500"><a href="/dashboard?route=pages/all/drafts">Drafts</a></span>
-                <span class="text-gray-300">|</span>
-                <span class="text-blue-500"><a href="/dashboard?route=pages/all/published">Published</a></span>
-                <span class="text-gray-300">|</span>
-                <span class="text-blue-500"><a href="/dashboard?route=pages/all/trashed">Trashed</a></span>
-                <span class="justify-self-end ml-auto hidden lg:inline-block">
-                    <form method="GET">
-                        @csrf
-                        <input type="search" placeholder="Search posts" class="shadow border-gray-300"/>
-                        <input type="submit" value="Search" class="border border-gray-300 hover:border-gray-400 p-2 cursor-pointer shadow" />
-                    </form>
-                </span>
-            </div>
-            <div class="w-full overflow-x-auto border shadow">
-                @if (count($posts) == 0)
-                    Empty. Nothing to see here.
-                @else
-                    @if (strpos($_SERVER["REQUEST_URI"], "trashed") === false)
-                        <table class="w-full border-collapse bg-white text-left text-sm text-gray-700">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Author</th>
-                                    {{-- <th scope="col" class="px-6 py-4 font-medium text-gray-900">Keywords</th> --}}
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date created</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Last modified</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Edit</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Delete</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Export</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                            @foreach ($posts as $post)
-                                <?php
-                                $author = User::find($post->user_id)->name ?? 'Deleted user';
-                                ?>
-                                <tr class="odd:bg-white even:bg-gray-100">
-                                    <td class="px-6 py-4"><a class="text-blue-500" href="/posts/{{$post->id}}">{{ $post->title }}</a></td>
-                                    <td class="px-6 py-4"><a class="text-blue-500" href="/users/{{$post->id}}">{{ $author }}</td>
-                                    {{-- <td class="px-6 py-4">{{ $post->keywords }}</a></td> --}}
-                                    <td class="px-6 py-4">{{ ucFirst($post->status) }}</td>
-                                    <td class="px-6 py-4">{{ $post->created_at }}</td>
-                                    <td class="px-6 py-4">{{ $post->updated_at }}</td>
-                                    <td class="px-6 py-4">
-                                        <a class="text-blue-500" href="/dashboard?route=posts/edit/{{$post->id}}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                            </svg>
-                                        </a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <form method="post" action="/posts/delete/{{$post->id}}">
-                                            @method('delete')
-                                            <input id="delete_{{$post->id}}" class="hidden" type="submit">
-                                        </form>
-                                        <label for="delete_{{$post->id}}" class="text-red-500 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                            </svg>
-                                        </label>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        @php
-                                        $action = $post->status === "draft" ? "#" : "/exports/page/$post->id";
-                                        @endphp
-                                        @if ($post->status !== "draft")
-                                            <form action="{{ $action }}" method="post">
-                                                <input class="hidden" type="submit" id="export_{{$post->id}}">
-                                            </form>
-                                        @endif
-                                        <label for="export_{{$post->id}}" class="text-blue-500 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                                            </svg>
-                                        </label>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                    {{-- Trashed --}}
-                        <table class="w-full border-collapse bg-white text-left text-sm text-gray-700">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Author</th>
-                                    {{-- <th scope="col" class="px-6 py-4 font-medium text-gray-900">Keywords</th> --}}
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date created</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Deleted at</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Restore</th>
-                                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Destroy</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                            @foreach ($posts as $post)
-                                <?php
-                                $author = User::find($post->user_id)->name ?? 'Deleted user';
-                                ?>
-                                <tr class="odd:bg-white even:bg-gray-100">
-                                    <td class="px-6 py-4"><a class="text-blue-500" href="/posts/{{$post->id}}">{{ $post->title }}</a></td>
-                                    <td class="px-6 py-4"><a class="text-blue-500" href="/users/{{$post->id}}">{{ $author }}</td>
-                                    {{-- <td class="px-6 py-4">{{ $post->keywords }}</a></td> --}}
-                                    <td class="px-6 py-4">{{ $post->status }}</td>
-                                    <td class="px-6 py-4">{{ $post->created_at }}</td>
-                                    <td class="px-6 py-4">{{ $post->deleted_at }}</td>
-                                    <td class="px-6 py-4">
-                                        <form method="post" action="/posts/restore/{{$post->id}}">
-                                            @method('patch')
-                                            <input id="restore_{{$post->id}}" class="hidden" type="submit">
-                                        </form>
-                                        <label for="restore_{{$post->id}}" class="text-green-500 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
-                                            </svg>
-                                        </label>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <form method="post" action="/posts/destroy/{{$post->id}}">
-                                            @method('delete')
-                                            <input id="destroy_{{$post->id}}" class="hidden" type="submit">
-                                        </form>
-                                        <label for="destroy_{{$post->id}}" class="text-red-500 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </label>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                @endif
-            </div>
-            <div>
-                {{ $posts->links() }}
+        <div class="appearance-container">
+            <div class="appearance-items">
+                <div class="appearance-item-container">
+                    <a href="/dashboard?route=themes">
+                        <div class="appearance-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16">
+                                <path fill-rule="evenodd" d="M20.599 1.5c-.376 0-.743.111-1.055.32l-5.08 3.385a18.747 18.747 0 00-3.471 2.987 10.04 10.04 0 014.815 4.815 18.748 18.748 0 002.987-3.472l3.386-5.079A1.902 1.902 0 0020.599 1.5zm-8.3 14.025a18.76 18.76 0 001.896-1.207 8.026 8.026 0 00-4.513-4.513A18.75 18.75 0 008.475 11.7l-.278.5a5.26 5.26 0 013.601 3.602l.502-.278zM6.75 13.5A3.75 3.75 0 003 17.25a1.5 1.5 0 01-1.601 1.497.75.75 0 00-.7 1.123 5.25 5.25 0 009.8-2.62 3.75 3.75 0 00-3.75-3.75z" clip-rule="evenodd" />
+                            </svg>
+                            <div>Themes</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="appearance-item-container">
+                    <a href="/dashboard?route=widgets">
+                        <div class="appearance-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16">
+                                <path d="M17.004 10.407c.138.435-.216.842-.672.842h-3.465a.75.75 0 01-.65-.375l-1.732-3c-.229-.396-.053-.907.393-1.004a5.252 5.252 0 016.126 3.537zM8.12 8.464c.307-.338.838-.235 1.066.16l1.732 3a.75.75 0 010 .75l-1.732 3.001c-.229.396-.76.498-1.067.16A5.231 5.231 0 016.75 12c0-1.362.519-2.603 1.37-3.536zM10.878 17.13c-.447-.097-.623-.608-.394-1.003l1.733-3.003a.75.75 0 01.65-.375h3.465c.457 0 .81.408.672.843a5.252 5.252 0 01-6.126 3.538z" />
+                                <path fill-rule="evenodd" d="M21 12.75a.75.75 0 000-1.5h-.783a8.22 8.22 0 00-.237-1.357l.734-.267a.75.75 0 10-.513-1.41l-.735.268a8.24 8.24 0 00-.689-1.191l.6-.504a.75.75 0 10-.964-1.149l-.6.504a8.3 8.3 0 00-1.054-.885l.391-.678a.75.75 0 10-1.299-.75l-.39.677a8.188 8.188 0 00-1.295-.471l.136-.77a.75.75 0 00-1.477-.26l-.136.77a8.364 8.364 0 00-1.377 0l-.136-.77a.75.75 0 10-1.477.26l.136.77c-.448.121-.88.28-1.294.47l-.39-.676a.75.75 0 00-1.3.75l.392.678a8.29 8.29 0 00-1.054.885l-.6-.504a.75.75 0 00-.965 1.149l.6.503a8.243 8.243 0 00-.689 1.192L3.8 8.217a.75.75 0 10-.513 1.41l.735.267a8.222 8.222 0 00-.238 1.355h-.783a.75.75 0 000 1.5h.783c.042.464.122.917.238 1.356l-.735.268a.75.75 0 10.513 1.41l.735-.268c.197.417.428.816.69 1.192l-.6.504a.75.75 0 10.963 1.149l.601-.505c.326.323.679.62 1.054.885l-.392.68a.75.75 0 101.3.75l.39-.679c.414.192.847.35 1.294.471l-.136.771a.75.75 0 101.477.26l.137-.772a8.376 8.376 0 001.376 0l.136.773a.75.75 0 101.477-.26l-.136-.772a8.19 8.19 0 001.294-.47l.391.677a.75.75 0 101.3-.75l-.393-.679a8.282 8.282 0 001.054-.885l.601.504a.75.75 0 10.964-1.15l-.6-.503a8.24 8.24 0 00.69-1.191l.735.268a.75.75 0 10.512-1.41l-.734-.268c.115-.438.195-.892.237-1.356h.784zm-2.657-3.06a6.744 6.744 0 00-1.19-2.053 6.784 6.784 0 00-1.82-1.51A6.704 6.704 0 0012 5.25a6.801 6.801 0 00-1.225.111 6.7 6.7 0 00-2.15.792 6.784 6.784 0 00-2.952 3.489.758.758 0 01-.036.099A6.74 6.74 0 005.251 12a6.739 6.739 0 003.355 5.835l.01.006.01.005a6.706 6.706 0 002.203.802c.007 0 .014.002.021.004a6.792 6.792 0 002.301 0l.022-.004a6.707 6.707 0 002.228-.816 6.781 6.781 0 001.762-1.483l.009-.01.009-.012a6.744 6.744 0 001.18-2.064c.253-.708.39-1.47.39-2.264a6.74 6.74 0 00-.408-2.308z" clip-rule="evenodd" />
+                                </svg>
+                            <div>Widgets</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="appearance-item-container">
+                    <a href="/dashboard?route=menu">
+                        <div class="appearance-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16">
+                                <path d="M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" />
+                            </svg>
+                            <div>Menu</div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
