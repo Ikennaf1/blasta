@@ -26,6 +26,12 @@ function removeMenu(string $title)
     $settings->remove('menu', $title);
 }
 
+function clearMenu()
+{
+    $settings = Settings::getInstance();
+    $settings->clear('menu');
+}
+
 function menu()
 {
     $newMenu = [];

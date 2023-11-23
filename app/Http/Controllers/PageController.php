@@ -29,6 +29,7 @@ class PageController extends Controller
         $pagesFinal = [];
         $ignoredRoutes = [
             'pages/',
+            'pages/{page}',
             'pages/list',
             'pages/all',
             'pages/all/published',

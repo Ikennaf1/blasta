@@ -25,3 +25,7 @@ link {
 .appearance-item svg {
     @apply text-black hover:text-green-500 transition duration-500;
 }
+
+.menu-text-input {
+    @apply border border-gray-400 rounded-lg w-full;
+}

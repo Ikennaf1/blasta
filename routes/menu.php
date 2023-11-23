@@ -15,7 +15,10 @@ use App\Http\Middleware\BlastaDashboard;
 |
 */
 
-Route::get('/', [MenuController::class, 'index']);
+Route::get('/', [MenuController::class, 'index'])
+    ->middleware(BlastaDashboard::class);
+
+Route::post('/create', [MenuController::class, 'create']);
 
 
 
