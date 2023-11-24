@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\PageController;
-$menu = getMenu();
+$menu = getMenuList();
 $page = new PageController();
 $pages = $page->list();
 ?>
@@ -92,7 +92,6 @@ $pages = $page->list();
 
 let pages = {};
 pages = <?php echo json_encode($pages); ?>;
-// console.log(pages);
 
 const deleteRow = (id) => {
     let parent = document.querySelector(`#menu_list_body`);

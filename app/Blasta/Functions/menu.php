@@ -14,7 +14,7 @@ function addMenu(string $title, string $url, ?string $target = null)
     ]);
 }
 
-function getMenu()
+function getMenuList()
 {
     $settings = Settings::getInstance();
     return $settings->list('menu');
@@ -32,10 +32,10 @@ function clearMenu()
     $settings->clear('menu');
 }
 
-function menu()
+function getMenu()
 {
     $newMenu = [];
-    $menu = getMenu();
+    $menu = getMenuList();
 
     foreach ($menu as $title => $props) {
         $newMenu[] = $props['target'] == null
