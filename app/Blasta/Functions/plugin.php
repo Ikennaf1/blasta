@@ -35,14 +35,14 @@ function pluginExists(string $pluginName): bool
 /**
  * Marks a plugin as active
  */
-function markActive(string $pluginName)
+function markPluginActive(string $pluginName)
 {
     if (!pluginExists($pluginName)) {
         throw new Exception("Plugin $pluginName does not exist.");
     }
 
     $plugin = plugin_path("/$pluginName");
-    $mark = "$pluginName=ACTIVE";
+    $mark = '';
 
     $file = fopen("$plugin/ACTIVE", 'w');
     fwrite($file, $mark);
@@ -70,7 +70,7 @@ function pluginIsActive(string $pluginName): bool
 /**
  * Unmarks a plugin as active
  */
-function unmarkActive(string $pluginName)
+function unmarkPluginActive(string $pluginName)
 {
     if (!pluginIsActive($pluginName)) {
         return;
@@ -81,3 +81,70 @@ function unmarkActive(string $pluginName)
     unlink("$plugin/ACTIVE");
 }
 
+/**
+ * Gets all active plugins
+ */
+function getActivePlugins()
+{
+    $plugins = getPlugins();
+    $activePlugins = [];
+
+    foreach ($plugins as $plugin) {
+        if (pluginIsActive($plugin)) {
+            $activePlugins[] = $plugin;
+        }
+    }
+
+    return $activePlugins;
+}
+
+/**
+ * Gets all inactive plugins
+ */
+function getInactivePlugins()
+{
+    $plugins = getPlugins();
+    $inactivePlugins = [];
+
+    foreach ($plugins as $plugin) {
+        if (!pluginIsActive($plugin)) {
+            $inactivePlugins[] = $plugin;
+        }
+    }
+
+    return $inactivePlugins;
+}
+
+/**
+ * Activates a plugin
+ */
+function activatePlugin(string $pluginName)
+{
+    markPluginActive($pluginName);
+
+    loadActivePlugins();
+}
+
+/**
+ * Deactivates a plugin
+ */
+function deactivatePlugin(string $pluginName)
+{
+    unmarkPluginActive($pluginName);
+
+    loadActivePlugins();
+}
+
+/**
+ * Loads all active plugins to memory
+ */
+function loadActivePlugins()
+{
+    $activePlugins = getActivePlugins();
+
+    if (!empty($activePlugins)) {
+        foreach ($activePlugins as $activePlugin) {
+            require_once plugin_path("/$activePlugin/index.php");
+        }
+    }
+}

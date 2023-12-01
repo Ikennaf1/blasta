@@ -12,3 +12,4 @@ function blastaGlobalFunctions()
 }
 
 blastaGlobalFunctions();
+loadActivePlugins();

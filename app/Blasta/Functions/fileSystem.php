@@ -6,7 +6,7 @@
 function getContents(string $dir)
 {
     $contents = [];
-    $dir = new DirectoryIterator(dirname(__FILE__));
+    $dir = new DirectoryIterator($dir);
     foreach ($dir as $fileinfo) {
         if (!$fileinfo->isDot()) {
             $contents[] = $fileinfo->getFileName();
@@ -22,7 +22,7 @@ function getContents(string $dir)
 function getDirectories(string $dir)
 {
     $dirs = [];
-    $dir = new DirectoryIterator(dirname(__FILE__));
+    $dir = new DirectoryIterator($dir);
     foreach ($dir as $fileinfo) {
         if (!$fileinfo->isDot() && $fileinfo->isDir()) {
             $dirs[] = $fileinfo->getFileName();
@@ -38,7 +38,7 @@ function getDirectories(string $dir)
 function getFiles(string $dir)
 {
     $files = [];
-    $dir = new DirectoryIterator(dirname(__FILE__));
+    $dir = new DirectoryIterator($dir);
     foreach ($dir as $fileinfo) {
         if (!$fileinfo->isDot() && $fileinfo->isFile()) {
             $files[] = $fileinfo->getFileName();
