@@ -10,4 +10,36 @@ class PluginController extends Controller
     {
         return view('dashboard.plugins.index');
     }
+
+    public function activate(Request $request)
+    {
+        $plugin = $this->getPluginNameFromUrl($request->url());
+        activatePlugin($plugin);
+
+        return redirect()->back();
+    }
+
+    public function deactivate(Request $request)
+    {
+        $plugin = $this->getPluginNameFromUrl($request->url());
+        deactivatePlugin($plugin);
+
+        return redirect()->back();
+    }
+
+    public function delete(Request $request)
+    {
+        $plugin = $this->getPluginNameFromUrl($request->url());
+        deletePlugin($plugin);
+
+        return redirect()->back();
+    }
+
+    
+    private function getPluginNameFromUrl(string $url): string
+    {
+        $pluginUrlChomped = explode('/', $url);
+        $plugin = $pluginUrlChomped[count($pluginUrlChomped) - 1];
+        return rawurldecode($plugin);
+    }
 }

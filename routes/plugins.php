@@ -18,15 +18,6 @@ use App\Http\Middleware\BlastaDashboard;
 Route::get('/', [PluginController::class, 'index'])
     ->middleware(BlastaDashboard::class);
 
-Route::post('/create', [PluginController::class, 'create']);
-
-
-
-
-// Route::get('/list', [PageController::class, 'list']);
-// Route::get('/all', [PageController::class, 'all'])
-//     ->middleware(BlastaDashboard::class);
-// Route::get('/all/{filter}', [PageController::class, 'all'])
-//     ->middleware(BlastaDashboard::class);
-
-// Route::get('/{page}', [PageController::class, 'show']);
+Route::post('/activate/{plugin}', [PluginController::class, 'activate']);
+Route::post('/deactivate/{plugin}', [PluginController::class, 'deactivate']);
+Route::post('/delete/{plugin}', [PluginController::class, 'delete']);

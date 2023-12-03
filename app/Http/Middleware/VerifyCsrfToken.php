@@ -17,6 +17,9 @@ class VerifyCsrfToken extends Middleware
         'exports/page/*',
         '/posts/*',
         '/uploads/*',
-        '/menu/create'
+        '/menu/create',
+        '/plugins/activate/*',
+        '/plugins/deactivate/*',
+        '/plugins/delete/*',
     ];
 }

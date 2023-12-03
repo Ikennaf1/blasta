@@ -52,7 +52,7 @@ function markPluginActive(string $pluginName)
 /**
  * Checks if a plugin is active
  */
-function pluginIsActive(string $pluginName): bool
+function isPluginActive(string $pluginName): bool
 {
     if (!pluginExists($pluginName)) {
         return false;
@@ -72,7 +72,7 @@ function pluginIsActive(string $pluginName): bool
  */
 function unmarkPluginActive(string $pluginName)
 {
-    if (!pluginIsActive($pluginName)) {
+    if (!isPluginActive($pluginName)) {
         return;
     }
 
@@ -90,7 +90,7 @@ function getActivePlugins()
     $activePlugins = [];
 
     foreach ($plugins as $plugin) {
-        if (pluginIsActive($plugin)) {
+        if (isPluginActive($plugin)) {
             $activePlugins[] = $plugin;
         }
     }
@@ -107,7 +107,7 @@ function getInactivePlugins()
     $inactivePlugins = [];
 
     foreach ($plugins as $plugin) {
-        if (!pluginIsActive($plugin)) {
+        if (!isPluginActive($plugin)) {
             $inactivePlugins[] = $plugin;
         }
     }
@@ -147,4 +147,16 @@ function loadActivePlugins()
             require_once plugin_path("/$activePlugin/index.php");
         }
     }
+}
+
+/**
+ * Loads all active plugins to memory
+ */
+function deletePlugin(string $pluginName)
+{
+    if (isPluginActive($pluginName)) {
+        return false;
+    }
+
+    return deleteDir(plugin_path("/$pluginName"), true);
 }

@@ -47,3 +47,38 @@ function getFiles(string $dir)
 
     return $files;
 }
+
+/**
+ * Deletes a directory
+ */
+function deleteDir(string $path, bool $force = false)
+{
+    if ($force === false) {
+        return rmdir($path);
+    }
+
+    return rrmdir($path);
+}
+
+/**
+ * Recursively deletes a directory
+ */
+function rrmdir($path) {
+    $dir = opendir($path);
+
+    while(( $file = readdir($dir)) !== false) {
+        if (( $file != '.' ) && ( $file != '..' )) {
+            $full = $path . '/' . $file;
+            if ( is_dir($full) ) {
+                rrmdir($full);
+            }
+            else {
+                unlink($full);
+            }
+        }
+    }
+
+    closedir($dir);
+
+    return rmdir($path);
+}

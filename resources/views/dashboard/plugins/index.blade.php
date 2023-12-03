@@ -25,7 +25,8 @@ $inactivePlugins = getInactivePlugins();
             </div>
 
             @php
-            $plugins = $allPlugins;
+            $plugins    = $allPlugins;
+            $idx        = 1;
             @endphp
 
             <div>
@@ -47,20 +48,26 @@ $inactivePlugins = getInactivePlugins();
                                 <p class="font-bold">{{ $plugin }}</p>
                                 <div class="flex justify-start items-center gap-4">
                                     <span>
-                                        @php
-                                            if (pluginIsActive($plugin)) {
-                                                echo '<p class="text-blue-500">Deactivate</p>';
-                                            } else {
-                                                echo '<p class="text-blue-500">Activate</p>';
-                                            }
-                                        @endphp
+                                        @if (isPluginActive($plugin))
+                                            <form action="/plugins/deactivate/{{ $plugin }}" method="post">
+                                                <button id="deactivate_{{ $idx }}" class="hidden" type="submit">Deactivate</button>
+                                            </form>
+                                            <label for="deactivate_{{ $idx }}" class="text-blue-500 cursor-pointer">Deactivate</label>
+                                        @else
+                                            <form action="/plugins/activate/{{ $plugin }}" method="post">
+                                                <button id="activate_{{ $idx }}" class="hidden" type="submit">Activate</button>
+                                            </form>
+                                            <label for="activate_{{ $idx }}" class="text-blue-500 cursor-pointer">Activate</label>
+                                        
+                                        @endif
                                     </span>
                                     <span>
-                                        @php
-                                            if (!pluginIsActive($plugin)) {
-                                                echo '<p class="text-red-500">Delete</p>';
-                                            }
-                                        @endphp
+                                        @if (!isPluginActive($plugin))
+                                            <form action="/plugins/delete/{{ $plugin }}" method="post">
+                                                <button id="delete_{{ $idx }}" class="hidden" type="submit">Delete</button>
+                                            </form>
+                                            <label for="delete_{{ $idx }}" class="text-red-500 cursor-pointer">Delete</label>
+                                        @endif
                                     </span>
                                 </div>
                             </div>
@@ -97,6 +104,9 @@ $inactivePlugins = getInactivePlugins();
                             </div>
                         </td>
                     </tr>
+                    @php
+                        $idx++;
+                    @endphp
                 @endforeach
                     </tbody>
                 </table>
