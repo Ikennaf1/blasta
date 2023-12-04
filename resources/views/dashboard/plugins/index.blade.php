@@ -71,7 +71,6 @@ $inactivePlugins = getInactivePlugins();
                                     </span>
                                 </div>
                             </div>
-                            
                         </td>
 
                         <td class="px-6 py-4">
@@ -110,16 +109,6 @@ $inactivePlugins = getInactivePlugins();
                 @endforeach
                     </tbody>
                 </table>
-
-                {{-- <div class="flex justify-center items-center gap-8 mt-8">
-                    <button class="flex justify-center items-center w-12 h-12 border border-gray-500 border-dashed rounded-lg" type="button" onclick="addRow()">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
-
-                    <button class="flex justify-center items-center px-12 h-12 bg-blue-400 text-white rounded-lg" type="submit">Done</button>
-                </div> --}}
             </div>
         </div>
     </div>

@@ -13,3 +13,4 @@ function blastaGlobalFunctions()
 
 blastaGlobalFunctions();
 loadActivePlugins();
+loadActiveThemeIndex();

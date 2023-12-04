@@ -21,7 +21,9 @@
         </div>
 
         <div class="flex flex-col gap-8">
-            {{--  --}}
+            <div>
+                <p class="font-bold text-lg">Customize widgets</p>
+            </div>
         </div>
     </div>
 </div>

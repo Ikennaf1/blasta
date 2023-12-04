@@ -17,7 +17,7 @@ class WidgetArea
             static::$instance = new WidgetArea;
             static::$widgetAreas = new Set();
             static::$json = base_path("/app/Blasta/widget_areas.json");
-            static::$instance->refresh();
+            // static::$instance->refresh();
         }
         
         return static::$instance;
@@ -28,7 +28,7 @@ class WidgetArea
      */
     public function all()
     {
-        $this->refresh();
+        // $this->refresh();
 
         return static::$widgetAreas->getItems();
     }
@@ -39,8 +39,8 @@ class WidgetArea
     public function register(string ...$widgetAreas)
     {
         static::$widgetAreas->add(...$widgetAreas);
-        $this->write();
-        $this->refresh();
+        // $this->write();
+        // $this->refresh();
     }
 
     /**
@@ -49,8 +49,8 @@ class WidgetArea
     public function remove(string ...$widgetAreas)
     {
         static::$widgetAreas->remove(...$widgetAreas);
-        $this->write();
-        $this->refresh();
+        // $this->write();
+        // $this->refresh();
     }
 
     /**
@@ -59,8 +59,8 @@ class WidgetArea
     public function clear()
     {
         static::$widgetAreas->clear();
-        $this->write();
-        $this->refresh();
+        // $this->write();
+        // $this->refresh();
     }
 
     /**
@@ -83,5 +83,5 @@ class WidgetArea
     }
 }
 
-$widgetArea = WidgetArea:: getInstance();
-$widgetArea->register('sidebar');
+// $widgetArea = WidgetArea:: getInstance();
+// $widgetArea->register('right-sidebar');
