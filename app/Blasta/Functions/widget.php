@@ -2,7 +2,6 @@
 
 require_once base_path('/app/Blasta/Classes/WidgetArea.php');
 require_once base_path('/app/Blasta/Classes/Widget.php');
-// require_once '../Classes/Widget.php';
 
 /**
  * Registers a widget area on active theme
@@ -11,6 +10,24 @@ function registerWidgetArea(string $widgetAreaName)
 {
     $widgetArea = WidgetArea::getInstance();
     $widgetArea->register($widgetAreaName);
+}
+
+/**
+ * Get all widgets
+ */
+function getWidgets()
+{
+    $widget = Widget::getInstance();
+    return $widget->all();
+}
+
+/**
+ * Get all widget areas
+ */
+function getWidgetAreas()
+{
+    $widgetAreas = WidgetArea::getInstance();
+    return $widgetAreas->all();
 }
 
 /**
@@ -29,7 +46,6 @@ function addToActiveWidgets(string $widgetArea, string $name, string $title, ?ar
 {
     $widgets = Widget::getInstance();
     $widgets = $widgets->all();
-    // var_dump($widgets);
 
 
     $widget = [
@@ -40,7 +56,6 @@ function addToActiveWidgets(string $widgetArea, string $name, string $title, ?ar
     ];
 
     $jsonPath = base_path('/app/Blasta/active_widgets.json');
-    // $jsonPath = '../active_widgets.json';
 
     $activeWidgets = json_decode(file_get_contents($jsonPath), true);
     $activeWidgets[$widgetArea][] = $widget;
@@ -53,7 +68,6 @@ function addToActiveWidgets(string $widgetArea, string $name, string $title, ?ar
  */
 function loadWidgets(string $widgetArea)
 {
-    // $jsonPath   = '../active_widgets.json';
     $jsonPath   = base_path('/app/Blasta/active_widgets.json');
     $allWidgets = json_decode(file_get_contents($jsonPath), true);
     $widgets    = [];
@@ -84,8 +98,5 @@ function getWidgetTitle(object $widget)
  */
 function getWidgetBody(object $widget)
 {
-    dd($widget);
     include_once $widget->body;
 }
-
-// addToActiveWidgets('right-sidebar', 'Recent posts', 'Recent posts');

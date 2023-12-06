@@ -1,8 +1,6 @@
 <?php
-// use App\Http\Controllers\WidgetController;
-// $menu = getMenuList();
-// $page = new PageController();
-// $pages = $page->list();
+$widgets = getWidgets();
+$widgetAreas = getWidgetAreas();
 ?>
 
 <div>
@@ -23,6 +21,47 @@
         <div class="flex flex-col gap-8">
             <div>
                 <p class="font-bold text-lg">Customize widgets</p>
+            </div>
+
+            <div class="widgets-customize-container">
+                <div class="widgets-customize-list-widgets">
+                    @if (!empty($widgets))
+                        @foreach ($widgets as $widget => $props)
+                            <div>
+                                <div class="text-center bg-gray-200 border border-gray-400 w-64 py-2 rounded">
+                                    {{ $widget }}
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+
+                <div class=".widgets-customize-list-widget-areas">
+                    @if (!empty($widgetAreas))
+                        @foreach ($widgetAreas as $widgetArea)
+                            <div class="flex flex-col gap-4 border border-gray-400 p-4 rounded bg-gray-200">
+                                <div class="font-bold text-center">
+                                    {{ ucFirst(dashToSpace($widgetArea)) }}
+                                </div>
+
+                                @php
+                                    $activeWidgets = loadWidgets($widgetArea);
+                                @endphp
+
+                                @foreach ($activeWidgets as $activeWidget)
+                                    <div class="text-center bg-gray-200 border border-gray-400 w-64 py-2 rounded">
+                                        {{ $activeWidget->name }}
+                                    </div>
+                                @endforeach
+
+                                <div class="w-64 border border-2 border-dashed rounded border-gray-400 py-2">&nbsp;</div>
+                            </div>
+                        @endforeach
+                            
+                    @else
+                        <div>No widget area detected</div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
