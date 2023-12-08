@@ -41,3 +41,15 @@ link {
 .widgets-customize-list-widget-areas {
     @apply flex w-[48%] flex-wrap gap-4;
 }
+
+.widget-input {
+    @apply border border-gray-400 rounded-lg w-full text-sm h-8;
+}
+
+.widget-done {
+    @apply inline-block px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded cursor-pointer;
+}
+
+.widget-remove {
+    @apply inline-block text-blue-800 hover:text-blue-900 text-sm cursor-pointer underline;
+}

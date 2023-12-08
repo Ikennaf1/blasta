@@ -29,7 +29,36 @@ $widgetAreas = getWidgetAreas();
                         @foreach ($widgets as $widget => $props)
                             <div>
                                 <div class="text-center bg-gray-200 border border-gray-400 w-64 py-2 rounded">
-                                    {{ $widget }}
+                                    <div>
+                                        {{ $widget }}
+                                    </div>
+                                    <div class="bg-gray-400 mx-4 mb-4 rounded p-4">
+                                        <form action="#" method="post">
+                                            <input type="hidden" name="widget_name">
+                                            <input type="hidden" name="widget_area">
+                                            <input type="hidden" name="index">
+
+                                            <div class="flex flex-col gap-4">
+                                                @if (!empty($props['options']))
+                                                    @foreach ($props['options'] as $type => $title)
+                                                    <div class="flex flex-col gap-4">
+                                                        <label class="text-sm text-left flex flex-col gap-1">
+                                                            <div>{{ $title }}</div>
+                                                            <div>
+                                                                <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $title)}}" id="">
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                    @endforeach
+                                                    <input class="hidden" id="{{toSnakeCase(' ', $widget)}}" type="submit" value="Done">
+                                                @endif
+                                                <div class="flex justify-between items-center">
+                                                    <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
+                                                    <label class="widget-done" for="{{toSnakeCase(' ', $widget)}}">Done</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -49,7 +78,7 @@ $widgetAreas = getWidgetAreas();
                                 @endphp
 
                                 @foreach ($activeWidgets as $activeWidget)
-                                    <div class="text-center bg-gray-200 border border-gray-400 w-64 py-2 rounded">
+                                    <div class="text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
                                         {{ $activeWidget->name }}
                                     </div>
                                 @endforeach
