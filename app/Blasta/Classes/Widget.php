@@ -41,6 +41,18 @@ class Widget
     }
 
     /**
+     * Returns the widget and props by name
+     */
+    public function getWidget(string $widgetName)
+    {
+        if (!empty(static::$widgets[$widgetName])) {
+            return static::$widgets[$widgetName];
+        }
+        
+        return null;
+    }
+
+    /**
      * Removes a widget from the widgets
      */
     public function remove(string $widgetName)

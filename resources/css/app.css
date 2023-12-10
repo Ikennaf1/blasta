@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.draggable .collapsed {
-    @apply hidden;
-}
-
-.dropzone .collapsed {
-    @apply block;
-}
 
 link {
     color: #cc4ca6;
@@ -60,4 +53,28 @@ link {
 
 .widget-remove {
     @apply inline-block text-blue-800 hover:text-blue-900 text-sm cursor-pointer underline;
+}
+
+.draggable .collapsed {
+    @apply hidden;
+}
+
+.dropzone .collapsed {
+    @apply block;
+}
+
+.draggable .widget-chevron {
+    @apply hidden;
+}
+
+.dropzone .widget-chevron {
+    @apply block;
+}
+
+.widget-title {
+    @apply flex items-center justify-between px-4;
+}
+
+.draggable .widget-title {
+    @apply flex items-center justify-center px-4;
 }

@@ -22,6 +22,15 @@ function getWidgets()
 }
 
 /**
+ * Get widget by name
+ */
+function getWidget(string $name)
+{
+    $widget = Widget::getInstance();
+    return $widget->getWidget($name);
+}
+
+/**
  * Get all widget areas
  */
 function getWidgetAreas()
