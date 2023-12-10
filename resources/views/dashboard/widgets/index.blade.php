@@ -28,6 +28,7 @@ $widgetAreas = getWidgetAreas();
                     @if (!empty($widgets))
                         @foreach ($widgets as $widget => $props)
                             <div class="draggable cursor-grab" draggable="true">
+                                <span class="hidden">{{ $widget }}</span>
                                 <div class="flex flex-col gap-4 text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
                                     <div class="widget-title">
                                         <div>{{ $widget }}</div>
@@ -79,7 +80,7 @@ $widgetAreas = getWidgetAreas();
                 <div class="widgets-customize-list-widget-areas">
                     @if (!empty($widgetAreas))
                         @foreach ($widgetAreas as $widgetArea)
-                            <div class="flex flex-col gap-4 border border-gray-400 p-4 rounded bg-gray-200">
+                            <div class="widget-area flex flex-col gap-4 border border-gray-400 p-4 rounded bg-gray-200">
                                 <div class="font-bold text-center">
                                     {{ ucFirst(dashToSpace($widgetArea)) }}
                                 </div>
@@ -89,11 +90,7 @@ $widgetAreas = getWidgetAreas();
                                 @endphp
 
                                 @foreach ($activeWidgets as $activeWidget)
-                                    {{-- <div class="text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
-                                        {{ $activeWidget->name }}
-                                    </div> --}}
-
-                                    {{--  --}}
+                                    <span class="hidden">{{ $activeWidget->name }}</span>
                                     <div class="flex flex-col gap-4 text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
                                         <div class="widget-title">
                                             <div>{{ $activeWidget->name }}</div>
@@ -180,8 +177,6 @@ function handleDragStart(e) {
     if (obj.classList.contains('draggable')) {
         data = obj.innerHTML;
         e.dataTransfer.setData('text/html', data);
-        console.log("Drag started");
-        console.log(data);
     }
 }
 
@@ -193,11 +188,18 @@ function handleDrop(e) {
         e.preventDefault();
         let parentNode = obj.parentNode;
         data = e.dataTransfer.getData('text/html');
+
+        let tempData = data.trimStart();
+        let needle = tempData.substring(0, 64);
+        let haystackNode = parentNode;
+        let haystack = haystackNode.innerHTML;
+        if (haystack.includes(needle)) {
+            return;
+        }
+
         parentNode.removeChild(obj);
         parentNode.innerHTML += data;
         parentNode.appendChild(obj);
-        console.log("Data dropped");
-        console.log(data);
     }
 }
 
@@ -207,7 +209,6 @@ function handleDragOver(e)
 
     if (obj.classList.contains('dropzone')) {
         e.preventDefault();
-        console.log('Drag over');
     }
 }
 
@@ -216,7 +217,6 @@ function handleDragEnter(e)
     let obj = e.target;
 
     if (obj.classList.contains('dropzone')) {
-        console.log('Drag enter');
     }
 }
 
