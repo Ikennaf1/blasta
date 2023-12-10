@@ -100,7 +100,7 @@ $widgetAreas = getWidgetAreas();
                                                 </svg>
                                             </div>
                                         </div>
-                                        <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed">
+                                        <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed hidden">
                                             <form action="#" method="post">
                                                     <input type="hidden" name="widget_name">
                                                     <input type="hidden" name="widget_area">

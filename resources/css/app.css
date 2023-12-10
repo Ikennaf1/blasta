@@ -59,9 +59,9 @@ link {
     @apply hidden;
 }
 
-.dropzone .collapsed {
+/* .dropzone .collapsed {
     @apply block;
-}
+} */
 
 .draggable .widget-chevron {
     @apply hidden;
