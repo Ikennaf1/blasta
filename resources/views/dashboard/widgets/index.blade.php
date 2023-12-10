@@ -27,36 +27,42 @@ $widgetAreas = getWidgetAreas();
                 <div class="widgets-customize-list-widgets">
                     @if (!empty($widgets))
                         @foreach ($widgets as $widget => $props)
-                            <div>
-                                <div class="text-center bg-gray-200 border border-gray-400 w-64 py-2 rounded">
+                            <div class="draggable cursor-grab" draggable="true">
+                                <div class="flex flex-col gap-4 text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
                                     <div>
                                         {{ $widget }}
                                     </div>
-                                    <div class="bg-gray-400 mx-4 mb-4 rounded p-4">
+                                    <div class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed">
                                         <form action="#" method="post">
-                                            <input type="hidden" name="widget_name">
-                                            <input type="hidden" name="widget_area">
-                                            <input type="hidden" name="index">
+                                                <input type="hidden" name="widget_name">
+                                                <input type="hidden" name="widget_area">
+                                                <input type="hidden" name="index">
 
-                                            <div class="flex flex-col gap-4">
-                                                @if (!empty($props['options']))
-                                                    @foreach ($props['options'] as $type => $title)
-                                                    <div class="flex flex-col gap-4">
-                                                        <label class="text-sm text-left flex flex-col gap-1">
-                                                            <div>{{ $title }}</div>
-                                                            <div>
-                                                                <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $title)}}" id="">
-                                                            </div>
-                                                        </label>
+                                                <div class="flex flex-col gap-4">
+                                                    @if (!empty($props['options']))
+                                                    <fieldset class="flex flex-col gap-4">
+                                                        <legend>Options</legend>
+                                                        @foreach ($props['options'] as $type => $title)
+                                                        @php
+                                                            $type = optionTypeIsAllowed($type) ? $type : 'text';
+                                                        @endphp
+                                                        <div class="flex flex-col gap-4">
+                                                            <label class="text-sm text-left flex flex-col gap-1">
+                                                                <div>{{ $title }}</div>
+                                                                <div>
+                                                                    <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $title)}}" id="">
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                        @endforeach
+                                                        <input class="hidden" id="{{toSnakeCase(' ', $widget)}}" type="submit" value="Done">
+                                                    @endif
+                                                    <div class="flex justify-between items-center">
+                                                        <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
+                                                        <label class="widget-done" for="{{toSnakeCase(' ', $widget)}}">Done</label>
                                                     </div>
-                                                    @endforeach
-                                                    <input class="hidden" id="{{toSnakeCase(' ', $widget)}}" type="submit" value="Done">
-                                                @endif
-                                                <div class="flex justify-between items-center">
-                                                    <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
-                                                    <label class="widget-done" for="{{toSnakeCase(' ', $widget)}}">Done</label>
                                                 </div>
-                                            </div>
+                                                </fieldset>
                                         </form>
                                     </div>
                                 </div>
@@ -65,7 +71,7 @@ $widgetAreas = getWidgetAreas();
                     @endif
                 </div>
 
-                <div class=".widgets-customize-list-widget-areas">
+                <div class="widgets-customize-list-widget-areas">
                     @if (!empty($widgetAreas))
                         @foreach ($widgetAreas as $widgetArea)
                             <div class="flex flex-col gap-4 border border-gray-400 p-4 rounded bg-gray-200">
@@ -83,10 +89,9 @@ $widgetAreas = getWidgetAreas();
                                     </div>
                                 @endforeach
 
-                                <div class="w-64 border border-2 border-dashed rounded border-gray-400 py-2">&nbsp;</div>
+                                <div class="w-64 text-gray-500 italic text-center border border-2 border-dashed rounded border-gray-400 py-2 dropzone">Drag widgets here</div>
                             </div>
-                        @endforeach
-                            
+                        @endforeach                            
                     @else
                         <div>No widget area detected</div>
                     @endif
@@ -97,5 +102,80 @@ $widgetAreas = getWidgetAreas();
 </div>
 
 <script>
+
+document.body.addEventListener('dragstart', handleDragStart);
+document.body.addEventListener('drop', handleDrop);
+document.body.addEventListener('dragover', handleDragOver);
+document.body.addEventListener('dragenter', handleDragEnter);
+document.body.addEventListener('dragover', handleDragOver);
+document.body.addEventListener('mousedown', handleMouseDown);
+document.body.addEventListener('mouseup', handleMouseUp);
+
+function handleDragStart(e) {
+    let obj = e.target;
+    let data = '';
+
+    if (obj.classList.contains('draggable')) {
+        data = obj.innerHTML;
+        e.dataTransfer.setData('text/html', data);
+        console.log("Drag started");
+        console.log(data);
+    }
+}
+
+function handleDrop(e) {
+    let obj = e.target;
+    let data = '';
+
+    if (obj.classList.contains('dropzone')) {
+        e.preventDefault();
+        let parentNode = obj.parentNode;
+        data = e.dataTransfer.getData('text/html');
+        parentNode.removeChild(obj);
+        parentNode.innerHTML += data;
+        parentNode.appendChild(obj);
+        console.log("Data dropped");
+        console.log(data);
+    }
+}
+
+function handleDragOver(e)
+{
+    let obj = e.target;
+
+    if (obj.classList.contains('dropzone')) {
+        e.preventDefault();
+        console.log('Drag over');
+    }
+}
+
+function handleDragEnter(e)
+{
+    let obj = e.target;
+
+    if (obj.classList.contains('dropzone')) {
+        console.log('Drag enter');
+    }
+}
+
+function handleMouseDown(e)
+{
+    let obj = e.target;
+
+    if (obj.classList.contains('draggable')) {
+        obj.classList.remove('cursor-grab');
+        obj.classList.add('cursor-grabbing');
+    }
+}
+
+function handleMouseUp(e)
+{
+    let obj = e.target;
+
+    if (obj.classList.contains('draggable')) {
+        obj.classList.remove('cursor-grabbing');
+        obj.classList.add('cursor-grab');
+    }
+}
 
 </script>

@@ -100,3 +100,33 @@ function getWidgetBody(object $widget)
 {
     include_once $widget->body;
 }
+
+/**
+ * Checks if widget options type is allowed
+ */
+function optionTypeIsAllowed(string $type): bool
+{
+    $allowedTypes = [
+        'checkbox',
+        'color',
+        'date',
+        'datetime',
+        'datetime-local',
+        'email',
+        'month',
+        'number',
+        'password',
+        'range',
+        'tel',
+        'text',
+        'time',
+        'url',
+        'week',
+    ];
+
+    if (in_array($type, $allowedTypes)) {
+        return true;
+    }
+
+    return false;
+}
