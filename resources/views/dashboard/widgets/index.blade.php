@@ -32,7 +32,7 @@ $widgetAreas = getWidgetAreas();
                                 <div class="flex flex-col gap-4 text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
                                     <div class="widget-title">
                                         <div>{{ $widget }}</div>
-                                        <div class="widget-chevron" onclick="handleWidgetShowOptions('widget_option_{{toSnakeCase(' ', $widget)}}')">
+                                        <div class="widget-chevron" onclick="handleWidgetShowOptions(this)">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                             </svg>
@@ -40,9 +40,9 @@ $widgetAreas = getWidgetAreas();
                                     </div>
                                     <div id="widget_option_{{toSnakeCase(' ', $widget)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed">
                                         <form action="#" method="post">
-                                                <input type="hidden" name="widget_name">
+                                                <input type="hidden" name="widget_name" value="{{$widget}}">
                                                 <input type="hidden" name="widget_area">
-                                                <input type="hidden" name="index">
+                                                {{-- <input type="hidden" name="index"> --}}
 
                                                 <div class="flex flex-col gap-4">
                                                     @if (!empty($props['options']))
@@ -89,57 +89,59 @@ $widgetAreas = getWidgetAreas();
                                     $activeWidgets = loadWidgets($widgetArea);
                                 @endphp
 
-                                @foreach ($activeWidgets as $activeWidget)
-                                    <span class="hidden">{{ $activeWidget->name }}</span>
-                                    <div class="flex flex-col gap-4 text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
-                                        <div class="widget-title">
-                                            <div>{{ $activeWidget->name }}</div>
-                                            <div class="widget-chevron" onclick="handleWidgetShowOptions('widget_option_{{toSnakeCase(' ', $activeWidget->name)}}')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                </svg>
+                                @if (!empty($activeWidgets))
+                                    @foreach ($activeWidgets as $activeWidget)
+                                        <span class="hidden">{{ $activeWidget->name }}</span>
+                                        <div class="flex flex-col gap-4 text-center bg-gray-300 border border-gray-400 w-64 py-2 rounded">
+                                            <div class="widget-title">
+                                                <div>{{ $activeWidget->name }}</div>
+                                                <div class="widget-chevron" onclick="handleWidgetShowOptions(this)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed hidden">
+                                                <form action="#" method="post">
+                                                        <input type="hidden" name="widget_name" value="{{$activeWidget->name}}">
+                                                        <input type="hidden" name="widget_area" value="{{$widgetArea}}">
+                                                        {{-- <input type="hidden" name="index"> --}}
+        
+                                                        @php
+                                                            $props = getWidget($activeWidget->name);
+                                                        @endphp
+                                                        
+                                                        <div class="flex flex-col gap-4">
+                                                            @if (!empty($props['options']))
+                                                            <fieldset class="flex flex-col gap-4">
+                                                                <legend>Options</legend>
+                                                                @foreach ($props['options'] as $type => $title)
+                                                                @php
+                                                                    $type = optionTypeIsAllowed($type) ? $type : 'text';
+                                                                @endphp
+                                                                <div class="flex flex-col gap-4">
+                                                                    <label class="text-sm text-left flex flex-col gap-1">
+                                                                        <div>{{ $title }}</div>
+                                                                        <div>
+                                                                            <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $title)}}" id="">
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
+                                                                @endforeach
+                                                                <input class="hidden" id="{{toSnakeCase(' ', $widget)}}" type="submit" value="Done">
+                                                            @endif
+                                                            <div class="flex justify-between items-center">
+                                                                <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
+                                                                <label class="widget-done" for="{{toSnakeCase(' ', $widget)}}">Done</label>
+                                                            </div>
+                                                        </div>
+                                                        </fieldset>
+                                                </form>
                                             </div>
                                         </div>
-                                        <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed hidden">
-                                            <form action="#" method="post">
-                                                    <input type="hidden" name="widget_name">
-                                                    <input type="hidden" name="widget_area">
-                                                    <input type="hidden" name="index">
-    
-                                                    @php
-                                                        $props = getWidget($activeWidget->name);
-                                                    @endphp
-                                                    
-                                                    <div class="flex flex-col gap-4">
-                                                        @if (!empty($props['options']))
-                                                        <fieldset class="flex flex-col gap-4">
-                                                            <legend>Options</legend>
-                                                            @foreach ($props['options'] as $type => $title)
-                                                            @php
-                                                                $type = optionTypeIsAllowed($type) ? $type : 'text';
-                                                            @endphp
-                                                            <div class="flex flex-col gap-4">
-                                                                <label class="text-sm text-left flex flex-col gap-1">
-                                                                    <div>{{ $title }}</div>
-                                                                    <div>
-                                                                        <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $title)}}" id="">
-                                                                    </div>
-                                                                </label>
-                                                            </div>
-                                                            @endforeach
-                                                            <input class="hidden" id="{{toSnakeCase(' ', $widget)}}" type="submit" value="Done">
-                                                        @endif
-                                                        <div class="flex justify-between items-center">
-                                                            <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
-                                                            <label class="widget-done" for="{{toSnakeCase(' ', $widget)}}">Done</label>
-                                                        </div>
-                                                    </div>
-                                                    </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    {{--  --}}
-                                @endforeach
+                                        {{--  --}}
+                                    @endforeach
+                                @endif
 
                                 <div class="w-64 text-gray-500 italic text-center border border-2 border-dashed rounded border-gray-400 py-2 dropzone">Drag widgets here</div>
                             </div>
@@ -155,10 +157,9 @@ $widgetAreas = getWidgetAreas();
 
 <script>
 
-function handleWidgetShowOptions(widgetOption)
+function handleWidgetShowOptions(e)
 {
-    let widgetNode = document.querySelector(`.widgets-customize-list-widget-areas #${widgetOption}`);
-
+    let widgetNode = e.parentNode.nextElementSibling;
     widgetNode.classList.toggle("hidden");
 }
 
