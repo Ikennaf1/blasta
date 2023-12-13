@@ -41,12 +41,14 @@ $widgetAreas = getWidgetAreas();
                                         </div>
                                         <div id="widget_option_{{toSnakeCase(' ', $widget)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed">
                                             <form onsubmit="widgetSubmit(this)">
+                                                    {{-- <input type="hidden" name="widget_area"> --}}
                                                     <input type="hidden" name="widget_name" value="{{$widget}}">
-                                                    <input type="hidden" name="widget_area">
-                                                    {{-- <input type="hidden" name="index"> --}}
+                                                    <input type="hidden" name="widget_title" value="{{$props['title']}}">
+                                                    <input type="hidden" name="widget_body" value="{{$props['body']}}">
 
                                                     <div class="flex flex-col gap-4">
                                                         @if (!empty($props['options']))
+                                                            <input type="hidden" name="props" value="Not empty">
                                                         <fieldset class="flex flex-col gap-4">
                                                             <legend>Options</legend>
                                                             @foreach ($props['options'] as $type => $label)
@@ -106,8 +108,10 @@ $widgetAreas = getWidgetAreas();
                                                 </div>
                                                 <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed hidden">
                                                     <form>
+                                                            {{-- <input type="hidden" name="widget_area" value="{{$widgetArea}}"> --}}
                                                             <input type="hidden" name="widget_name" value="{{$activeWidget->name}}">
-                                                            <input type="hidden" name="widget_area" value="{{$widgetArea}}">
+                                                            <input type="hidden" name="widget_title" value="{{$activeWidget->title}}">
+                                                            <input type="hidden" name="widget_body" value="{{$activeWidget->body}}">
             
                                                             @php
                                                                 $props = getWidget($activeWidget->name);
@@ -115,6 +119,7 @@ $widgetAreas = getWidgetAreas();
                                                             
                                                             <div class="flex flex-col gap-4">
                                                                 @if (!empty($props['options']))
+                                                                    <input type="hidden" name="props" value="Not empty">
                                                                 <fieldset class="flex flex-col gap-4">
                                                                     <legend>Options</legend>
                                                                     @foreach ($props['options'] as $type => $label)
@@ -146,6 +151,7 @@ $widgetAreas = getWidgetAreas();
                                     @endif
                                 </div>
                                     <div class="w-64 text-gray-500 italic text-center border border-2 border-dashed rounded border-gray-400 py-2 dropzone">Drag widgets here</div>
+                                    <button class="widget-done" type="button" onclick="widgetAreaSubmit(this, '{{$widgetArea}}')">Done</button>
                             </div>
                         @endforeach                            
                     @else
@@ -172,25 +178,92 @@ function widgetSubmit(e)
     // e.disabled = true;
     let form = e.parentNode.parentNode.parentNode.parentNode;
     let widgetsCounter = form.parentNode.parentNode.parentNode;
-    console.log(widgetsCounter);
+    // console.log(widgetsCounter);
     let widgetsCounterParent = widgetsCounter.parentNode;
-    console.log(widgetsCounterParent);
+    // console.log(widgetsCounterParent);
     let index = Array.prototype.indexOf.call(widgetsCounterParent.children, widgetsCounter);
-    console.log(index);
+    // console.log(index);
 
-    // let formElements = form.elements;
-    // let inputs = [];
-    // for (const element of formElements) {
-    //     if (element.localName != 'input') continue;
-    //     inputs.push(element);
-    // }
-    // console.log(inputs);
+    let formElements = form.elements;
+    let inputs = [];
+    for (const element of formElements) {
+        if (element.localName != 'input') continue;
+        inputs.push(element);
+    }
+    console.log(inputs[0]);
 
     // setTimeout(()=>{
     //     e.disabled = false;
     // }, 3000);
 
     // form.submit();
+}
+
+// function widgetFormCompile(form)
+// {
+//     let data = {};
+//     for (const form of forms) {
+//         data.name = form.widget_name.value;
+//         data.title = form.widget_title.value;
+//         data.body = form.widget_body.value;
+
+//         if (form.props != null) {
+//             let inputs = form.querySelectorAll('input.widget-input');
+//             let options = [];
+//             for(const input of inputs) {
+//                 let name = input.name;
+//                 let value = input.value;
+//                 options.push({name:value});
+//             };
+//             data.options = options
+//         } else {
+//             data.options = null;
+//         }
+
+//         console.log(data);
+// }
+
+function widgetAreaSubmit(e, theWidgetArea)
+{
+    let widgetArea = e.parentNode;
+    console.log(widgetArea);
+
+    // let widgets = widgetArea.children;
+    // let numWidgets = widgetArea.children.length;
+    // console.log(numWidgets);
+    // console.log(forms);
+    let forms = widgetArea.getElementsByTagName('form');
+    // console.log(forms);
+
+    let data = [];
+    for (const form of forms) {
+        let widgetData = {};
+        widgetData.name = form.widget_name.value;
+        widgetData.title = form.widget_title.value;
+        widgetData.body = form.widget_body.value;
+
+        if (form.props != null) {
+            let inputs = form.querySelectorAll('input.widget-input');
+            let options = [];
+            for(const input of inputs) {
+                let key = input.name;
+                let value = input.value;
+                let element = {};
+                element[key] = value
+                options.push(element);
+            };
+            widgetData.options = options
+        } else {
+            widgetData.options = null;
+        }
+        data.push(widgetData);
+    }
+
+    let finalData = {};
+    finalData[theWidgetArea] = data;
+
+    console.log(JSON.stringify(finalData));
+    console.log(window.location.origin);
 }
 
 document.body.addEventListener('dragstart', handleDragStart);
@@ -213,6 +286,7 @@ function handleDragStart(e) {
 
 function handleDrop(e) {
     let obj = e.target;
+    let btn = obj.nextElementSibling;
     let data = '';
 
     if (obj.classList.contains('dropzone')) {
@@ -229,8 +303,10 @@ function handleDrop(e) {
         }
 
         parentNode.removeChild(obj);
+        parentNode.removeChild(btn);
         parentNode.innerHTML += data;
         parentNode.appendChild(obj);
+        parentNode.appendChild(btn);
     }
 }
 

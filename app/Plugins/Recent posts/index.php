@@ -10,7 +10,7 @@ registerWidget(
         "number" => "Widget count",
         "checkbox" => "Widget show",
         "tel" => "Phone",
-        "email" => "email"
+        "email" => "Email"
     ]
 );
 
