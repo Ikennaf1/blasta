@@ -19,3 +19,4 @@ Route::get('/', [WidgetController::class, 'index'])
     ->middleware(BlastaDashboard::class);
 
 Route::post('/create', [WidgetController::class, 'create']);
+Route::post('/set', [WidgetController::class, 'set']);

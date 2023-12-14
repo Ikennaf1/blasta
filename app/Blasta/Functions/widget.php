@@ -22,6 +22,15 @@ function getWidgets()
 }
 
 /**
+ * Returns all active widgets
+ */
+function getActiveWidgets(bool $assoc = false)
+{
+    $widget = Widget::getInstance();
+    return $widget->getActive($assoc);
+}
+
+/**
  * Get widget by name
  */
 function getWidget(string $name)
@@ -51,25 +60,82 @@ function registerWidget(string $name, string $title, string $body, ?array $optio
 /**
  * Adds a widget to a widget area
  */
-function addToActiveWidgets(string $widgetArea, string $name, string $title, ?array $options = null)
+function addToActiveWidgets(string $widgetArea, string $name, string $title, string $body, ?array $options = null)
 {
-    $widgets = Widget::getInstance();
-    $widgets = $widgets->all();
+    // $widgets = Widget::getInstance();
+    // $widgets = $widgets->all();
 
+    $jsonPath = base_path('/app/Blasta/active_widgets.json');
+    $activeWidgets = json_decode(file_get_contents($jsonPath), true);
+
+    // $ignoreActiveWidgets = [];
+    // foreach ($activeWidgets[$widgetArea] as $activeWidget) {
+    //     if ($activeWidget['name'] === $name) {
+    //         continue;
+    //     }
+    //     $ignoreActiveWidgets[] = $activeWidget;
+    // }
+    // unset($activeWidgets[$widgetArea]);
+    // $activeWidgets[$widgetArea] = $ignoreActiveWidgets;
+
+    if ($options !== null) {
+        $newOptions = [];
+        foreach ($options as $option => $value) {
+            $newOptions[] = [unsnakeCase(' ', $option) => $value];
+        }
+        $options = $newOptions;
+    }
 
     $widget = [
         'name'      => $name,
         'title'     => $title,
-        'body'      => $widgets[$name]['body'],
+        // 'body'      => $widgets[$name]['body'],
+        'body'      => $body,
         'options'   => $options
     ];
 
-    $jsonPath = base_path('/app/Blasta/active_widgets.json');
-
-    $activeWidgets = json_decode(file_get_contents($jsonPath), true);
     $activeWidgets[$widgetArea][] = $widget;
 
     file_put_contents($jsonPath, json_encode($activeWidgets));
+}
+
+function setActiveWidgets(string $widgetArea, array $widgets)
+{
+    $jsonPath = base_path('/app/Blasta/active_widgets.json');
+    $activeWidgets = json_decode(file_get_contents($jsonPath), true);
+
+    unset($activeWidgets[$widgetArea]);
+
+    foreach ($widgets as $widget) {
+        $options = $widget['options'] ?? null;
+
+        if ($options !== null) {
+            $newOptions = [];
+            foreach ($options as $option => $value) {
+                $newOptions[] = [unsnakeCase(' ', $option) => $value];
+            }
+            $options = $newOptions;
+        }
+
+        $newWidget = [
+            'name'      => $widget['name'],
+            'title'     => $widget['title'],
+            // 'body'      => $widgets[$name]['body'],
+            'body'      => $widget['body'],
+            'options'   => $options
+        ];
+    
+        $activeWidgets[$widgetArea][] = $newWidget;
+    }
+
+    file_put_contents($jsonPath, json_encode($activeWidgets));
+
+    // foreach ($widgets as $widget) {
+    //     $options = $widget['options'] ?? null;
+    //     addToActiveWidgets($widgetArea, $widget['name'], $widget['title'], $widget['body'], $options);
+    // }
+
+    // $activeWidgets[$widgetArea] = $widgets;
 }
 
 /**

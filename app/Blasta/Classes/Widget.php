@@ -27,6 +27,14 @@ class Widget
     }
 
     /**
+     * Returns all active widgets
+     */
+    public function getActive(bool $assoc = false)
+    {
+        return json_decode(file_get_contents(base_path('/app/Blasta/active_widgets.json')), $assoc);
+    }
+
+    /**
      * Adds a widget to the widgets
      */
     public function register(string $name, string $title, string $body, ?array $options = null)

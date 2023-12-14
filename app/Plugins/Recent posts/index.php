@@ -16,7 +16,7 @@ registerWidget(
 
 registerWidget(
     'Updated pages',
-    'Recent posts',
+    'Updated pages',
     plugin_path('/Recent posts/widget/body.php'),
     [
         "text" => "Widget title",

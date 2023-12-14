@@ -41,7 +41,6 @@ $widgetAreas = getWidgetAreas();
                                         </div>
                                         <div id="widget_option_{{toSnakeCase(' ', $widget)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed">
                                             <form onsubmit="widgetSubmit(this)">
-                                                    {{-- <input type="hidden" name="widget_area"> --}}
                                                     <input type="hidden" name="widget_name" value="{{$widget}}">
                                                     <input type="hidden" name="widget_title" value="{{$props['title']}}">
                                                     <input type="hidden" name="widget_body" value="{{$props['body']}}">
@@ -68,7 +67,6 @@ $widgetAreas = getWidgetAreas();
                                                         @endif
                                                         <div class="flex justify-between items-center">
                                                             <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
-                                                            <button class="widget-done" type="button" onclick="widgetSubmit(this)">Done</button>
                                                         </div>
                                                     </div>
                                                     </fieldset>
@@ -85,7 +83,7 @@ $widgetAreas = getWidgetAreas();
                     @if (!empty($widgetAreas))
                         @foreach ($widgetAreas as $widgetArea)
                             <div class="widget-area {{spaceToDash($widgetArea)}} flex flex-col gap-4 border border-gray-400 p-4 rounded bg-gray-200">
-                                <div>
+                                <div class="flex flex-col gap-4">
                                     <div class="font-bold text-center">
                                         {{ ucFirst(dashToSpace($widgetArea)) }}
                                     </div>
@@ -108,7 +106,6 @@ $widgetAreas = getWidgetAreas();
                                                 </div>
                                                 <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed hidden">
                                                     <form>
-                                                            {{-- <input type="hidden" name="widget_area" value="{{$widgetArea}}"> --}}
                                                             <input type="hidden" name="widget_name" value="{{$activeWidget->name}}">
                                                             <input type="hidden" name="widget_title" value="{{$activeWidget->title}}">
                                                             <input type="hidden" name="widget_body" value="{{$activeWidget->body}}">
@@ -138,7 +135,6 @@ $widgetAreas = getWidgetAreas();
                                                                 @endif
                                                                 <div class="flex justify-between items-center">
                                                                     <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
-                                                                    <button class="widget-done" type="button" onclick="widgetSubmit(this)">Done</button>
                                                                 </div>
                                                             </div>
                                                             </fieldset>
@@ -171,69 +167,12 @@ function handleWidgetShowOptions(e)
     widgetNode.classList.toggle("hidden");
 }
 
-function widgetSubmit(e)
-{
-    // e.preventDefault();
-    // console.log(e);
-    // e.disabled = true;
-    let form = e.parentNode.parentNode.parentNode.parentNode;
-    let widgetsCounter = form.parentNode.parentNode.parentNode;
-    // console.log(widgetsCounter);
-    let widgetsCounterParent = widgetsCounter.parentNode;
-    // console.log(widgetsCounterParent);
-    let index = Array.prototype.indexOf.call(widgetsCounterParent.children, widgetsCounter);
-    // console.log(index);
-
-    let formElements = form.elements;
-    let inputs = [];
-    for (const element of formElements) {
-        if (element.localName != 'input') continue;
-        inputs.push(element);
-    }
-    console.log(inputs[0]);
-
-    // setTimeout(()=>{
-    //     e.disabled = false;
-    // }, 3000);
-
-    // form.submit();
-}
-
-// function widgetFormCompile(form)
-// {
-//     let data = {};
-//     for (const form of forms) {
-//         data.name = form.widget_name.value;
-//         data.title = form.widget_title.value;
-//         data.body = form.widget_body.value;
-
-//         if (form.props != null) {
-//             let inputs = form.querySelectorAll('input.widget-input');
-//             let options = [];
-//             for(const input of inputs) {
-//                 let name = input.name;
-//                 let value = input.value;
-//                 options.push({name:value});
-//             };
-//             data.options = options
-//         } else {
-//             data.options = null;
-//         }
-
-//         console.log(data);
-// }
-
 function widgetAreaSubmit(e, theWidgetArea)
 {
+    e.disabled = true;
+    e.textContent = 'Loading';
     let widgetArea = e.parentNode;
-    console.log(widgetArea);
-
-    // let widgets = widgetArea.children;
-    // let numWidgets = widgetArea.children.length;
-    // console.log(numWidgets);
-    // console.log(forms);
     let forms = widgetArea.getElementsByTagName('form');
-    // console.log(forms);
 
     let data = [];
     for (const form of forms) {
@@ -261,9 +200,23 @@ function widgetAreaSubmit(e, theWidgetArea)
 
     let finalData = {};
     finalData[theWidgetArea] = data;
+    finalData = JSON.stringify(finalData);
 
-    console.log(JSON.stringify(finalData));
-    console.log(window.location.origin);
+    // console.log(finalData);
+    
+    let origin = window.location.origin;
+    // console.log(origin);
+
+    fetch(`${origin}/widgets/set`, {
+        method: "POST",
+        body: finalData
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        e.disabled = false;
+        e.textContent = 'Done';
+    });
 }
 
 document.body.addEventListener('dragstart', handleDragStart);
