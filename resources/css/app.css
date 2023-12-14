@@ -32,7 +32,7 @@ link {
 }
 
 .widgets-customize-container {
-    @apply flex flex-wrap;
+    @apply flex flex-wrap items-start;
 }
 
 .widgets-customize-list-widgets {
@@ -48,7 +48,7 @@ link {
 }
 
 .widget-done {
-    @apply inline-block px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded cursor-pointer;
+    @apply inline-block px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded cursor-pointer transition duration-500;
 }
 
 .widget-remove {
@@ -58,10 +58,6 @@ link {
 .draggable .collapsed {
     @apply hidden;
 }
-
-/* .dropzone .collapsed {
-    @apply block;
-} */
 
 .draggable .widget-chevron {
     @apply hidden;

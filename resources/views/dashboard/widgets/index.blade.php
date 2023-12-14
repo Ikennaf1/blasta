@@ -65,8 +65,8 @@ $widgetAreas = getWidgetAreas();
                                                             @endforeach
                                                             <input class="hidden" id="{{toSnakeCase(' ', $widget)}}" type="submit" value="Done">
                                                         @endif
-                                                        <div class="flex justify-between items-center">
-                                                            <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
+                                                        <div class="flex justify-end items-center">
+                                                            <button type="button" onclick="removeWidgetNode(this)" class="widget-remove">Remove</button>
                                                         </div>
                                                     </div>
                                                     </fieldset>
@@ -133,8 +133,8 @@ $widgetAreas = getWidgetAreas();
                                                                     </div>
                                                                     @endforeach
                                                                 @endif
-                                                                <div class="flex justify-between items-center">
-                                                                    <label class="widget-remove" for="{{toSnakeCase(' ', $widget)}}">Remove</label>
+                                                                <div class="flex justify-end items-center">
+                                                                    <button type="button" onclick="removeWidgetNode(this)" class="widget-remove">Remove</button>
                                                                 </div>
                                                             </div>
                                                             </fieldset>
@@ -147,7 +147,7 @@ $widgetAreas = getWidgetAreas();
                                     @endif
                                 </div>
                                     <div class="w-64 text-gray-500 italic text-center border border-2 border-dashed rounded border-gray-400 py-2 dropzone">Drag widgets here</div>
-                                    <button class="widget-done" type="button" onclick="widgetAreaSubmit(this, '{{$widgetArea}}')">Done</button>
+                                    <button type="button" class="widget-done" onclick="widgetAreaSubmit(this, '{{$widgetArea}}')">Done</button>
                             </div>
                         @endforeach                            
                     @else
@@ -167,10 +167,23 @@ function handleWidgetShowOptions(e)
     widgetNode.classList.toggle("hidden");
 }
 
+function removeWidgetNode(e)
+{
+    let confirmation = confirm('Press OK to confirm delete. Otherwise press cancel');
+    if (confirmation === false) {
+        return;
+    }
+
+    let node = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+    let parentNode = node.parentNode;
+    parentNode.removeChild(node);
+}
+
 function widgetAreaSubmit(e, theWidgetArea)
 {
     e.disabled = true;
     e.textContent = 'Loading';
+    e.classList.add('opacity-50');
     let widgetArea = e.parentNode;
     let forms = widgetArea.getElementsByTagName('form');
 
@@ -201,21 +214,24 @@ function widgetAreaSubmit(e, theWidgetArea)
     let finalData = {};
     finalData[theWidgetArea] = data;
     finalData = JSON.stringify(finalData);
-
-    // console.log(finalData);
     
     let origin = window.location.origin;
-    // console.log(origin);
 
     fetch(`${origin}/widgets/set`, {
         method: "POST",
         body: finalData
     })
-    .then((res) => res.json())
+    .then((res) => {
+        if (res.ok) {
+            return res.json();
+        } else {
+            // 
+        }
+    })
     .then((data) => {
-        console.log(data);
         e.disabled = false;
         e.textContent = 'Done';
+        e.classList.remove('opacity-50');
     });
 }
 
