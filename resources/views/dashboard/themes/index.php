@@ -1,1 +1,0 @@
-<div>Showing themes</div>
