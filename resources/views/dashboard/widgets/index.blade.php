@@ -174,34 +174,34 @@ function removeWidgetNode(e)
         return;
     }
 
-    let node = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-    let parentNode = node.parentNode;
+    let node        = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+    let parentNode  = node.parentNode;
     parentNode.removeChild(node);
 }
 
 function widgetAreaSubmit(e, theWidgetArea)
 {
-    e.disabled = true;
-    e.textContent = 'Loading';
+    e.disabled      = true;
+    e.textContent   = 'Loading';
     e.classList.add('opacity-50');
-    let widgetArea = e.parentNode;
-    let forms = widgetArea.getElementsByTagName('form');
+    let widgetArea  = e.parentNode;
+    let forms       = widgetArea.getElementsByTagName('form');
 
     let data = [];
     for (const form of forms) {
-        let widgetData = {};
-        widgetData.name = form.widget_name.value;
-        widgetData.title = form.widget_title.value;
-        widgetData.body = form.widget_body.value;
+        let widgetData      = {};
+        widgetData.name     = form.widget_name.value;
+        widgetData.title    = form.widget_title.value;
+        widgetData.body     = form.widget_body.value;
 
         if (form.props != null) {
-            let inputs = form.querySelectorAll('input.widget-input');
+            let inputs  = form.querySelectorAll('input.widget-input');
             let options = [];
             for(const input of inputs) {
-                let key = input.name;
-                let value = input.value;
-                let element = {};
-                element[key] = value
+                let key         = input.name;
+                let value       = input.value;
+                let element     = {};
+                element[key]    = value
                 options.push(element);
             };
             widgetData.options = options
@@ -211,11 +211,10 @@ function widgetAreaSubmit(e, theWidgetArea)
         data.push(widgetData);
     }
 
-    let finalData = {};
-    finalData[theWidgetArea] = data;
-    finalData = JSON.stringify(finalData);
-    
-    let origin = window.location.origin;
+    let finalData               = {};
+    finalData[theWidgetArea]    = data;
+    finalData                   = JSON.stringify(finalData);
+    let origin                  = window.location.origin;
 
     fetch(`${origin}/widgets/set`, {
         method: "POST",
@@ -228,9 +227,9 @@ function widgetAreaSubmit(e, theWidgetArea)
             // 
         }
     })
-    .then((data) => {
-        e.disabled = false;
-        e.textContent = 'Done';
+    .then((data)        => {
+        e.disabled      = false;
+        e.textContent   = 'Done';
         e.classList.remove('opacity-50');
     });
 }
@@ -244,8 +243,8 @@ document.body.addEventListener('mousedown', handleMouseDown);
 document.body.addEventListener('mouseup', handleMouseUp);
 
 function handleDragStart(e) {
-    let obj = e.target;
-    let data = '';
+    let obj     = e.target;
+    let data    = '';
 
     if (obj.classList.contains('draggable')) {
         data = obj.innerHTML;
@@ -254,19 +253,19 @@ function handleDragStart(e) {
 }
 
 function handleDrop(e) {
-    let obj = e.target;
-    let btn = obj.nextElementSibling;
-    let data = '';
+    let obj     = e.target;
+    let btn     = obj.nextElementSibling;
+    let data    = '';
 
     if (obj.classList.contains('dropzone')) {
         e.preventDefault();
-        let parentNode = obj.parentNode;
-        data = e.dataTransfer.getData('text/html');
+        let parentNode      = obj.parentNode;
+        data                = e.dataTransfer.getData('text/html');
 
-        let tempData = data.trimStart();
-        let needle = tempData.substring(0, 64);
-        let haystackNode = parentNode;
-        let haystack = haystackNode.innerHTML;
+        let tempData        = data.trimStart();
+        let needle          = tempData.substring(0, 64);
+        let haystackNode    = parentNode;
+        let haystack        = haystackNode.innerHTML;
         if (haystack.includes(needle)) {
             return;
         }
