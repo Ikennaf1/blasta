@@ -23,10 +23,35 @@ $activeTheme = getActiveTheme();
                 <p class="font-bold text-lg">Choose theme</p>
             </div>
 
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap gap-16">
+                <div class="theme-container">
+                    <div class="theme-img-container">
+                        <img
+                        style="width: 100%; height: 100%; object-position: center; object-fit: cover;"
+                        src="data:image/png;base64, {!!base64_encode(file_get_contents(getThemeScreenshot($activeTheme)))!!}"
+                        alt="{{$activeTheme}}">
+                    </div>
+                    <div class="theme-name-container">
+                        <span>{{ucFirst(dashToSpace($activeTheme))}}</span>
+                    </div>
+                </div>
+
                 @foreach ($installedThemes as $theme)
-                    <div><img src="data:image/png;base64, {!!base64_encode(file_get_contents(getThemeScreenshot($theme)))!!}" alt=""></div>
-                    {{-- <div><img src="../app/Themes/{{$theme}}/screenshot.jpg" alt=""></div> --}}
+                    @if ($theme === $activeTheme)
+                        @continue
+                    @endif
+                    <div class="theme-container">
+                        <div class="theme-img-container">
+                            <img
+                            style="width: 100%; height: 100%; object-position: center; object-fit: cover;"
+                            src="data:image/png;base64, {!!base64_encode(file_get_contents(getThemeScreenshot($theme)))!!}"
+                            alt="{{$theme}}">
+                        </div>
+                        <div class="theme-name-container">
+                            <span>{{ucFirst(dashToSpace($theme))}}</span>
+                            <span class="theme-activate-container">Activate</span>
+                        </div>
+                    </div>
                 @endforeach
             </div>
         </div>

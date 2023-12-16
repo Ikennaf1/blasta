@@ -74,3 +74,19 @@ link {
 .draggable .widget-title {
     @apply flex items-center justify-center px-4;
 }
+
+.theme-container {
+    @apply flex flex-col gap-2 w-full h-64 sm:w-[210px] sm:h-[200px] md:w-[360px] md:h-[250px] border bg-gray-50 shadow-lg rounded overflow-hidden;
+}
+
+.theme-img-container {
+    @apply w-full h-[200px] sm:h-[150px] md:h-[200px] border-b;
+}
+
+.theme-name-container {
+    @apply flex items-center justify-between px-4 font-bold text-black;
+}
+
+.theme-activate-container {
+    @apply bg-blue-500 hover:bg-blue-600 px-2 py-1 text-white text-sm font-normal rounded cursor-pointer transition duration-500;
+}

@@ -36,13 +36,14 @@ function themeExists(string $themeName): bool
  */
 function getThemeScreenshot(string $themeName): ?string
 {
+    $defaultScreenshot = theme_path('/screenshot.jpg');
     if (!themeExists($themeName)) {
         return null;
     }
 
     $screenshot = theme_path("/$themeName/screenshot.jpg");
 
-    return file_exists($screenshot) ? $screenshot : null;
+    return file_exists($screenshot) ? $screenshot : $defaultScreenshot;
 }
 
 /**
