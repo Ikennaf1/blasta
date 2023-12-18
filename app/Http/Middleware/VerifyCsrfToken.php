@@ -22,5 +22,6 @@ class VerifyCsrfToken extends Middleware
         '/plugins/deactivate/*',
         '/plugins/delete/*',
         '/widgets/*',
+        '/themes/*',
     ];
 }

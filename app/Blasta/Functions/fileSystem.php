@@ -51,9 +51,9 @@ function getFiles(string $dir)
 /**
  * Deletes a directory
  */
-function deleteDir(string $path, bool $force = false)
+function deleteDir(string $path, bool $recursive = false)
 {
-    if ($force === false) {
+    if ($recursive === false) {
         return rmdir($path);
     }
 
@@ -63,16 +63,16 @@ function deleteDir(string $path, bool $force = false)
 /**
  * Recursively deletes a directory
  */
-function rrmdir($path) {
+function rrmdir($path)
+{
     $dir = opendir($path);
 
-    while(( $file = readdir($dir)) !== false) {
-        if (( $file != '.' ) && ( $file != '..' )) {
+    while (($file = readdir($dir)) !== false) {
+        if (($file != '.') && ($file != '..')) {
             $full = $path . '/' . $file;
-            if ( is_dir($full) ) {
-                rrmdir($full);
-            }
-            else {
+            if (is_dir($full)) {
+                return rrmdir($full);
+            } else {
                 unlink($full);
             }
         }
@@ -81,4 +81,57 @@ function rrmdir($path) {
     closedir($dir);
 
     return rmdir($path);
+}
+
+/**
+ * Recursively copies the contents of a directory
+ */
+function rCopy(
+    string $sourceDirectory,
+    string $destinationDirectory,
+    string $childFolder = ''
+): void
+{
+    $directory = opendir($sourceDirectory);
+
+    if (is_dir($destinationDirectory) === false) {
+        mkdir($destinationDirectory);
+    }
+
+    if ($childFolder !== '') {
+        if (is_dir("$destinationDirectory/$childFolder") === false) {
+            mkdir("$destinationDirectory/$childFolder");
+        }
+
+        while (($file = readdir($directory)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+            if (is_dir("$sourceDirectory/$file") === true) {
+                rCopy("$sourceDirectory/$file", "$destinationDirectory/$childFolder/$file");
+            } else {
+                copy("$sourceDirectory/$file", "$destinationDirectory/$childFolder/$file");
+            }
+        }
+
+        closedir($directory);
+
+        return;
+    }
+
+    while (($file = readdir($directory)) !== false) {
+        if ($file === '.' || $file === '..') {
+            continue;
+        }
+
+        if (is_dir("$sourceDirectory/$file") === true) {
+            rCopy("$sourceDirectory/$file", "$destinationDirectory/$file");
+        }
+        else {
+            copy("$sourceDirectory/$file", "$destinationDirectory/$file");
+        }
+    }
+
+    closedir($directory);
 }

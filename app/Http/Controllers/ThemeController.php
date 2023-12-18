@@ -17,4 +17,13 @@ class ThemeController extends Controller
     {
         return view('dashboard.themes.index');
     }
+
+    public function activate(Request $request)
+    {
+        $urlExplode = explode('/', $request->url());
+        $theme = $urlExplode[count($urlExplode) - 1];
+        activateTheme($theme);
+
+        return redirect()->back();
+    }
 }

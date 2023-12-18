@@ -18,7 +18,7 @@ use App\Http\Middleware\BlastaDashboard;
 Route::get('/', [ThemeController::class, 'index'])
     ->middleware(BlastaDashboard::class);
 
-Route::post('/create', [ThemeController::class, 'create']);
+Route::post('/activate/{theme}', [ThemeController::class, 'activate']);
 
 
 
