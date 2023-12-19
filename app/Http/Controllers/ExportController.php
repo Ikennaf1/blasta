@@ -301,6 +301,8 @@ class ExportController extends Controller
         $subdirectory = $request->subdirectory !== 'homepage' ? "$request->subdirectory/" : '';
         
         unlink(public_path("/my_exports/$subdirectory".$request->export));
+
+        return redirect()->back();
     }
 
     /**
