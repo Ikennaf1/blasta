@@ -90,3 +90,11 @@ link {
 .theme-activate-container {
     @apply bg-blue-500 hover:bg-blue-600 px-2 py-1 text-white text-sm font-normal rounded cursor-pointer transition duration-500;
 }
+
+.sub-list {
+    @apply flex w-full items-center gap-4 sm:gap-8;
+}
+
+.sub-list-btn {
+    @apply justify-self-end ml-auto hidden lg:inline-block;
+}

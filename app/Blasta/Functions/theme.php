@@ -56,7 +56,7 @@ function getActiveTheme()
 }
 
 /**
- * Fetch available themes online
+ * Fetch available themes from an online repository
  */
 function fetchThemes()
 {
@@ -72,28 +72,25 @@ function activateTheme(string $themeName)
     $themeDir = base_path("/theme");
     $selectedTheme = theme_path("/$themeName");
 
-    // if (!file_exists("$selectedTheme/details.json")) {
-    //     return;
-    // }
+    if (!file_exists("$selectedTheme/details.json")) {
+        return;
+    }
 
-    // $themeDirContents = new DirectoryIterator($themeDir);
-    // foreach ($themeDirContents as $fileinfo) {
-    //     if ($fileinfo->isDot()) {
-    //         continue;
-    //     }
-    //     if ($fileinfo->isDir()) {
-    //         deleteDir($themeDir.'/'.$fileinfo->getFileName(), true);
-    //     }
-    //     if ($fileinfo->isFile()) {
-    //         unlink($themeDir.'/'.$fileinfo->getFileName());
-    //     }
-    // }
+    $themeDirContents = new DirectoryIterator($themeDir);
+    foreach ($themeDirContents as $fileinfo) {
+        if ($fileinfo->isDot()) {
+            continue;
+        }
+        if ($fileinfo->isDir()) {
+            deleteDir($themeDir.'/'.$fileinfo->getFileName(), true);
+        }
+        if ($fileinfo->isFile()) {
+            unlink($themeDir.'/'.$fileinfo->getFileName());
+        }
+    }
 
     deleteDir($themeDir, true);
-
-    // if (!file_exists($themeDir)) {
-        mkdir($themeDir);
-    // }
+    mkdir($themeDir);
 
     $selectedThemeDir = new DirectoryIterator($selectedTheme);
     foreach ($selectedThemeDir as $fileinfo) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Export;
 use App\Models\Post;
 use App\Http\Requests\StoreExportRequest;
@@ -16,7 +17,7 @@ class ExportController extends Controller
      */
     public function index()
     {
-        return 'All about Exports';
+        return view('dashboard.exports.index');
     }
 
     /**
@@ -65,6 +66,42 @@ class ExportController extends Controller
     public function destroy(Export $export)
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource in the dashboard.
+     */
+    public function all(Request $request)
+    {
+        $filter = $request->filter;
+        $exportPath = public_path('my_exports');
+        $exports = [];
+        $subtitle = '';
+        
+        if (!isset($filter) || $filter === '') {
+            $exports = getContents("$exportPath/posts");
+            $subtitle = 'Posts';
+        }
+
+        else if ($filter === 'homepage') {
+            $exports = file_exists("$exportPath/index.html") ? ['index.html'] : null;
+            $subtitle = 'Homepage';
+        }
+
+        else if ($filter === 'pages') {
+            $exports = getContents("$exportPath/pages");
+            $subtitle = 'Pages';
+        }
+
+        else {
+            $exports = getContents("$exportPath/posts");
+            $subtitle = 'Posts';
+        }
+
+        return view('dashboard.exports.index', [
+            'exports'     => $exports,
+            'subtitle'  => $subtitle
+        ]);
     }
 
     /**
@@ -254,6 +291,17 @@ class ExportController extends Controller
     public function deletePage(Post $post)
     {
         $this->deletePost($post, 'page');
+    }
+
+    /**
+     * Deletes the specified export by name
+     */
+    public function deleteExport(Request $request)
+    {
+        $subdirectory = $request->subdirectory !== 'homepage' ? "$request->subdirectory/" : '';
+        
+        dd(public_path("/my_exports/$subdirectory".$request->export));
+        unlink(public_path("/my_exports/$subdirectory".$request->export));
     }
 
     /**
