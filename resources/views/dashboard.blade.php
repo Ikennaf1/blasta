@@ -68,7 +68,7 @@ use App\Http\Controllers\DashboardController;
                                         </div>
                                     </a>
 
-                                    <a href="#" class="">
+                                    <a href="/dashboard?route=media/all" class="">
                                         <div class="flex items-center justify-between hover:text-black transition ease-in-out duration-400">
                                             <li class="hidden md:inline-block">Media</li>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">

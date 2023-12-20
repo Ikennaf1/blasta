@@ -92,9 +92,18 @@ link {
 }
 
 .sub-list {
-    @apply flex w-full items-center gap-4 sm:gap-8;
+    @apply flex w-full items-center gap-4;
 }
 
 .sub-list-btn {
     @apply justify-self-end ml-auto hidden lg:inline-block;
+}
+
+.media-img-container {
+    @apply relative w-full md:w-40 h-40 overflow-hidden rounded-lg border shadow-lg;
+}
+
+.media-img-container-options {
+    border-radius: 20px 20px 0px 0px;
+    @apply flex items-end p-4 absolute w-full h-[80%] top-[20%] bg-white opacity-0 hover:opacity-80 transition duration-500 ease-in-out;
 }
