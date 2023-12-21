@@ -22,7 +22,7 @@ Route::get('/all', [MediaController::class, 'all'])
 Route::get('/all/{filter}', [MediaController::class, 'all'])
     ->middleware(BlastaDashboard::class);
 
-// Route::delete('/delete/{export}', [ExportController::class, 'deleteExport']);
+Route::delete('/delete', [MediaController::class, 'delete']);
 
 // Route::post('/post/{post}', [ExportController::class, 'exportPost']);
 // Route::post('/page/{post}', [ExportController::class, 'exportPage']);

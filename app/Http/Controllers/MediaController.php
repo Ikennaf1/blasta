@@ -40,4 +40,16 @@ class MediaController extends Controller
             'subtitle'  => $subtitle
         ]);
     }
+
+    /**
+     * Deletes a resource
+     */
+    public function delete(Request $request)
+    {
+        $body = $request->getContent();
+        unlink(public_path("$body"));
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 }

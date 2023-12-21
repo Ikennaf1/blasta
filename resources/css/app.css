@@ -104,6 +104,14 @@ link {
 }
 
 .media-img-container-options {
-    border-radius: 20px 20px 0px 0px;
-    @apply flex items-end p-4 absolute w-full h-[80%] top-[20%] bg-white opacity-0 hover:opacity-80 transition duration-500 ease-in-out;
+    border-radius: 10px 10px 0px 0px;
+    @apply flex items-center p-4 absolute w-full h-[80%] top-[20%] bg-white opacity-0 hover:opacity-80 transition duration-500 ease-in-out;
+}
+
+.media-preview-backdrop {
+    @apply fixed top-0 left-0 z-40 h-full w-full bg-black/90 justify-center items-center transition duration-500;
+}
+
+.media-preview-object {
+    @apply w-[80%] h-[80%] m-auto;
 }
