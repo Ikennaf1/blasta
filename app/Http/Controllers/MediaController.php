@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ImageController;
 
 class MediaController extends Controller
 {
@@ -39,6 +41,26 @@ class MediaController extends Controller
             'media'     => $media,
             'subtitle'  => $subtitle
         ]);
+    }
+
+    /**
+     * Adds media to storage
+     */
+    public function add(Request $request)
+    {
+        // dd($request->media_type);
+        if (!empty($request->file('files'))) {
+            $i = 0;
+            foreach ($request->file('files') as $key => $file) {
+                $file->store("/$request->media_type");
+                // $file_name = md5(microtime().rand(1,99)).'.'.$file->extension();  
+                // $file->move(public_path("/my_exports/uploads/$request->media_type"), $file_name);
+            }
+        } else {
+            dd('hfhfgjkh');
+        }
+        
+        return redirect()->back();
     }
 
     /**

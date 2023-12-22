@@ -9,11 +9,9 @@
                 </svg>
             </div>
             <span class="flex gap-4 items-center"><h2 class="font-black text-black inline-block">{{ $subtitle ?? '' }}</h2>
-                <a href="/dashboard?route=posts/create">
-                    <span class="inline-block px-2 py-1 border bg-gray-50 border-blue-400 text-blue-500 transition duration-400 rounded-lg">
+                <span class="inline-block px-2 py-1 border bg-gray-50 border-blue-400 text-blue-500 transition duration-400 rounded-lg cursor-pointer" onclick="toggleAddMedia()">
                     Add {{ rtrim(strtolower($subtitle), 's') }}
-                    </span>
-                </a>
+                </span>
             </span>
         </div>
 
@@ -79,7 +77,36 @@
     </div>
 </div>
 
-<button id="toggle_preview_click_btn" type="button" onclick="togglePreview()"></button>
+{{-- Add media form --}}
+{{-- <button id="toggle_add_media_click_btn" type="button" onclick="toggleAddMedia()"></button> --}}
+
+<div class="media-preview-backdrop hidden" id="add_media">
+    <div class="z-50">
+        <div class="absolute inline-block ml-auto top-20 right-10 text-gray-200 cursor-pointer" onclick="toggleAddMedia()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </div>
+
+        <div class="media-preview-object">
+            <form action="/media/add" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="media_type" value="{{ strtolower($subtitle) }}">
+
+                <input
+                 type="file"
+                 name="files[]"
+                 accept="{{ rtrim(strtolower($subtitle), 's') }}/*"
+                 multiple
+                 >
+
+                <button type="submit">Done</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- Toggle preview --}}
+{{-- <button id="toggle_preview_click_btn" type="button" onclick="togglePreview()"></button> --}}
 
 <div class="media-preview-backdrop hidden" id="preview">
     <div class="z-50">
@@ -104,16 +131,28 @@
 <script>
 
     var showPreview = false;
+    var showAddMedia = false;
 
     document.addEventListener('keydown', (e) => {
         if (e.keyCode === 27) {
             if (showPreview === true) {
                 togglePreview();
             }
+            if (showAddMedia === true) {
+                toggleAddMedia();
+            }
         } else {
             return;
         }
     });
+
+    function toggleAddMedia()
+    {
+        showAddMedia = !showAddMedia;
+        let media = document.querySelector('#add_media');
+        media.classList.toggle('flex');
+        media.classList.toggle('hidden');
+    }
 
     function copyMedia(e)
     {
