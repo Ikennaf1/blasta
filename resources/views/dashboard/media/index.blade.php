@@ -181,6 +181,12 @@
     {
         let val = e.previousElementSibling;
         let origin = window.location.origin;
+        let remove = confirm("Are you sure you want to remove this media?\nThis action is not reversible.");
+
+        if (remove === false) {
+            return;
+        }
+
         val = val.value;
 
         fetch(`${origin}/media/delete`, {
