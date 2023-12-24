@@ -330,11 +330,9 @@ class ExportController extends Controller
             $pageLinks[] = titleToLink($page->link);
         }
         $exportedPages = getFiles(public_path("/my_exports/pages"));
-        // dd([$exportedPosts, $postLinks]);
 
         foreach ($exportedPosts as $exportedPost) {
             if (!in_array(substr($exportedPost, 0, strpos($exportedPost, '.html')), $postLinks)) {
-                // dd([substr($exportedPost, 0, strpos($exportedPost, '.html')), $postLinks]);
                 unlink(public_path("/my_exports/posts/$exportedPost"));
             }
         }
