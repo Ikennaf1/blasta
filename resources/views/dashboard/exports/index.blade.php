@@ -34,9 +34,8 @@ $i = 0;
                         <span class="text-gray-300">|</span>
                         <span class="text-blue-500"><a href="/dashboard?route=exports/all/author-posts">Author's posts</a></span> --}}
 
-                        <span class="sub-list-btn">
-                            <form method="POST">
-                                @csrf
+                        <span class="sub-list-btn text-sm">
+                            <form method="POST" action="/exports/clear-orphaned">
                                 <label>
                                     <input type="submit" value="Clear orphaned exports" class="border border-red-500 text-red-500 rounded-lg p-2 cursor-pointer" />
                                 </label>

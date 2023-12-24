@@ -2,8 +2,12 @@
 
 require_once base_path('/app/Blasta/Classes/Tag.php');
 
-function updateTags($keywordString)
+function updateTags(?string $keywordString = null)
 {
+    if ($keywordString === null) {
+        exit;
+    }
+    
     $tags = Tag::getInstance();
     $keywords = $tags->parse($keywordString);
     $tags->add(...$keywords);

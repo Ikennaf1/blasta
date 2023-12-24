@@ -22,6 +22,8 @@ Route::get('/all', [ExportController::class, 'all'])
 Route::get('/all/{filter}', [ExportController::class, 'all'])
     ->middleware(BlastaDashboard::class);
 
+Route::post('/clear-orphaned', [ExportController::class, 'clearOrphaned']);
+
 Route::delete('/delete/{export}', [ExportController::class, 'deleteExport']);
 
 Route::post('/post/{post}', [ExportController::class, 'exportPost']);

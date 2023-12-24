@@ -66,8 +66,12 @@ class Tag
     /**
      * Converts given meta tags to array
      */
-    public function parse(string $meta)
+    public function parse(?string $meta = null)
     {
+        if ($meta === null) {
+            return;
+        }
+        
         $tags = explode(',', $meta);
 
         $index = 0;

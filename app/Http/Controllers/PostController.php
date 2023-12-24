@@ -120,7 +120,7 @@ class PostController extends Controller
                 PostPublished::dispatch($post);
         }
 
-        return redirect('/dashboard?route=posts/edit/' . $post->id);
+        return redirect()->back();
     }
 
     /**
@@ -216,7 +216,7 @@ class PostController extends Controller
             }
         }
 
-        return redirect()->back();
+        return;
     }
 
     /**

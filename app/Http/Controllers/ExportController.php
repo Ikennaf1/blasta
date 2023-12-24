@@ -142,7 +142,10 @@ class ExportController extends Controller
     {
         if (is_string(request()->post)) {
             $id = request()->post;
-        } else {
+        } else if (isset($post->id)) {
+            $id = $post->id;
+        }
+        else {
             $id = request()->post->id;
         }
 
@@ -280,7 +283,9 @@ class ExportController extends Controller
 
         $path = base_path("/public/my_exports/$subdirectory/$post->link.html");
 
-        unlink($path);
+        if (file_exists($path)) {
+            unlink($path);
+        }
 
         return redirect()->back();
     }
@@ -301,6 +306,44 @@ class ExportController extends Controller
         $subdirectory = $request->subdirectory !== 'homepage' ? "$request->subdirectory/" : '';
         
         unlink(public_path("/my_exports/$subdirectory".$request->export));
+
+        return redirect()->back();
+    }
+
+    /**
+     * Clears all orphaned posts and pages
+     */
+    public function clearOrphaned(Request $request)
+    {
+        $posts = Post::where('post_type', 'post')
+            ->get('link');
+        $postLinks = [];
+        foreach ($posts as $post) {
+            $postLinks[] = titleToLink($post->link);
+        }
+        $exportedPosts = getFiles(public_path("/my_exports/posts"));
+
+        $pages = Post::where('post_type', 'page')
+            ->get('link');
+        $pageLinks = [];
+        foreach ($pages as $page) {
+            $pageLinks[] = titleToLink($page->link);
+        }
+        $exportedPages = getFiles(public_path("/my_exports/pages"));
+        // dd([$exportedPosts, $postLinks]);
+
+        foreach ($exportedPosts as $exportedPost) {
+            if (!in_array(substr($exportedPost, 0, strpos($exportedPost, '.html')), $postLinks)) {
+                // dd([substr($exportedPost, 0, strpos($exportedPost, '.html')), $postLinks]);
+                unlink(public_path("/my_exports/posts/$exportedPost"));
+            }
+        }
+
+        foreach ($exportedPages as $exportedPage) {
+            if (!in_array(rtrim($exportedPage, '.html'), $pageLinks)) {
+                unlink(public_path("/my_exports/pages/$exportedPage"));
+            }
+        }
 
         return redirect()->back();
     }
