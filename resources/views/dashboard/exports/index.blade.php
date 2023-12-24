@@ -29,8 +29,8 @@ $i = 0;
                         <span class="text-blue-500"><a href="/dashboard?route=exports/all/homepage">Homepage</a></span>
                         <span class="text-gray-300">|</span>
                         <span class="text-blue-500"><a href="/dashboard?route=exports/all/pages">Pages</a></span>
-                        {{-- <span class="text-gray-300">|</span>
-                        <span class="text-blue-500"><a href="/dashboard?route=exports/all/authors">Authors</a></span>
+                        <span class="text-gray-300">|</span>
+                        {{-- <span class="text-blue-500"><a href="/dashboard?route=exports/all/authors">Authors</a></span>
                         <span class="text-gray-300">|</span>
                         <span class="text-blue-500"><a href="/dashboard?route=exports/all/author-posts">Author's posts</a></span> --}}
 
