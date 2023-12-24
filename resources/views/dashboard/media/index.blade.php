@@ -40,10 +40,13 @@
                             @continue
                         @endif
                         <div class="media-img-container">
-                            <img
+                            <object
+                             width="100%"
+                             height="100%"
+                             data="/uploads/{{$subtitle}}/{{$medium}}"
                              style="width: 100%; height: 100%; object-position: center; object-fit: cover;"
-                             src="/uploads/{{$subtitle}}/{{$medium}}"
                              >
+                            </object>
                             <div class="media-img-container-options">
                                 <div class="flex items-center justify-around w-full">
                                     <div class="inline-block cursor-pointer" title="Preview {{rtrim(strtolower($subtitle), 's')}}" onclick="previewMedia(this)">
