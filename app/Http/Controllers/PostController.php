@@ -112,10 +112,10 @@ class PostController extends Controller
         switch ($post->post_type) {
             case 'post':
                 PostPublished::dispatch($post);
-            break;
+                break;
             case 'page':
                 PagePublished::dispatch($post);
-            break;
+                break;
             default:
                 PostPublished::dispatch($post);
         }
@@ -206,13 +206,13 @@ class PostController extends Controller
             switch ($post->post_type) {
                 case 'post':
                     PostPublished::dispatch($post);
-                break;
+                    break;
                 case 'page':
                     PagePublished::dispatch($post);
-                break;
+                    break;
                 default:
                     PostPublished::dispatch($post);
-                break;
+                    break;
             }
         }
 
@@ -244,13 +244,13 @@ class PostController extends Controller
         switch ($post->post_type) {
             case 'post':
                 PostPublished::dispatch($post);
-            break;
+                break;
             case 'page':
                 PagePublished::dispatch($post);
-            break;
+                break;
             default:
                 PostPublished::dispatch($post);
-            break;
+                break;
         }
 
         return redirect()->back();
@@ -266,13 +266,13 @@ class PostController extends Controller
         switch ($post->post_type) {
             case 'post':
                 PostDeleted::dispatch($post);
-            break;
+                break;
             case 'page':
                 PageDeleted::dispatch($post);
-            break;
+                break;
             default:
                 PostDeleted::dispatch($post);
-            break;
+                break;
         }
 
         return redirect()->back();
@@ -290,13 +290,13 @@ class PostController extends Controller
             switch ($post->post_type) {
                 case 'post':
                     PostPublished::dispatch($post);
-                break;
+                    break;
                 case 'page':
                     PagePublished::dispatch($post);
-                break;
+                    break;
                 default:
                     PostPublished:dispatch($post);
-                break;
+                    break;
             }
         }
 

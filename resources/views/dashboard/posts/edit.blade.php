@@ -39,7 +39,7 @@
 </script>
 <div class="flex flex-col gap-8">
     <div class="flex flex-wrap items-top gap-8 w-full justify-between">
-        <div class="flex flex-col gap-8 w-full lg:w-8/12">
+        <div class="post-body">
             {{-- Page Title --}}
             <div class="flex items-center gap-4">
                 <div class="flex justify-center items-center w-8 h-8 rounded bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow">
@@ -69,17 +69,17 @@
             </div>
         </div>
 
-        <div class="w-full lg:w-1/4 text-sm">
+        <div class="post-form-container">
             <div class="flex flex-col gap-8">
                 {{-- Post --}}
                 <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
                     <div class="flex justify-between items-center">
                         <p class="font-bold">Post</p>
                         <div class="flex gap-2">
-                            <a class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600 cursor-pointer" href="/posts/{{$post->id}}" target="_blank">Preview</a>
+                            <a class="post-preview-btn" href="/posts/{{$post->id}}" target="_blank">Preview</a>
                             <div class="flex gap-0">
-                                <label for="update_id" class="px-2 py-1 bg-blue-500 text-white rounded-l border border-blue-600 hover:bg-blue-600 cursor-pointer" href="#">Update</label>
-                                <div class=" flex items-center justify-center px-2 py-1 bg-blue-500 text-white rounded-r border border-l-0 border-blue-600 hover:bg-blue-600 cursor-pointer">
+                                <label for="update_id" class="post-update-btn" href="#">Update</label>
+                                <div class="post-edit-update-btn">
                                     <div id="update_options_toggle">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -88,8 +88,8 @@
                                 </div>
                                 <div id="update_options" class="absolute hidden transition duration-500 bg-blue-400 border-blue-400 border rounded top-24 right-12">
                                     <ul>
-                                        <li class="px-2 py-1 hover:bg-blue-600 text-white cursor-pointer"><label for="update_id">Update</label></li>
-                                        <li class="px-2 py-1 hover:bg-blue-600 text-white cursor-pointer"><label for="updatePublish_id">Update and publish</label></li>
+                                        <li class="post-edit-update-options-btns"><label for="update_id">Update</label></li>
+                                        <li class="post-edit-update-options-btns"><label for="updatePublish_id">Update and publish</label></li>
                                     </ul>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
 
                     <div class="flex justify-between items-center">
                         <button type="reset" class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">Reset</button>
-                        <a class="px-2 py-1 bg-red-100 rounded border border-red-300 hover:bg-red-200" href="/dashboard?route=dashboard/home">Cancel</a>
+                        <a class="post-cancel-btn" href="/dashboard?route=dashboard/home">Cancel</a>
                     </div>
                 </div>
 
@@ -133,7 +133,7 @@
                                 class="p-2 overflow-hidden w-full h-full" />
                         </label>
                         <div class="flex justify-between items-center">
-                            <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">
+                            <label class="post-select-img-btn">
                                 Select from file
                                 <input name="featured_image" id="featured_image_id" type="file" accept="image/*" value="Select image from file" class="hidden" />
                             </label>

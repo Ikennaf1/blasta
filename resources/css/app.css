@@ -7,6 +7,66 @@ link {
     color: #cc4ca6;
 }
 
+.dashboard-menu-grp {
+    @apply mx-auto z-20;
+}
+
+.dashboard-menu-fixed-bg {
+    @apply bg-white fixed mt-32 left-0 h-full z-0 w-16 md:w-[18vw] lg:w-[16vw] xl:w-[12vw] shadow-md;
+}
+
+.dashboard-menu {
+    @apply flex items-center justify-between hover:text-black transition ease-in-out duration-500;
+}
+
+.dashboard-menu-container {
+    @apply px-4 sm:px-6 lg:px-8 mt-8 w-16 md:w-[18vw] lg:w-[16vw] xl:w-[12vw];
+}
+
+.dashboard-contents {
+    @apply mt-12 w-11/12 mr-8;
+}
+
+.post-body {
+    @apply flex flex-col gap-8 w-full lg:w-8/12;
+}
+
+.post-form-container {
+    @apply w-full lg:w-1/4 text-sm;
+}
+
+.post-publish-btn {
+    @apply px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600 cursor-pointer;
+}
+
+.post-savedraft-btn {
+    @apply px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200;
+}
+
+.post-preview-btn {
+    @apply px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600 cursor-pointer;
+}
+
+.post-update-btn {
+    @apply px-2 py-1 bg-blue-500 text-white rounded-l border border-blue-600 hover:bg-blue-600 cursor-pointer;
+}
+
+.post-edit-update-btn {
+    @apply flex items-center justify-center px-2 py-1 bg-blue-500 text-white rounded-r border border-l-0 border-blue-600 hover:bg-blue-600 cursor-pointer;
+}
+
+.post-edit-update-options-btns {
+    @apply px-2 py-1 hover:bg-blue-600 text-white cursor-pointer;
+}
+
+.post-cancel-btn {
+    @apply px-2 py-1 bg-red-100 rounded border border-red-300 hover:bg-red-200;
+}
+
+.post-select-img-btn {
+    @apply px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200;
+}
+
 .appearance-container {
     @apply w-full h-full;
 }

@@ -38,7 +38,7 @@
 </script>
 <div class="flex flex-col gap-8">
     <div class="flex flex-wrap items-top gap-8 w-full justify-between">
-        <div class="flex flex-col gap-8 w-full lg:w-8/12">
+        <div class="post-body">
             {{-- Page Title --}}
             <div class="flex items-center gap-4">
                 <div class="flex justify-center items-center w-8 h-8 rounded bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow">
@@ -54,7 +54,7 @@
                     @csrf
                     <div class="flex flex-col gap-8">
                         <div>
-                            <input name="title" minlength="1" class="w-full border-gray-300 focus:outline-none shadow rounded-lg" type="text" placeholder="Add Title" />
+                            <input name="title" minlength="1" class="w-full border-gray-300 shadow rounded-lg" type="text" placeholder="Add Title" />
                         </div>
 
                         <div>
@@ -68,13 +68,13 @@
             </div>
         </div>
 
-        <div class="w-full lg:w-1/4 text-sm">
+        <div class="post-form-container">
             <div class="flex flex-col gap-8">
                 {{-- Post --}}
                 <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
                     <div class="flex justify-between items-center">
                         <p class="font-bold">Post</p>
-                        <label for="publish_id" class="px-2 py-1 bg-blue-500 text-white rounded border border-blue-600 hover:bg-blue-600" href="#">Publish</label>
+                        <label for="publish_id" class="post-publish-btn" href="#">Publish</label>
                     </div>
 
                     <hr class="" />
@@ -87,8 +87,8 @@
                     </div>
 
                     <div class="flex justify-between items-center">
-                        <label for="save_draft_id" class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200" href="#">Save draft</label>
-                        <a class="px-2 py-1 bg-red-100 rounded border border-red-300 hover:bg-red-200" href="/dashboard?route=dashboard/home">Cancel</a>
+                        <label for="save_draft_id" class="post-savedraft-btn" href="#">Save draft</label>
+                        <a class="post-cancel-btn" href="/dashboard?route=dashboard/home">Cancel</a>
                     </div>
                 </div>
 
@@ -110,12 +110,12 @@
                             <p id="featured_image_container_id" class="p-2 overflow-hidden w-full h-full">No image selected. Click to upload image from file.</p>
                         </label>
                         <div class="flex justify-between items-center">
-                            <label class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">
+                            <label class="post-select-img-btn">
                                 Select from file
                                 <input name="featured_image" id="featured_image_id" type="file" accept="image/*" value="Select image from file" class="hidden" />
                             </label>
                             {{-- <div>
-                                <button class="px-2 py-1 bg-blue-100 rounded border border-blue-300 hover:bg-blue-200">Select from gallery</button>
+                                <button class="post-select-img-btn">Select from gallery</button>
                             </div> --}}
                             <script>
                                 let img = document.querySelector('#featured_image_id');
