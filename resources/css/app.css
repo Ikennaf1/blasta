@@ -19,8 +19,16 @@ link {
     @apply flex items-center justify-between hover:text-black transition ease-in-out duration-500;
 }
 
+.dashboard-menu-li {
+    @apply hidden md:inline-block;
+}
+
 .dashboard-menu-container {
     @apply px-4 sm:px-6 lg:px-8 mt-8 w-16 md:w-[18vw] lg:w-[16vw] xl:w-[12vw];
+}
+
+.dashboard-menu-container-fixed {
+    @apply fixed h-[75vh] w-12 sm:w-10 md:w-[12vw] lg:w-[12vw] xl:w-[8vw] overflow-y-auto;
 }
 
 .dashboard-contents {

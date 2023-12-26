@@ -39,7 +39,14 @@ class BlastServe extends Command
             $this->error('Something went wrong. Please check to ssee if port is already running.');
         }
 
-        if ($server1 && $server2) {
+        $front = popen('npm run dev', 'r');
+        if ($front) {
+            $this->info('Vite running');
+        } else {
+            $this->error('Something went wrong while running vite');
+        }
+
+        if ($server1 && $server2 && $front) {
             $this->info('ctrl + c to terminate server');
         }
     }
