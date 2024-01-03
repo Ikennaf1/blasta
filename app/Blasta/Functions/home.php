@@ -20,7 +20,7 @@ function home()
             "posts" => $posts
         ]);
     }
-    else if (is_int((int) $homepage)) {
+    else if ($homepage == (int) $homepage) {
         $page = Post::find($homepage);
         $page->author = User::find($page->user_id)->name;
         return view('front.page', [

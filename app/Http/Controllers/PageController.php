@@ -90,6 +90,7 @@ class PageController extends Controller
             ->where('status', 'published')
             ->get();
         $routes = Route::getRoutes();
+        $filePages = getFiles(front_path('/pages'));
 
         foreach ($pages as $page) {
             $pagesFinal[] = [
@@ -112,6 +113,16 @@ class PageController extends Controller
                 ];
             }
         }
+
+        foreach ($filePages as $file) {
+            $link = rtrim($file, '.blade.php');
+            $pagesFinal = [...$pagesFinal, [
+                'title' => linkToTitle($link),
+                'link'  => $link
+                ]
+            ];
+        }
+
         return $pagesFinal;
     }
 
