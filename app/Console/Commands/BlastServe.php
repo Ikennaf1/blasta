@@ -47,7 +47,7 @@ class BlastServe extends Command
         }
 
         if ($server1 && $server2 && $front) {
-            $this->info('ctrl + c to terminate server');
+            $this->info('ctrl + c to terminate');
         }
     }
 }

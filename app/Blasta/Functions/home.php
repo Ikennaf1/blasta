@@ -8,7 +8,7 @@ function home()
     $homepage = $settings->get('general', 'homepage');
     $limit = $settings->get('general', 'query_limit');
 
-    if ($homepage === 'index') {
+    if ($homepage === 'default') {
         $posts = Post::where('post_type', 'post')
             ->where('status', 'published')
             ->latest()
