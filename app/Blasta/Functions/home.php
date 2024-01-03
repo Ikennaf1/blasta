@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\User;
 
 function home()
 {
@@ -19,10 +20,11 @@ function home()
             "posts" => $posts
         ]);
     }
-    else if (is_int($homepage)) {
+    else if (is_int((int) $homepage)) {
         $page = Post::find($homepage);
+        $page->author = User::find($page->user_id)->name;
         return view('front.page', [
-            'page' => $page
+            'post' => $page
         ]);
     }
     else {

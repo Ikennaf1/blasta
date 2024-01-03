@@ -25,4 +25,4 @@ registerWidget(
     ]
 );
 
-registerSettingsForm('Recent Posts', 'recent_posts', plugin_path('/Recent posts/form.php'));
+// registerSettingsForm('Recent Posts', 'recent_posts', plugin_path('/Recent posts/form.php'));

@@ -69,6 +69,53 @@ class PageController extends Controller
     }
 
     /**
+     * Returns a list of all pages
+     */
+    public function listForSettings()
+    {
+        $pagesFinal = [];
+        $ignoredRoutes = [
+            'pages/',
+            'pages/{page}',
+            'pages/list',
+            'pages/all',
+            'pages/all/published',
+            'pages/all/drafts',
+            'pages/all/trashed',
+            'pages/all/{filter}',
+            'pages/all/{page}'
+        ];
+
+        $pages = Post::where('post_type', 'page')
+            ->where('status', 'published')
+            ->get();
+        $routes = Route::getRoutes();
+
+        foreach ($pages as $page) {
+            $pagesFinal[] = [
+                'link'    => $page->id,
+                'title' => $page->title
+            ];
+        }
+        
+        foreach ($routes as $route) {
+            $link = $route->uri();
+            if (strpos($route->uri(), 'pages/') !== false) {
+                if (in_array($route->uri(), $ignoredRoutes)) {
+                    continue;
+                }
+
+                $pagesFinal = [...$pagesFinal, [
+                    'title' => linkToTitle($link),
+                    'link'  => $link
+                    ]
+                ];
+            }
+        }
+        return $pagesFinal;
+    }
+
+    /**
      * Returns a list of all published pages
      */
     public function listPublished()
@@ -78,6 +125,43 @@ class PageController extends Controller
             ->get();
         
         return $pages;
+    }
+
+    /**
+     * Returns a list of all routed pages
+     */
+    public function listRouted()
+    {
+        $pagesFinal = [];
+        $ignoredRoutes = [
+            'pages/',
+            'pages/{page}',
+            'pages/list',
+            'pages/all',
+            'pages/all/published',
+            'pages/all/drafts',
+            'pages/all/trashed',
+            'pages/all/{filter}',
+            'pages/all/{page}'
+        ];
+        $routes = Route::getRoutes();
+        
+        foreach ($routes as $route) {
+            $link = $route->uri();
+            if (strpos($route->uri(), 'pages/') !== false) {
+                if (in_array($route->uri(), $ignoredRoutes)) {
+                    continue;
+                }
+
+                $pagesFinal = [...$pagesFinal, [
+                    'title' => linkToTitle($link),
+                    'link'  => $link
+                    ]
+                ];
+            }
+        }
+
+        return $pagesFinal;
     }
 
     /**
