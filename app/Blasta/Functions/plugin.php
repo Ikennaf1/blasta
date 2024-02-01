@@ -160,3 +160,12 @@ function deletePlugin(string $pluginName)
 
     return deleteDir(plugin_path("/$pluginName"), true);
 }
+
+/**
+ * Fetches available free plugins from repository
+ */
+function fetchPlugins()
+{
+    $url        = 'https://localhost:5000/api/v0';
+    $content    = file_get_contents($url);
+}

@@ -17,8 +17,11 @@ use App\Http\Middleware\BlastaDashboard;
 
 Route::get('/', [ThemeController::class, 'index'])
     ->middleware(BlastaDashboard::class);
+Route::get('/fetch', [ThemeController::class, 'fetchFree'])
+    ->middleware(BlastaDashboard::class);
 
 Route::post('/activate/{theme}', [ThemeController::class, 'activate']);
+Route::get('/fetch-all', [ThemeController::class, 'fetchAll']);
 
 
 

@@ -21,3 +21,5 @@ Route::get('/', [PluginController::class, 'index'])
 Route::post('/activate/{plugin}', [PluginController::class, 'activate']);
 Route::post('/deactivate/{plugin}', [PluginController::class, 'deactivate']);
 Route::post('/delete/{plugin}', [PluginController::class, 'delete']);
+Route::post('/download/{plugin}', [PluginController::class, 'download']);
+Route::get('/fetch', [PluginController::class, 'download']);

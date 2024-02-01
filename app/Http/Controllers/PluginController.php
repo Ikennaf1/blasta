@@ -35,6 +35,15 @@ class PluginController extends Controller
         return redirect()->back();
     }
 
+    public function download(Request $request)
+    {
+        // 
+    }
+
+    public function fetch(Request $request)
+    {
+        // 
+    }
     
     private function getPluginNameFromUrl(string $url): string
     {

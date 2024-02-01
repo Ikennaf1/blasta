@@ -56,11 +56,12 @@ function getActiveTheme()
 }
 
 /**
- * Fetch available themes from an online repository
+ * Fetch available fre themes from an online repository
  */
-function fetchThemes()
+function fetchFreeThemes()
 {
-    // 
+    $url = 'http://localhost:5000/api/v0/free';
+    return fetch($url);
 }
 
 /**

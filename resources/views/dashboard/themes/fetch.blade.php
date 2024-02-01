@@ -1,5 +1,7 @@
 <?php
-$installedThemes = getInstalledThemes();
+// $themes = getInstalledThemes();
+// $themes = $themes->original['data'];
+// dd(($themes));
 $activeTheme = getActiveTheme();
 ?>
 
@@ -14,11 +16,6 @@ $activeTheme = getActiveTheme();
             </div>
             <span class="flex gap-4 items-center">
                 <h2 class="font-black text-black inline-block">Themes</h2>
-                <a href="/dashboard?route=themes/fetch">
-                    <span class="inline-block px-2 py-1 shadow border bg-gray-50 border-gray-400  text-blue-500 transition duration-400">
-                        Add new
-                    </span>
-                </a>
             </span>
         </div>
 
@@ -28,34 +25,21 @@ $activeTheme = getActiveTheme();
             </div>
 
             <div class="flex flex-wrap gap-16">
-                <div class="theme-container">
-                    <div class="theme-img-container">
-                        <img
-                        style="width: 100%; height: 100%; object-position: center; object-fit: cover;"
-                        src="data:image/png;base64, {!!base64_encode(file_get_contents(getThemeScreenshot($activeTheme)))!!}"
-                        alt="{{$activeTheme}}">
-                    </div>
-                    <div class="theme-name-container">
-                        <span>{{ucFirst(dashToSpace($activeTheme))}}</span>
-                        <span class="font-normal text-sm underline">Active theme</span>
-                    </div>
-                </div>
-
-                @foreach ($installedThemes as $theme)
-                    @if ($theme === $activeTheme)
+                @foreach ($themes as $theme)
+                    @if ($theme->name === $activeTheme)
                         @continue
                     @endif
                     <div class="theme-container">
                         <div class="theme-img-container">
                             <img
                             style="width: 100%; height: 100%; object-position: center; object-fit: cover;"
-                            src="data:image/png;base64, {!!base64_encode(file_get_contents(getThemeScreenshot($theme)))!!}"
-                            alt="{{$theme}}">
+                            {{-- src="data:image/png;base64, {!!base64_encode(file_get_contents(getThemeScreenshot($theme->name)))!!}" --}}
+                            alt="{{$theme->name}}">
                         </div>
                         <div class="theme-name-container">
-                            <span>{{ucFirst(dashToSpace($theme))}}</span>
+                            <span>{{ucFirst(dashToSpace($theme->name))}}</span>
                             <span class="theme-activate-container">
-                                <form action="/themes/activate/{{$theme}}" method="post">
+                                <form action="/themes/activate/{{$theme->name}}" method="post">
                                     <button type="submit">Activate</button>
                                 </form>
                             </span>

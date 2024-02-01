@@ -18,6 +18,9 @@ class ThemeController extends Controller
         return view('dashboard.themes.index');
     }
 
+    /**
+     * Activates a selected theme
+     */
     public function activate(Request $request)
     {
         $urlExplode = explode('/', $request->url());
@@ -25,5 +28,17 @@ class ThemeController extends Controller
         activateTheme($theme);
 
         return redirect()->back();
+    }
+
+    /**
+     * Fetch all themes from online repository
+     */
+    public function fetchFree(Request $request)
+    {
+        $result = fetchFreeThemes();
+    
+        return view('dashboard.themes.fetch', [
+            'themes' => json_decode($result)->data
+        ]);
     }
 }
