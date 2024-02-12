@@ -10,9 +10,9 @@ function download(string $url, string $storageLocation): bool
       
     if (file_put_contents("$storageLocation/$filename", file_get_contents($url))) { 
         return true;
-    } else { 
-        return false; 
-    } 
+    }
+    
+    return false;
 }
 
 /**

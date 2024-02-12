@@ -56,11 +56,20 @@ function getActiveTheme()
 }
 
 /**
- * Fetch available fre themes from an online repository
+ * Fetch available free themes from an online repository
  */
 function fetchFreeThemes()
 {
     $url = 'http://localhost:5000/api/v0/free';
+    return fetch($url);
+}
+
+/**
+ * Searches based on query, for an available free theme on an online repository
+ */
+function searchFreeThemes(string $query)
+{
+    $url = "http://localhost:5000/api/v0/search-free/$query";
     return fetch($url);
 }
 

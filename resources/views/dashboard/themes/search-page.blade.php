@@ -1,5 +1,8 @@
 <?php
 $activeTheme = getActiveTheme();
+$themes = session('themes');
+dd(request());
+dd($themes);
 ?>
 
 <div>
@@ -21,11 +24,11 @@ $activeTheme = getActiveTheme();
                 <p class="font-bold text-lg">Choose theme</p>
 
                 <div>
-                    <form id="theme_search_form">
+                    <form action="/themes/search" method="get">
                         <div class="flex gap-2 items-center">
                             <label class="flex gap-4 items-center">
                                 {{-- <p>Search themes</p> --}}
-                                <input id="q" class="menu-text-input" type="text" placeholder="Search themes">
+                                <input class="menu-text-input" type="search" name="q" placeholder="Search themes">
                             </label>
                             <button type="submit" class="bg-blue-500 text-white rounded-lg p-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -37,7 +40,7 @@ $activeTheme = getActiveTheme();
                 </div>
             </div>
 
-            <div class="flex flex-wrap gap-16" id="themes_list">
+            <div class="flex flex-wrap gap-16">
                 @foreach ($themes as $theme)
                     @if ($theme->name === $activeTheme)
                         @continue
@@ -61,66 +64,3 @@ $activeTheme = getActiveTheme();
         </div>
     </div>
 </div>
-
-<script>
-
-let searchForm = document.querySelector('#theme_search_form');
-let themesList = document.querySelector('#themes_list');
-let queryInput = document.querySelector('#q');
-var themeContainer = '';
-var timer;
-searchForm.onsubmit = (e) => {
-    e.preventDefault();
-    themesList.innerHTML = '';
-    fetchTheme(queryInput.value);
-}
-
-queryInput.onkeyup = (e) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-        if (queryInput.value.length == '') {
-            themesList.innerHTML = '';
-            fetchTheme(`http://localhost:5000/api/v0/free`, true);
-        }
-        else if (queryInput.value.length < 3) {
-            return;
-        } else {
-            themesList.innerHTML = '';
-            fetchTheme(queryInput.value);
-        }
-    }, 2000)
-}
-
-function fetchTheme(themeQuery, fullUrl = false)
-{
-    let url = '';
-    if (fullUrl === false) {
-        url = `http://localhost:5000/api/v0/search-free/${themeQuery}`;
-    } else {
-        url = themeQuery;
-    }
-
-    fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-        data.data.map((theme) => {
-            themeContainer = `<div class="theme-container">`;
-            themeContainer += `<div class="theme-img-container">`;
-            themeContainer += `<img style="width: 100%; height: 100%; object-position: center; object-fit: cover;"`;
-            themeContainer += ` src="${theme.img_url}"`;
-            themeContainer += ` alt="${theme.name}">`;
-            themeContainer += `</div>`;
-            themeContainer += `<div class="theme-name-container">`;
-            themeContainer += `<span>${theme.name}</span>`;
-            themeContainer += `<span class="theme-activate-container">`;
-            themeContainer += `<a href="/themes/download/?theme_name=${theme.name}&theme_url=${theme.url}&theme_version=${theme.version}">Download</a>`;
-            themeContainer += `</span>`;
-            themeContainer += `</div>`;
-            themeContainer += `</div>`;
-
-            themesList.innerHTML += themeContainer;
-        })
-    });
-}
-
-</script>

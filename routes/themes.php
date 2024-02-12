@@ -17,19 +17,9 @@ use App\Http\Middleware\BlastaDashboard;
 
 Route::get('/', [ThemeController::class, 'index'])
     ->middleware(BlastaDashboard::class);
-Route::get('/fetch', [ThemeController::class, 'fetchFree'])
+Route::get('/fetch', [ThemeController::class, 'fetch'])
     ->middleware(BlastaDashboard::class);
 
 Route::post('/activate/{theme}', [ThemeController::class, 'activate']);
 Route::get('/fetch-all', [ThemeController::class, 'fetchAll']);
-
-
-
-
-// Route::get('/list', [PageController::class, 'list']);
-// Route::get('/all', [PageController::class, 'all'])
-//     ->middleware(BlastaDashboard::class);
-// Route::get('/all/{filter}', [PageController::class, 'all'])
-//     ->middleware(BlastaDashboard::class);
-
-// Route::get('/{page}', [PageController::class, 'show']);
+Route::get('/download', [ThemeController::class, 'download']);
