@@ -38,9 +38,9 @@ class FrontSymLink extends Command
      */
     public function handle()
     {
-        $target = base_path() . '/resources/views/front/' . $this->argument('resource');
+        $target = base_path('/resources/views/front/' . $this->argument('resource'));
         $target = str_replace('\\', '/', $target);
-        $link = base_path() . '/public/' . $this->argument('resource');
+        $link = base_path('/public/' . $this->argument('resource'));
         $link = str_replace('\\', '/', $link);
         symlink($target, $link);
     }

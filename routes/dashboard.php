@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Middleware\BlastaDashboardCheck;
 use App\Http\Middleware\BlastaDashboard;
+use App\Http\Middleware\CheckInstalled;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Middleware\BlastaDashboard;
 
 Route::get('/', function () {
     return view('dashboard');
-})->middleware(['auth', BlastaDashboardCheck::class])->name('dashboard');
+})->middleware(['auth', BlastaDashboardCheck::class, CheckInstalled::class])->name('dashboard');
 
 Route::get('/home', [DashboardController::class, 'index'])
-    ->middleware(BlastaDashboard::class);
+    ->middleware([BlastaDashboard::class, CheckInstalled::class]);

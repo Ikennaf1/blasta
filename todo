@@ -1,0 +1,4 @@
+1.  Create db file
+2.  Migrate the models
+3.  Link ./public/my_exports/uploads to ./public/uploads
+4.  Link ./resources/front/assets to ./public/assets

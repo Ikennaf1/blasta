@@ -26,9 +26,9 @@ class UploadsSymLink extends Command
      */
     public function handle()
     {
-        $target = base_path() . '/public/my_exports/uploads';
+        $target = base_path('/public/my_exports/uploads');
         $target = str_replace('\\', '/', $target);
-        $link = base_path() . '/public/uploads';
+        $link = base_path('/public/uploads');
         $link = str_replace('\\', '/', $link);
         symlink($target, $link);
     }

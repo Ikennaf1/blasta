@@ -7,6 +7,30 @@ link {
     color: #cc4ca6;
 }
 
+.installation-body-bg {
+    @apply bg-[#fafcfe] dark:bg-gray-900;
+}
+
+.installation-logo {
+    @apply text-gray-700 dark:text-slate-300;
+}
+
+.installation-container {
+    @apply w-96 h-auto max-h-[80%] bg-slate-50 dark:bg-slate-900 dark:text-gray-300 border rounded-lg border-slate-100 dark:border-slate-700 shadow-lg p-4 text-gray-700;
+}
+
+.installation-container input[type=text] {
+    @apply dark:bg-slate-900 dark:text-gray-300;
+}
+
+.installation-welcome {
+    @apply border-b dark:border-b-slate-700 pb-2 text-2xl font-bold;
+}
+
+.installation-submit {
+    @apply bg-orange-500 hover:bg-orange-600 text-white p-2 text-center rounded-lg w-32 transition duration-500;
+}
+
 .dashboard-menu-grp {
     @apply mx-auto z-20;
 }
