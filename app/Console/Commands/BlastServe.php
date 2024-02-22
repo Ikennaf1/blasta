@@ -11,7 +11,7 @@ class BlastServe extends Command
      *
      * @var string
      */
-    protected $signature = 'blasta:serve';
+    protected $signature = 'blasta:serve {--dev}';
 
     /**
      * The console command description.
@@ -25,6 +25,10 @@ class BlastServe extends Command
      */
     public function handle()
     {
+        $server1;
+        $server2;
+        $front;
+
         $server1 = popen('php artisan serve --port=8000', 'r');
         if ($server1) {
             $this->info('Server started on localhost port 8000');
@@ -39,15 +43,22 @@ class BlastServe extends Command
             $this->error('Something went wrong. Please check to ssee if port is already running.');
         }
 
-        $front = popen('npm run dev', 'r');
-        if ($front) {
-            $this->info('Vite running');
-        } else {
-            $this->error('Something went wrong while running vite');
+        if ($this->option('dev')) {
+            $front = popen('npm run dev', 'r');
+            if ($front) {
+                $this->info('Vite running');
+            } else {
+                $this->error('Something went wrong while running vite');
+            }
         }
 
         if ($server1 && $server2 && $front) {
-            $this->info('ctrl + c to terminate');
+            $this->info('ctrl + c to terminate dev servers');
+        }
+        else if ($server1 && $server2) {
+            $this->info('ctrl + c to terminate servers');
+        } else {
+            $this->info('Something went wrong while starting up servers');
         }
     }
 }
