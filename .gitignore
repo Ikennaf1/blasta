@@ -18,6 +18,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/resources/views/front/node_modules
 /resources/views/front/.git
-/resources/views/front/.gitignore
+/resources/views/front/node_modules
