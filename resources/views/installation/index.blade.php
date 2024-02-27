@@ -21,7 +21,7 @@
                         <h3 class="installation-welcome">Welcome</h3>
                         <p>
                             Welcome to the One-Click Nidavel installation process. <br>
-                            Just fill out the form below,and you're on your way to using the best static blogging software available!
+                            Just fill out the form below, and you're on your way to using the best static blogging software available!
                         </p>
                     </div>
                     <div>

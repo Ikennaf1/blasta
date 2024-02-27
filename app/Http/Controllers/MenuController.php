@@ -13,7 +13,6 @@ class MenuController extends Controller
 
     public function create(Request $request)
     {
-        // $inputCount = count($request->input());
         $x      = 0;
         $menu   = [];
         $title  = '';

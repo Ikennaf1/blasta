@@ -77,7 +77,7 @@ function deleteZipped(string $filename): bool
     finfo_close($finfo);
 
     if ($mimeType === 'application/zip' || $mimeType === 'application/x-rar-compressed') {
-        return unlink(plugin_path("/$filename"));
+        return unlink($filename);
     }
 
     return false;

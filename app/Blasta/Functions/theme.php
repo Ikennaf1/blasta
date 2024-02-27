@@ -78,8 +78,8 @@ function searchFreeThemes(string $query)
  */
 function activateTheme(string $themeName)
 {
-    // $themeDir = front_path('/'.getActiveTheme());
-    $themeDir = base_path("/theme");
+    $themeDir = resource_path("/views/theme");
+    // $themeDir = front_path();
     $selectedTheme = theme_path("/$themeName");
 
     if (!file_exists("$selectedTheme/details.json")) {
@@ -99,9 +99,19 @@ function activateTheme(string $themeName)
         }
     }
 
-    deleteDir($themeDir, true);
-    mkdir($themeDir);
+    // Delete active theme directory contents
+    $it = new RecursiveDirectoryIterator($themeDir, RecursiveDirectoryIterator::SKIP_DOTS);
+    $files = new RecursiveIteratorIterator($it,
+                 RecursiveIteratorIterator::CHILD_FIRST);
+    foreach($files as $file) {
+        if ($file->isDir()){
+            rmdir($file->getPathname());
+        } else {
+            unlink($file->getPathname());
+        }
+    }
 
+    // Copy files to active theme directory
     $selectedThemeDir = new DirectoryIterator($selectedTheme);
     foreach ($selectedThemeDir as $fileinfo) {
         if ($fileinfo->isDot()) {

@@ -35,12 +35,18 @@ class InstallationController extends Controller
         mkUriDir(public_path('/my_exports/pages'));
         mkUriDir(public_path('/my_exports/posts'));
         mkUriDir(public_path('/my_exports/uploads'));
+        mkUriDir(public_path('/my_exports/uploads/images'));
+        mkUriDir(public_path('/my_exports/uploads/audios'));
+        mkUriDir(public_path('/my_exports/uploads/videos'));
 
         // SoftLink the /public/my_exports/uploads to /public/uploads
         exec('php artisan uploads:link');
 
         // SoftLink the /public/my_exports/assets to /public/assets
         // 
+
+        // Generate unique key
+        exec('php artisan key:generate');
 
         // Remove install flag
         unlink(base_path('/install'));

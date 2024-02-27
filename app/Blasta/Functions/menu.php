@@ -38,6 +38,14 @@ function getMenu()
     $menu = getMenuList();
 
     foreach ($menu as $title => $props) {
+        if (substr($props['url'], 0, 4) === 'http') {
+            $newMenu[] = $props['target'] == null
+                ? '<a href="'.$props['url'].'">'.ucfirst($title).'</a>'
+                : '<a href="'.$props['url'].'" target="'.$props['target'].'">'.ucfirst($title).'</a>';
+            
+            continue;
+        }
+
         $newMenu[] = $props['target'] == null
             ? '<a href="'.exportLink($props['url']).'">'.ucfirst($title).'</a>'
             : '<a href="'.exportLink($props['url']).'" target="'.$props['target'].'">'.ucfirst($title).'</a>';
