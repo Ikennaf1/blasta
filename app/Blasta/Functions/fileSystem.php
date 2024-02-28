@@ -65,23 +65,6 @@ function deleteDir(string $path, bool $recursive = false)
  */
 function rrmdir($path)
 {
-    // $dir = opendir($path);
-
-    // while (($file = readdir($dir)) !== false) {
-    //     if (($file != '.') && ($file != '..')) {
-    //         $full = $path . '/' . $file;
-    //         if (is_dir($full)) {
-    //             return rrmdir($full);
-    //         } else {
-    //             unlink($full);
-    //         }
-    //     }
-    // }
-
-    // closedir($dir);
-
-    // return rmdir($path);
-
     $it = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
     $files = new RecursiveIteratorIterator($it,
                  RecursiveIteratorIterator::CHILD_FIRST);

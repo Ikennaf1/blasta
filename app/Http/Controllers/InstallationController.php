@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class InstallationController extends Controller
 {
@@ -40,16 +41,21 @@ class InstallationController extends Controller
         mkUriDir(public_path('/my_exports/uploads/videos'));
 
         // SoftLink the /public/my_exports/uploads to /public/uploads
-        exec('php artisan uploads:link');
+        Artisan::call('uploads:link');
 
         // SoftLink the /public/my_exports/assets to /public/assets
         // 
 
-        // Generate unique key
-        exec('php artisan key:generate');
+        // Migrate the tables
+        Artisan::call('migrate:fresh');
 
         // Remove install flag
-        unlink(base_path('/install'));
+        if (file_exists(base_path('/install'))) {
+            unlink(base_path('/install'));
+        }
+
+        // Generate unique key
+        // Artisan::call('key:generate');
 
         return redirect('/register');
     }
