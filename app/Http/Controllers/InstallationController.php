@@ -16,7 +16,7 @@ class InstallationController extends Controller
     {
         // Set the app name
         $app_name = trim($request->app_name);
-        $app_name = strlen($app_name) > 1 ? $app_name : null;
+        $app_name = strlen($app_name) > 0 ? $app_name : null;
 
         if (is_null($app_name)) {
             return redirect()->back()->with([
@@ -42,6 +42,10 @@ class InstallationController extends Controller
 
         // SoftLink the /public/my_exports/uploads to /public/uploads
         Artisan::call('uploads:link');
+        // $path = public_path('my_exports/uploads');
+        // file_put_contents(
+        //     public_path('/uploads'), str_replace('\\', '/', $path)
+        // );
 
         // SoftLink the /public/my_exports/assets to /public/assets
         // 
