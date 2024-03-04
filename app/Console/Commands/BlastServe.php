@@ -25,9 +25,9 @@ class BlastServe extends Command
      */
     public function handle()
     {
-        $server1;
-        $server2;
-        $front;
+        $server1    = false;
+        $server2    = false;
+        $front      = false;
 
         $server1 = popen('php artisan serve --port=8000', 'r');
         if ($server1) {
