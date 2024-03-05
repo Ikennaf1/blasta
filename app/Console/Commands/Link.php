@@ -3,23 +3,24 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Console\PromptsForMissingInput;
 
-class FrontSymLink extends Command
+class Link extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'front:link {resource : The resource to be linked from}';
+    protected $signature = 'nidavel:link
+                            {target : The path to the directory to be linked from}
+                            {link : The path where the symbolic link will be created}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Creates a symbolic link for the front view folder in the public folder.';
+    protected $description = 'Creates a symbolic link between two directories';
 
     /**
      * Prompt for missing input arguments using the returned questions.
@@ -29,7 +30,8 @@ class FrontSymLink extends Command
     protected function promptForMissingArgumentsUsing()
     {
         return [
-            'resource' => 'Please specify the resource to be linked. ',
+            'target' => 'Please specify the target to be linked. ',
+            'link' => 'Please specify the path where link should be created. ',
         ];
     }
 
@@ -38,9 +40,9 @@ class FrontSymLink extends Command
      */
     public function handle()
     {
-        $target = base_path('/resources/views/front/' . $this->argument('resource'));
+        $target = $this->argument('target');
         $target = str_replace('\\', '/', $target);
-        $link   = base_path('/public/' . $this->argument('resource'));
+        $link   = $this->argument('link');
         $link   = str_replace('\\', '/', $link);
         symlink($target, $link);
     }

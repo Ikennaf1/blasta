@@ -26,6 +26,9 @@ class InstallationController extends Controller
 
         settings('w', 'general.name', $app_name);
 
+        // Copies the .env.example content into the .env file
+        // 
+
         // Create the database
         $fp = fopen(database_path('database.sqlite'), 'a');
         fclose($fp);
@@ -42,13 +45,15 @@ class InstallationController extends Controller
 
         // SoftLink the /public/my_exports/uploads to /public/uploads
         Artisan::call('uploads:link');
-        // $path = public_path('my_exports/uploads');
-        // file_put_contents(
-        //     public_path('/uploads'), str_replace('\\', '/', $path)
-        // );
+
+        // Export current theme assets
+        exportAssets();
 
         // SoftLink the /public/my_exports/assets to /public/assets
-        // 
+        if (file_exists(public_path('/assets'))) {
+            rrmdir(public_path('/assets'));
+        }
+        Artisan::call('nidavel:link '. public_path('/public/my_exports/assets') . ' ' . public_path('/public/assets'));
 
         // Migrate the tables
         Artisan::call('migrate:fresh');

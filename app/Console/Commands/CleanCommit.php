@@ -11,14 +11,14 @@ class CleanCommit extends Command
      *
      * @var string
      */
-    protected $signature = 'app:clean-commit';
+    protected $signature = 'nidavel:clean-commit';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Prepares the repo for git commit by removing and resetting files';
 
     /**
      * Execute the console command.
@@ -41,10 +41,18 @@ class CleanCommit extends Command
 
         // Resets the settingss file
         $fp = fopen(base_path('/Blasta/settings.json'), 'w');
-        fwrite($fp, '{}');
+        fwrite($fp, '{"general":{"name":"Nidavel","homepage":"default","query_limit":10}}');
         fclose($fp);
 
         // Remove the /public/assets symbolic directory
         rrmdir(public_path('/assets'));
+
+        // Remove the /public/uploads symbolic directory
+        rrmdir(public_path('/uploads'));
+
+        // Copy .env file to the .env.sample file
+        $fp = fopen(base_path('/.env.example'), 'w');
+        fwrite($fp, file_get_contents(base_path('/.env')));
+        fclose($fp);
     }
 }

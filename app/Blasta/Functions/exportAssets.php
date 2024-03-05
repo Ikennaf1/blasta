@@ -5,6 +5,10 @@ function exportAssets()
     $assets = file_get_contents(front_path('/assets.json'));
     $assets = json_decode($assets)->assets;
 
+    if (file_exists(public_path('/my_exports/assets'))) {
+        rrmdir(public_path('/my_exports/assets'));
+    }
+
     foreach ($assets as $asset) {
         $dirs = explode('/', $asset);
         $numDirs = count($dirs);
