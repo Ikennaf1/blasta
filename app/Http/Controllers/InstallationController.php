@@ -44,6 +44,9 @@ class InstallationController extends Controller
         mkUriDir(public_path('/my_exports/uploads/videos'));
 
         // SoftLink the /public/my_exports/uploads to /public/uploads
+        if (file_exists(public_path('/uploads'))) {
+            rrmdir(public_path('/uploads'));
+        }
         Artisan::call('uploads:link');
 
         // Export current theme assets
@@ -53,7 +56,9 @@ class InstallationController extends Controller
         if (file_exists(public_path('/assets'))) {
             rrmdir(public_path('/assets'));
         }
-        Artisan::call('nidavel:link '. public_path('/public/my_exports/assets') . ' ' . public_path('/public/assets'));
+        $myExports_assets   = str_replace('\\', '/', (public_path('my_exports/assets')));
+        $publicPath_assets  = str_replace('\\', '/', (public_path('assets')));
+        Artisan::call("nidavel:link $myExports_assets $publicPath_assets");
 
         // Migrate the tables
         Artisan::call('migrate:fresh');
