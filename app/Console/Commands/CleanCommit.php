@@ -39,16 +39,16 @@ class CleanCommit extends Command
         fwrite($fp, '{}');
         fclose($fp);
 
-        // Resets the settingss file
+        // Resets the settings file
         $fp = fopen(base_path('/Blasta/settings.json'), 'w');
         fwrite($fp, '{"general":{"name":"Nidavel","homepage":"default","query_limit":10}}');
         fclose($fp);
 
         // Remove the /public/assets symbolic directory
-        rrmdir(public_path('/assets'));
+        // rrmdir(public_path('/assets'));
 
         // Remove the /public/uploads symbolic directory
-        rrmdir(public_path('/uploads'));
+        // rrmdir(public_path('/uploads'));
 
         // Copy .env file to the .env.sample file
         $fp = fopen(base_path('/.env.example'), 'w');

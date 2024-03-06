@@ -1,5 +1,6 @@
 @php
 use App\Models\User;
+use Carbon\Carbon;
 @endphp
 
 <div>
@@ -66,8 +67,8 @@ use App\Models\User;
                                     <td class="px-6 py-4"><a class="text-blue-500" href="/users/{{$post->id}}">{{ $author }}</td>
                                     {{-- <td class="px-6 py-4">{{ $post->keywords }}</a></td> --}}
                                     <td class="px-6 py-4">{{ ucFirst($post->status) }}</td>
-                                    <td class="px-6 py-4">{{ $post->created_at }}</td>
-                                    <td class="px-6 py-4">{{ $post->updated_at }}</td>
+                                    <td class="px-6 py-4">{{ $post->created_at->diffForHumans() }}</td>
+                                    <td class="px-6 py-4">{{ $post->updated_at->diffForHumans() }}</td>
                                     <td class="px-6 py-4">
                                         <a class="text-blue-500" href="/dashboard?route=posts/edit/{{$post->id}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
