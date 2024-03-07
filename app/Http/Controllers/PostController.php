@@ -105,22 +105,22 @@ class PostController extends Controller
         $post = $this->saveDraft($request);
 
         if (!empty($request->publish)) {
-            $post->status   = 'published';
+            $post->status = 'published';
             $post->save();
+
+            switch ($post->post_type) {
+                case 'post':
+                    PostPublished::dispatch($post);
+                    break;
+                case 'page':
+                    PagePublished::dispatch($post);
+                    break;
+                default:
+                    PostPublished::dispatch($post);
+            }
         }
 
-        switch ($post->post_type) {
-            case 'post':
-                PostPublished::dispatch($post);
-                break;
-            case 'page':
-                PagePublished::dispatch($post);
-                break;
-            default:
-                PostPublished::dispatch($post);
-        }
-
-        return redirect()->back();
+        return redirect("/dashboard?route=posts/edit/$post->id");
     }
 
     /**
@@ -200,7 +200,7 @@ class PostController extends Controller
         ]);
 
         if (!empty($request->updatePublish)) {
-            $post->status   = "published";
+            $post->status = 'published';
             $post->save();
 
             switch ($post->post_type) {
@@ -216,7 +216,7 @@ class PostController extends Controller
             }
         }
 
-        return;
+        return redirect()->back();
     }
 
     /**

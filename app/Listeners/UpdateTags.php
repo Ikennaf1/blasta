@@ -6,7 +6,7 @@ use App\Events\PostPublished;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class UpdateTags
+class UpdateTags implements ShouldQueue
 {
     /**
      * Create the event listener.

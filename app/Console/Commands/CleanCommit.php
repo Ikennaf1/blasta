@@ -26,22 +26,22 @@ class CleanCommit extends Command
     public function handle()
     {
         // Creates the installation flag
-        $fp = fopen(base_path('/installation'), 'w');
+        $fp = fopen(base_path('/install'), 'w');
         fclose($fp);
 
         // Resets the tags file
-        $fp = fopen(base_path('/Blasta/tags.json'), 'w');
+        $fp = fopen(base_path('app/Blasta/tags.json'), 'w');
         fwrite($fp, '[]');
         fclose($fp);
 
         // Resets the active widgets file
-        $fp = fopen(base_path('/Blasta/active_widgets.json'), 'w');
+        $fp = fopen(base_path('app/Blasta/active_widgets.json'), 'w');
         fwrite($fp, '{}');
         fclose($fp);
 
         // Resets the settings file
-        $fp = fopen(base_path('/Blasta/settings.json'), 'w');
-        fwrite($fp, '{"general":{"name":"Nidavel","homepage":"default","query_limit":10}}');
+        $fp = fopen(base_path('app/Blasta/settings.json'), 'w');
+        fwrite($fp, '{"general":{"name":"Nidavel","homepage":"default","query_limit":10},"menu":[]}');
         fclose($fp);
 
         // Remove the /public/assets symbolic directory
@@ -50,7 +50,7 @@ class CleanCommit extends Command
         // Remove the /public/uploads symbolic directory
         // rrmdir(public_path('/uploads'));
 
-        // Copy .env file to the .env.sample file
+        // Copy .env file to the .env.example file
         $fp = fopen(base_path('/.env.example'), 'w');
         fwrite($fp, file_get_contents(base_path('/.env')));
         fclose($fp);

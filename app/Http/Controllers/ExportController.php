@@ -161,12 +161,12 @@ class ExportController extends Controller
         }
 
         if ($post->status !== "published") {
-            Session::flash("error", "Post must be published");
+            session()->flash("error", "Post must be published");
             return redirect()->back();
         }
 
         if ($post->deleted_at !== null) {
-            Session::flash("error", "Deleted post can not be exported");
+            session()->flash("error", "Deleted post can not be exported");
             return redirect()->back();
         }
 
@@ -226,16 +226,16 @@ class ExportController extends Controller
             $id = $post->id;
 
             if ($post->deleted_at !== null) {
-                Session::flash("error", "Deleted post can not be exported");
+                session()->flash('error', 'Deleted post can not be exported');
                 return redirect()->back();
             }
 
-            if (!file_exists(public_path() . '/my_exports')) {
-                mkdir(public_path() . '/my_exports');
+            if (!file_exists(public_path('/my_exports'))) {
+                mkdir(public_path('/my_exports'));
             }
 
-            if (!file_exists(public_path() . '/my_exports/posts')) {
-                mkdir(public_path() . '/my_exports/posts');
+            if (!file_exists(public_path('/my_exports/posts'))) {
+                mkdir(public_path('/my_exports/posts'));
             }
 
             $link = $post->link == null

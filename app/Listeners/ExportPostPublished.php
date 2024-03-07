@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Http\Controllers\ExportController;
 
-class ExportPostPublished
+class ExportPostPublished implements ShouldQueue
 {
     /**
      * Create the event listener.

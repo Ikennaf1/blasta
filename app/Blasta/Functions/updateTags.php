@@ -5,7 +5,7 @@ require_once base_path('/app/Blasta/Classes/Tag.php');
 function updateTags(?string $keywordString = null)
 {
     if ($keywordString === null) {
-        exit;
+        return;
     }
     
     $tags = Tag::getInstance();
