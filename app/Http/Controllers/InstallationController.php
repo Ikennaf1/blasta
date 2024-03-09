@@ -44,8 +44,12 @@ class InstallationController extends Controller
         mkUriDir(public_path('/my_exports/uploads/videos'));
 
         // SoftLink the /public/my_exports/uploads to /public/uploads
-        if (file_exists(public_path('/uploads'))) {
-            rrmdir(public_path('/uploads'));
+        if (file_exists(public_path('uploads'))) {
+            if (is_dir(public_path('uploads'))) {
+                rrmdir(public_path('uploads'));
+            } else {
+                unlink(public_path('uploads'));
+            }
         }
         Artisan::call('uploads:link');
 
@@ -53,8 +57,12 @@ class InstallationController extends Controller
         exportAssets();
 
         // SoftLink the /public/my_exports/assets to /public/assets
-        if (file_exists(public_path('/assets'))) {
-            rrmdir(public_path('/assets'));
+        if (file_exists(public_path('assets'))) {
+            if (is_dir(public_path('assets'))) {
+                rrmdir(public_path('assets'));
+            } else {
+                unlink(public_path('assets'));
+            }
         }
         $myExports_assets   = str_replace('\\', '/', (public_path('my_exports/assets')));
         $publicPath_assets  = str_replace('\\', '/', (public_path('assets')));
