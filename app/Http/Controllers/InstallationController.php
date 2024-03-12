@@ -76,6 +76,9 @@ class InstallationController extends Controller
             unlink(base_path('/install'));
         }
 
+        // Optimize files
+        Artisan::call('optimize');
+
         // Generate unique key
         // Artisan::call('key:generate');
 

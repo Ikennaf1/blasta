@@ -81,8 +81,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/media.php'));
             
             Route::middleware('web')
-                ->prefix('uploads')
-                ->group(base_path('routes/uploads.php'));
+                ->prefix('upload')
+                ->group(base_path('routes/upload.php'));
         });
     }
 }

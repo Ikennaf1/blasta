@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         'exports/post/*',
         'exports/page/*',
         '/posts/*',
+        '/upload/*',
         '/uploads/*',
         '/menu/create',
         '/media/*',

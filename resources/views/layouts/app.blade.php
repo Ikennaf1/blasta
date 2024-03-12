@@ -13,7 +13,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="{{ asset('js/tinymce_6.6.0/tinymce.min.js') }}"></script>
 
         <style>
             .tox-promotion,.tox-statusbar__branding {
