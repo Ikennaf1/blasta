@@ -17,12 +17,7 @@ Blasta is a Content Management System built with Laravel with focus on producing
     
     Install dependencies
     ```
-    composer install && npm install
-    ```
-
-    Create all database tables
-    ```
-    php artisan migrate
+    composer install
     ```
 
 - Start the development server
@@ -30,7 +25,9 @@ Blasta is a Content Management System built with Laravel with focus on producing
     php artisan blasta:serve
     ```
 
-- Write your first post!
+- Visit https://localhost:8000 and go through the One-click installation
+
+- Register and write your first post!
 
 ## License
 
