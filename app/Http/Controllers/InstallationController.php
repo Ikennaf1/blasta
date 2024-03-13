@@ -71,6 +71,9 @@ class InstallationController extends Controller
         // Migrate the tables
         Artisan::call('migrate:fresh');
 
+        // Cache config
+        Artisan::call('config:cache');
+
         // Remove install flag
         if (file_exists(base_path('/install'))) {
             unlink(base_path('/install'));
