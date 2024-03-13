@@ -78,8 +78,8 @@ function searchFreeThemes(string $query)
  */
 function activateTheme(string $themeName)
 {
-    $themeDir = resource_path("/views/theme");
-    // $themeDir = front_path();
+    // $themeDir = resource_path("/views/theme");
+    $themeDir = front_path();
     $selectedTheme = theme_path("/$themeName");
 
     if (!file_exists("$selectedTheme/details.json")) {
@@ -124,4 +124,6 @@ function activateTheme(string $themeName)
             copy($selectedTheme.'/'.$fileinfo->getFileName(), $themeDir.'/'.$fileinfo->getFileName());
         }
     }
+
+    exportAssets();
 }

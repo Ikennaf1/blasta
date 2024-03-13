@@ -2,8 +2,12 @@
 
 function exportAssets()
 {
-    $assets = file_get_contents(front_path('/assets.json'));
-    $assets = json_decode($assets)->assets;
+    if (file_exists(front_path('/assets.json'))) {
+        $assets = file_get_contents(front_path('/assets.json'));
+        $assets = json_decode($assets)->assets;
+    } else {
+        return;
+    }
 
     if (file_exists(public_path('/my_exports/assets'))) {
         rrmdir(public_path('/my_exports/assets'));
