@@ -5,7 +5,7 @@
 public/assets
 public/uploads
 public/my_exports
-app/Blasta/plugins/*/INSTALL
+app/Blasta/plugins/*/ACTIVE
 /storage/*.key
 /vendor
 .env.backup
