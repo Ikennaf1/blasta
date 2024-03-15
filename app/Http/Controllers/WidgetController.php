@@ -19,7 +19,7 @@ class WidgetController extends Controller
         foreach ($body as $widgetArea => $widgets) {
             foreach ($widgets as $widget) {
                 $options = $widget['options'] ?? null;
-                addToActiveWidgets($widgetArea, $widget['name'], $widget['title'], $widget['body'], $options);
+                addToActiveWidgets($widgetArea, $widget['name'], $widget['body'], $options);
             }
         }
 

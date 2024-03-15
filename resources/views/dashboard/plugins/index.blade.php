@@ -88,8 +88,8 @@ $inactivePlugins = getInactivePlugins();
                                         @endif
                                     </span>
                                     <span>
-                                        @if ($pluginDetails->author)
-                                            <a class="text-blue-500" href="{{$pluginDetails->author_url ?? '/'}}">Visit plugin site</a>
+                                        @if ($pluginDetails->plugin_url)
+                                            <a class="text-blue-500" href="{{$pluginDetails->plugin_url ?? '/'}}">Visit plugin site</a>
                                         @endif
                                     </span>
 

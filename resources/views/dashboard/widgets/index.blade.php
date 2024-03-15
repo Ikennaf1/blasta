@@ -42,7 +42,7 @@ $widgetAreas = getWidgetAreas();
                                         <div id="widget_option_{{toSnakeCase(' ', $widget)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed">
                                             <form onsubmit="widgetSubmit(this)">
                                                     <input type="hidden" name="widget_name" value="{{$widget}}">
-                                                    <input type="hidden" name="widget_title" value="{{$props['title']}}">
+                                                    {{-- <input type="hidden" name="widget_title" value="{{$props['title']}}"> --}}
                                                     <input type="hidden" name="widget_body" value="{{$props['body']}}">
 
                                                     <div class="flex flex-col gap-4">
@@ -107,7 +107,7 @@ $widgetAreas = getWidgetAreas();
                                                 <div id="widget_option_{{toSnakeCase(' ', $activeWidget->name)}}" class="bg-gray-400 mx-4 mb-4 rounded p-4 collapsed hidden">
                                                     <form>
                                                             <input type="hidden" name="widget_name" value="{{$activeWidget->name}}">
-                                                            <input type="hidden" name="widget_title" value="{{$activeWidget->title}}">
+                                                            {{-- <input type="hidden" name="widget_title" value="{{$activeWidget->title}}"> --}}
                                                             <input type="hidden" name="widget_body" value="{{$activeWidget->body}}">
             
                                                             @php
@@ -125,9 +125,9 @@ $widgetAreas = getWidgetAreas();
                                                                     @endphp
                                                                     <div class="flex flex-col gap-4">
                                                                         <label class="text-sm text-left flex flex-col gap-1">
-                                                                            <div>{{ $label }}</div>
+                                                                            <div>{{ ucFirst($label) }}</div>
                                                                             <div>
-                                                                                <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $label)}}" id="">
+                                                                                <input class="widget-input" type="{{$type}}" name="{{toSnakeCase(' ', $label)}}" id="" value="{{ getWidgetOption($widgetArea, $activeWidget->name, toSnakeCase(' ', $label))}}">
                                                                             </div>
                                                                         </label>
                                                                     </div>
@@ -191,7 +191,7 @@ function widgetAreaSubmit(e, theWidgetArea)
     for (const form of forms) {
         let widgetData      = {};
         widgetData.name     = form.widget_name.value;
-        widgetData.title    = form.widget_title.value;
+        // widgetData.title    = form.widget_title.value;
         widgetData.body     = form.widget_body.value;
 
         if (form.props != null) {

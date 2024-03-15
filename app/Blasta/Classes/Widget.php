@@ -37,10 +37,9 @@ class Widget
     /**
      * Adds a widget to the widgets
      */
-    public function register(string $name, string $title, string $body, ?array $options = null)
+    public function register(string $name, string $body, ?array $options = null)
     {
         $widget[$name]  = [
-            'title'     => $title,
             'body'      => $body,
             'options'   => $options
         ];

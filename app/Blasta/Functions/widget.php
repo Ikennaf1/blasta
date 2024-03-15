@@ -51,16 +51,16 @@ function getWidgetAreas()
 /**
  * Create a new widget
  */
-function registerWidget(string $name, string $title, string $body, ?array $options = null)
+function registerWidget(string $name, string $body, ?array $options = null)
 {
     $widget = Widget::getInstance();
-    $widget->register($name, $title, $body, $options);
+    $widget->register($name, $body, $options);
 }
 
 /**
  * Adds a widget to a widget area
  */
-function addToActiveWidgets(string $widgetArea, string $name, string $title, string $body, ?array $options = null)
+function addToActiveWidgets(string $widgetArea, string $name, string $body, ?array $options = null)
 {
     $jsonPath = base_path('/app/Blasta/active_widgets.json');
     $activeWidgets = json_decode(file_get_contents($jsonPath), true);
@@ -75,7 +75,6 @@ function addToActiveWidgets(string $widgetArea, string $name, string $title, str
 
     $widget = [
         'name'      => $name,
-        'title'     => $title,
         'body'      => $body,
         'options'   => $options
     ];
@@ -98,14 +97,13 @@ function setActiveWidgets(string $widgetArea, array $widgets)
         if ($options !== null) {
             $newOptions = [];
             foreach ($options as $option => $value) {
-                $newOptions[] = [unsnakeCase(' ', $option) => $value];
+                $newOptions[unsnakeCase(' ', $option)] = $value;
             }
             $options = $newOptions;
         }
 
         $newWidget = [
             'name'      => $widget['name'],
-            'title'     => $widget['title'],
             'body'      => $widget['body'],
             'options'   => $options
         ];
@@ -131,23 +129,61 @@ function loadWidgets(string $widgetArea)
 
     $widgets = json_encode($allWidgets[$widgetArea]);
 
+    $_SESSION['widget-area'] = $widgetArea;
+
     return json_decode($widgets);
+}
+
+/**
+ * Gets the value of a widget option
+ */
+function getWidgetOption(string $widgetArea, string $widgetName, string $option)
+{
+    $jsonPath = base_path('/app/Blasta/active_widgets.json');
+    $activeWidgets = json_decode(file_get_contents($jsonPath), true);
+
+    $i = 0;
+    foreach ($activeWidgets as $activeWidget) {
+        foreach ($activeWidget as $index => $value) {
+            if ($activeWidget[$index]['name'] === $widgetName) {
+                $i = $index;
+                break;
+            }
+            continue;
+        }
+    }
+
+    $options = $activeWidgets[$widgetArea][$i]['options'];
+    $widgetOption = null;
+
+    if (!empty($options)) {
+        foreach ($options as $index) {
+            foreach ($index as $key => $value) {
+                if ($key === $option) {
+                    $widgetOption = $value;
+                    break;
+                }
+            }
+        }
+    }
+
+    return $widgetOption;
 }
 
 /**
  * Gets the widget title
  */
-function getWidgetTitle(object $widget)
+function getWidgetTitle(string $widgetArea, string $widgetName)
 {
-    if (!empty($widget->options->title)) {
-        return $widget->options->title;
-    }
+    $title = !empty(getWidgetOption($widgetArea, $widgetName, 'title'))
+        ? getWidgetOption($widgetArea, $widgetName, 'title')
+        : $widgetName;
 
-    return $widget->title;
+    return $title;
 }
 
 /**
- * Gets the widget title
+ * Gets the widget body
  */
 function getWidgetBody(object $widget)
 {
@@ -182,4 +218,12 @@ function optionTypeIsAllowed(string $type): bool
     }
 
     return false;
+}
+
+/**
+ * Gets current widget area
+ */
+function getCurrentWidgetArea()
+{
+    return $_SESSION['widget-area'];
 }
