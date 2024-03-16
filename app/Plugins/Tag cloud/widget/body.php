@@ -32,12 +32,14 @@ $tags = $newTags;
 
 <div>
     <?php
-    for ($x = 0; $x < $tagCount; $x++) {
-        $link = exportLink('/tags/'.$tags[$x]);
-        $output = "<a href=\"$link\" class=\"widget-link\">";
-        $output .= '<span class="pill">';
-        $output .= $tags[$x]."</span></a>";
-        echo $output;
+    if (!empty($tags)) {
+        for ($x = 0; $x < $tagCount; $x++) {
+            $link = exportLink('/tags/'.$tags[$x]);
+            $output = "<a href=\"$link\" class=\"widget-link\">";
+            $output .= '<span class="pill">';
+            $output .= $tags[$x]."</span></a>";
+            echo $output;
+        }
     }
     ?>
 </div>
