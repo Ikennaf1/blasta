@@ -152,10 +152,10 @@ class ExportController extends Controller
         switch ($postType) {
             case 'post':
                 $subdirectory = 'posts';
-            break;
+                break;
             case 'page':
                 $subdirectory = 'pages';
-            break;
+                break;
             default:
                 $subdirectory = 'posts';
         }
@@ -273,10 +273,10 @@ class ExportController extends Controller
         switch ($postType) {
             case 'post':
                 $subdirectory = 'posts';
-            break;
+                break;
             case 'page':
                 $subdirectory = 'pages';
-            break;
+                break;
             default:
                 $subdirectory = 'posts';
         }

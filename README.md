@@ -4,6 +4,10 @@ Blasta is a Content Management System built with Laravel with focus on producing
 
 <!-- Blasta is accessible, powerful, and provides tools required for large, robust content management. -->
 
+## Requirements
+- PHP version 8 minimum
+- Composer version 2 minimum
+
 ## Quick start
 - Get Blasta
     ```
