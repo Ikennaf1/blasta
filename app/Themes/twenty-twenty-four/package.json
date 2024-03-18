@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "npx tailwindcss -i ./src/css/input.css -o ./assets/css/style.css --watch",
-    "build": "npx webpack"
+    "watch": "npx tailwindcss -i ./src/css/input.css -o ./assets/css/style.css --watch"
   },
   "repository": {
     "type": "git",
@@ -14,7 +13,7 @@
   },
   "keywords": [
     "theme",
-    "blasta"
+    "nidavel"
   ],
   "author": "Ikenna Isiogu",
   "license": "ISC",

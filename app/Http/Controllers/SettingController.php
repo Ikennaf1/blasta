@@ -14,6 +14,7 @@ class SettingController extends Controller
     public function set(Request $request)
     {
         $key = $request->input('key');
+        settings('d', $key);
 
         foreach ($request->all() as $setting => $value) {
             if ($setting === 'key') {

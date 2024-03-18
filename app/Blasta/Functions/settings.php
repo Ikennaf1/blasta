@@ -11,7 +11,6 @@ function getSettings()
     return Settings::getInstance();
 }
 
-
 /**
  * A cleaner way of returning values for settings using dot notation
  */
@@ -21,7 +20,7 @@ function settings(string $mode, string $settings, string $value = '')
     $allSettings    = $theSettings->all();
     $settings       = explode('.', $settings);
     $key            = $settings[0];
-    $setting        = $settings[1];
+    $setting        = isset($settings[1]) ? $settings[1] : null;
 
     switch (strtolower($mode)) {
         case 'r':
@@ -32,6 +31,9 @@ function settings(string $mode, string $settings, string $value = '')
             }
         case 'w':
             $theSettings->add($key, [$setting => $value]);
+            break;
+        case 'd':
+            $theSettings->clear($key);
             break;
         default:
             exit("Mode '$mode' not recognized");

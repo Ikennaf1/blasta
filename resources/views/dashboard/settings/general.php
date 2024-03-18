@@ -3,6 +3,10 @@ use App\Http\Controllers\PageController;
 $currHomepage = settings('r', 'general.homepage');
 $pageController = new PageController;
 $pages = $pageController->listForSettings();
+$update_exports_on_post_publish =
+    !empty(settings('r', 'general.update_exports_on_post_publish'))
+        ? 'checked'
+        : '';
 ?>
 
 <div class="w-64">
@@ -26,5 +30,12 @@ $pages = $pageController->listForSettings();
             }
             ?>
         </select>
+    </label>
+</div>
+
+<div class="w-64">
+    <label class="flex flex-col gap-2">
+        <div>Update exports on post publish </div>
+        <input class="border border-gray-400 rounded-lg" type="checkbox" <?= $update_exports_on_post_publish ?> name="update_exports_on_post_publish" id="">
     </label>
 </div>

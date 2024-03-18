@@ -13,6 +13,7 @@ use App\Events\PageDeleted;
 use App\Events\PostRestored;
 use App\Events\PageRestored;
 use App\Listeners\ExportPostPublished;
+use App\Listeners\ExportPostsPublished;
 use App\Listeners\ExportPagePublished;
 use App\Listeners\DeleteExportedPostDeleted;
 use App\Listeners\DeleteExportedPageDeleted;
@@ -31,7 +32,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         PostPublished::class => [
             ExportPostPublished::class,
-            UpdateTags::class
+            UpdateTags::class,
+            ExportPostsPublished::class
         ],
         PagePublished::class => [
             ExportPagePublished::class

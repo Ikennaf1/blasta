@@ -6,7 +6,7 @@
     <div class="body-margin">
         <div class="flex justify-between items-center h-24">
             <div>
-                <a href="{{ homeUrl() }}" class="font-bold link text-xl uppercase">{{ settings('general.name') }}</a>
+                <a href="{{ homeUrl() }}" class="font-bold link text-xl uppercase">{{ settings('r', 'general.name') }}</a>
             </div>
 
             <div>
@@ -31,7 +31,7 @@
 <div id="nav_collapsed" class="fixed nav-collapse">
     <div class="flex flex-col gap-8">
         <div class="nav-collapsed-header">
-            <a class="font-bold text-primary-color" href="{{ homeUrl() }}"><h2>{{ config('app.name') }}</h2></a>
+            <a class="font-bold text-primary-color" href="{{ homeUrl() }}"><h2>{{ settings('r', 'general.name') }}</h2></a>
             <label class="cursor-pointer" for="show_nav">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" view-box="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />

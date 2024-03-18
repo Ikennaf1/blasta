@@ -10,6 +10,7 @@
     </head>
 
     <body>
+        {!! startBody() !!}
         <div class="">
             {{-- Nav --}}
             <div>
@@ -38,5 +39,6 @@
                 </div>
             </div>
         </div>
+        {!! endBody() !!}
     </body>
 </html>
