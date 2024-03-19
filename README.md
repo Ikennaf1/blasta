@@ -25,13 +25,22 @@ Blasta is a Content Management System built with Laravel with focus on producing
     ```
 
 - Start the development server
+    
+    On Windows, launch command line or powershell as administrator, and then run the following command:
     ```
-    php artisan blasta:serve
+    php serve
     ```
 
-- Visit https://localhost:8000 and go through the One-click installation
+    On Unix based systems, run the following command:
+    ```
+    sudo php serve
+    ```
 
-- Register and write your first post!
+    *It is important to note that you only need to run the development server as administrator once: during installation. After installation, you can run the development server normally without issues.*
+
+- Visit https://localhost:8000 on your browser and go through the One-click installation
+
+- Once installation is done, go through the registration process, and write your first post!
 
 ## License
 

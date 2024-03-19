@@ -11,7 +11,7 @@ class BlastServe extends Command
      *
      * @var string
      */
-    protected $signature = 'blasta:serve {--dev}';
+    protected $signature = 'nidavel:serve {--dev}';
 
     /**
      * The console command description.
