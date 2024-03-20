@@ -7,6 +7,7 @@ function dirPath(string $file = __FILE__) : string
 
 function front_path(string $resource = '', bool $trailingSlash = false) : string
 {
+    $resource = '/' . ltrim($resource, '/');
     $path = base_path() . '/resources/views/front' . $resource;
     $path .= $trailingSlash === true ? '/' : '';
     $path = str_replace('\\', '/', $path);
@@ -15,6 +16,7 @@ function front_path(string $resource = '', bool $trailingSlash = false) : string
 
 function plugin_path(string $resource = '', bool $trailingSlash = false): string
 {
+    $resource = '/' . ltrim($resource, '/');
     $path = base_path() . '/app/Plugins' . $resource;
     $path .= $trailingSlash === true ? '/' : '';
     $path = str_replace('\\', '/', $path);
@@ -23,6 +25,7 @@ function plugin_path(string $resource = '', bool $trailingSlash = false): string
 
 function theme_path(string $resource = '', bool $trailingSlash = false): string
 {
+    $resource = '/' . ltrim($resource, '/');
     $path = base_path() . '/app/Themes' . $resource;
     $path .= $trailingSlash === true ? '/' : '';
     $path = str_replace('\\', '/', $path);

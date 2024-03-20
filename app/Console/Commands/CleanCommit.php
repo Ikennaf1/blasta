@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class CleanCommit extends Command
 {
@@ -54,5 +55,8 @@ class CleanCommit extends Command
         $fp = fopen(base_path('/.env.example'), 'w');
         fwrite($fp, file_get_contents(base_path('/.env')));
         fclose($fp);
+
+        // Clear caches
+        Artisan::call('optimize:clear');
     }
 }

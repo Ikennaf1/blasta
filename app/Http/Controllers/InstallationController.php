@@ -30,10 +30,11 @@ class InstallationController extends Controller
         // 
 
         // Create the database
-        $fp = fopen(database_path('database.sqlite'), 'a');
+        $fp = fopen(database_path('database.sqlite'), 'w');
         fclose($fp);
 
         // Create the /public/my_exports dir and inner dirs
+        rrmdir(public_path('/my_exports'));
         mkUriDir(public_path('/my_exports'));
         mkUriDir(public_path('/my_exports/assets'));
         mkUriDir(public_path('/my_exports/pages'));
@@ -66,13 +67,13 @@ class InstallationController extends Controller
         }
         $myExports_assets   = str_replace('\\', '/', (public_path('my_exports/assets')));
         $publicPath_assets  = str_replace('\\', '/', (public_path('assets')));
-        Artisan::call("nidavel:link $myExports_assets $publicPath_assets");
+        Artisan::call("nidavel:link \"$myExports_assets\" \"$publicPath_assets\"");
 
         // Migrate the tables
         Artisan::call('migrate:fresh');
 
         // Cache config
-        Artisan::call('config:cache');
+        // Artisan::call('config:cache');
 
         // Remove install flag
         if (file_exists(base_path('/install'))) {
@@ -82,6 +83,7 @@ class InstallationController extends Controller
         // Generate unique key
         // Artisan::call('key:generate');
 
-        return redirect('/register');
+        // Redirect to the register page
+        return redirect()->to('http://localhost:8000/register');
     }
 }
