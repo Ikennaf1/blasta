@@ -17,6 +17,24 @@ function getContents(string $dir)
 }
 
 /**
+ * Returns a list of directory contents in a directory
+ * except given
+ */
+function getContentsExcept(string $dir, ?string $except = null)
+{
+    $contents = [];
+    $dir = new DirectoryIterator($dir);
+    foreach ($dir as $fileinfo) {
+        $filename = $fileinfo->getFilename();
+        if (!$fileinfo->isDot() && $filename !== $except) {
+            $contents[] = $filename;
+        }
+    }
+
+    return $contents;
+}
+
+/**
  * Returns a list of directory names in a directory
  */
 function getDirectories(string $dir)

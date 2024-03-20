@@ -18,22 +18,22 @@ class MediaController extends Controller
         $filter = $request->filter;
 
         if (!isset($filter) || $filter === '') {
-            $media = getContents(public_path("my_exports/uploads/images"));
+            $media = getContentsExcept(public_path("my_exports/uploads/images"), 'index.html');
             $subtitle = 'Images';
         }
 
         else if ($filter === 'audios') {
-            $media = getContents(public_path("my_exports/uploads/audios"));
+            $media = getContentsExcept(public_path("my_exports/uploads/audios"), 'index.html');
             $subtitle = 'Audios';
         }
 
         else if ($filter === 'videos') {
-            $media = getContents(public_path("my_exports/uploads/videos"));
+            $media = getContentsExcept(public_path("my_exports/uploads/videos"), 'index.html');
             $subtitle = 'videos';
         }
 
         else {
-            $media = getContents(public_path("my_exports/uploads/images"));
+            $media = getContentsExcept(public_path("my_exports/uploads/images"), 'index.html');
             $subtitle = 'Images';
         }
 
