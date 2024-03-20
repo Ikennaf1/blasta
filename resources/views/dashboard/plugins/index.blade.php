@@ -63,7 +63,7 @@ $inactivePlugins = getInactivePlugins();
                                     </span>
                                     <span>
                                         @if (!isPluginActive($plugin))
-                                            <form action="/plugins/delete/{{ $plugin }}" method="post">
+                                            <form onsubmit="return deletePlugin()" action="/plugins/delete/{{ $plugin }}" method="post">
                                                 <button id="delete_{{ $idx }}" class="hidden" type="submit">Delete</button>
                                             </form>
                                             <label for="delete_{{ $idx }}" class="text-red-500 cursor-pointer">Delete</label>
@@ -113,3 +113,11 @@ $inactivePlugins = getInactivePlugins();
         </div>
     </div>
 </div>
+
+<script>
+function deletePlugin()
+{
+    let con = confirm("Warning!\n\nYou want to delete a plugin.\nThis action is not reversible.");
+    return con;
+}
+</script>

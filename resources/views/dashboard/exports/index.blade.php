@@ -63,7 +63,7 @@ $i = 0;
                                         <td class="px-6 py-4 text-blue-500">{{ $export }}</a></td>
                                         
                                         <td class="px-6 py-4">
-                                            <form method="post" action="/exports/delete/{{$export}}">
+                                            <form onsubmit="return deleteExport()" method="post" action="/exports/delete/{{$export}}">
                                                 @method('delete')
                                                 <input type="hidden" name="subdirectory" value="{{strtolower($subtitle)}}">
                                                 <input id="delete_{{rtrim($export, '.html')}}" class="hidden" type="submit">
@@ -85,3 +85,13 @@ $i = 0;
         </div>
     </div>
 </div>
+
+<script>
+
+function deleteExport()
+{
+    let conf = confirm("Warning!\n\nYou are about to delete an export.\nThis action is not reversible.");
+    return conf;
+}
+
+</script>
