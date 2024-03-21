@@ -37,7 +37,7 @@ class BlastServe extends Command
         }
 
         $server2 = popen('php artisan serve --port=8001', 'r');
-        if ($server1) {
+        if ($server2) {
             $this->info('Server started on localhost port 8001');
         } else {
             $this->error('Something went wrong. Please check that port 8001 is not already running.');
